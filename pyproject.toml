@@ -70,8 +70,14 @@ ignore = [
 
 [tool.hatch.envs.types]
 dependencies = [
-  "mypy>=1.8.0",
+  "mypy>=1.15.0",
   "types-PyYAML",
+  "anthropic>=0.7.0",
+  "mistralai-gcp>=0.0.1",
+  "pydantic-ai>=0.0.53",
+  "openai>=1.0.0",
+  "langchain>=0.3.23",
+  "langchain-core>=0.3.51"
 ]
 
 [tool.hatch.envs.types.scripts]
@@ -134,3 +140,6 @@ dependencies = [
 [tool.hatch.envs.test.scripts]
 test = "pytest {args:tests}"
 test-cov = "pytest --cov=no_llm --cov-report=term-missing {args:tests}"
+
+[tool.mypy]
+ignore_missing_imports = true
