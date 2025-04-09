@@ -33,6 +33,8 @@ nav:
     - Overview: providers/overview.md
     - Fallbacks: providers/fallbacks.md
   - Registry: registry.md
+  - Integrations:
+    - Pydantic AI: integrations/pydantic_ai.md
 
 extra:
   # hide the "Made with Material for MkDocs" message
