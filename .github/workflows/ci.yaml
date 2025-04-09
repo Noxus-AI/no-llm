@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
     tags:
-      - 'v*'  # Push events to matching v*, i.e. v1.0, v20.15.10
+      - '*'  # Push events to matching v*, i.e. v1.0, v20.15.10
   pull_request:
     branches: [ main ]
 
@@ -14,35 +14,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-python@v5
         with:
-          enable-cache: true
-
-      - name: Create and activate venv
-        run: |
-          uv venv
-          . .venv/bin/activate
+          python-version: '3.11'
+          cache: 'pip'
 
       - name: Install dependencies
         run: |
-          . .venv/bin/activate
-          uv pip install hatch
-          uv sync --all-extras --all-packages
+          python -m pip install --upgrade pip
+          pip install hatch
 
       - name: Format Check
-        run: |
-          . .venv/bin/activate
-          hatch run fmt
+        run: hatch run fmt
         
       - name: Type Check
-        run: |
-          . .venv/bin/activate
-          hatch run types:check
+        run: hatch run types:check
         
       - name: Run Tests
-        run: |
-          . .venv/bin/activate
-          hatch run test:test-cov
+        run: hatch run test:test-cov
 
   docs:
     runs-on: ubuntu-latest
@@ -51,25 +40,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-python@v5
         with:
-          enable-cache: true
-
-      - name: Create and activate venv
-        run: |
-          uv venv
-          . .venv/bin/activate
+          python-version: '3.11'
+          cache: 'pip'
 
       - name: Install dependencies
         run: |
-          . .venv/bin/activate
-          uv pip install hatch
-          uv sync --all-extras --all-packages
+          python -m pip install --upgrade pip
+          pip install hatch
 
       - name: Build docs
-        run: |
-          . .venv/bin/activate
-          hatch run docs:mkdocs build
+        run: hatch run docs:mkdocs build
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main'
@@ -88,24 +70,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-python@v5
         with:
-          enable-cache: true
-
-      - name: Create and activate venv
-        run: |
-          uv venv
-          . .venv/bin/activate
+          python-version: '3.11'
+          cache: 'pip'
 
       - name: Install build dependencies
         run: |
-          . .venv/bin/activate
-          uv pip install build hatch
+          python -m pip install --upgrade pip
+          pip install build hatch
 
       - name: Build package
-        run: |
-          . .venv/bin/activate
-          uv build --all-packages
+        run: python -m build
 
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
