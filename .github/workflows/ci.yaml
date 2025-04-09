@@ -25,6 +25,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          . .venv/bin/activate
           uv pip install hatch
           uv sync --all-extras --all-packages
 
@@ -61,6 +62,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          . .venv/bin/activate
           uv pip install hatch
           uv sync --all-extras --all-packages
 
@@ -96,10 +98,14 @@ jobs:
           . .venv/bin/activate
 
       - name: Install build dependencies
-        run: uv pip install build hatch
+        run: |
+          . .venv/bin/activate
+          uv pip install build hatch
 
       - name: Build package
-        run: uv build --all-packages
+        run: |
+          . .venv/bin/activate
+          uv build --all-packages
 
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
