@@ -68,6 +68,12 @@ ignore = [
   "RET505", # Buggy
 ]
 
+[tool.hatch.envs.types]
+dependencies = [
+  "mypy>=1.8.0",
+  "types-PyYAML",
+]
+
 [tool.hatch.envs.types.scripts]
 check = "mypy --install-types --non-interactive {args:no_llm}"
 
