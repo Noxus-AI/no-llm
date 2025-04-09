@@ -30,13 +30,18 @@ jobs:
 
       - name: Format Check
         run: |
+          . .venv/bin/activate
           hatch run fmt
         
       - name: Type Check
-        run: hatch run types:check
+        run: |
+          . .venv/bin/activate
+          hatch run types:check
         
       - name: Run Tests
-        run: hatch run test:test-cov
+        run: |
+          . .venv/bin/activate
+          hatch run test:test-cov
 
   docs:
     runs-on: ubuntu-latest
@@ -60,7 +65,9 @@ jobs:
           uv sync --all-extras --all-packages
 
       - name: Build docs
-        run: hatch run docs:mkdocs build
+        run: |
+          . .venv/bin/activate
+          hatch run docs:mkdocs build
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main'
