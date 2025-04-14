@@ -71,7 +71,7 @@ class Claude37SonnetConfiguration(ModelConfiguration):
         # pydantic_ai="claude-3-7-sonnet",
         # litellm="vertex_ai/claude-3-7-sonnet@20250219",
         # langfuse="claude-3-7-sonnet"
-        pydantic_ai="claude-3.7-sonnet",
+        pydantic_ai="claude-3-7-sonnet",
         litellm="vertex_ai/claude-3-7-sonnet@20250219",
         langfuse="claude-3.7-sonnet",
         lmarena="claude-3-7-sonnet-20250219-thinking-32k",

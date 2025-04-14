@@ -70,7 +70,7 @@ class Claude35SonnetV2Configuration(ModelConfiguration):
         # pydantic_ai="claude-3-5-sonnet-v2",
         # litellm="vertex_ai/claude-3-5-sonnet-v2@20241022",
         # langfuse="claude-3-5-sonnet-v2"
-        pydantic_ai="claude-3.5-sonnet-v2",
+        pydantic_ai="claude-3-5-sonnet-v2",
         litellm="vertex_ai/claude-3-5-sonnet-v2@20240229",
         langfuse="claude-3.5-sonnet-v2",
         lmarena="claude-3-5-sonnet-v2-20240229",
