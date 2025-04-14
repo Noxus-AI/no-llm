@@ -62,7 +62,7 @@ class DeepseekChatConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.01, output_price_per_1k=0.02)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.00027, output_price_per_1k=0.0011)),
         release_date=datetime(2024, 12, 1),
         data_cutoff_date=datetime(2024, 10, 1),
     )

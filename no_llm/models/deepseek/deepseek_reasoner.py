@@ -59,7 +59,7 @@ class DeepseekReasonerConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.02, output_price_per_1k=0.04)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.00055, output_price_per_1k=0.00219)),
         release_date=datetime(2024, 12, 1),
         data_cutoff_date=datetime(2024, 10, 1),
     )

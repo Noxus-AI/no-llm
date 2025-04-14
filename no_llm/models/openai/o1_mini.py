@@ -57,7 +57,7 @@ class O1MiniConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.01, output_price_per_1k=0.02)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.001, output_price_per_1k=0.0044)),
         release_date=datetime(2024, 9, 12),
         data_cutoff_date=datetime(2023, 10, 1),
     )

@@ -59,7 +59,7 @@ class GPT35TurboConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0005, output_price_per_1k=0.0015)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.003, output_price_per_1k=0.006)),
         release_date=datetime(2024, 1, 1),
         data_cutoff_date=datetime(2024, 1, 1),
     )

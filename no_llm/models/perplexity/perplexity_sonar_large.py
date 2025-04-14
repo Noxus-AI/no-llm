@@ -62,7 +62,7 @@ class PerplexitySonarLargeConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.002, output_price_per_1k=0.004)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.001, output_price_per_1k=0.001)),
         release_date=datetime(2024, 3, 1),
         data_cutoff_date=datetime(2024, 1, 1),
     )

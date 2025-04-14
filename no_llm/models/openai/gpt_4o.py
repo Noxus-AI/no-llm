@@ -63,7 +63,7 @@ class GPT4OConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.GDPR, PrivacyLevel.HIPAA, PrivacyLevel.SOC2],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.01, output_price_per_1k=0.03)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0025, output_price_per_1k=0.01)),
         release_date=datetime(2024, 5, 13),
         data_cutoff_date=datetime(2023, 10, 1),
     )

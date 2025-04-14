@@ -61,7 +61,7 @@ class Gemini15FlashConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0005, output_price_per_1k=0.001)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.000075, output_price_per_1k=0.00015)),
         release_date=datetime(2024, 5, 24),
         data_cutoff_date=datetime(2023, 11, 1),
     )

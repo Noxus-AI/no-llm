@@ -63,7 +63,7 @@ class Gemini25ProConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0004, output_price_per_1k=0.0008)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0025, output_price_per_1k=0.015)),
         release_date=datetime(2025, 3, 31),
         data_cutoff_date=datetime(2025, 1, 1),
     )

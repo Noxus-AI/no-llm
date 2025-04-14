@@ -59,7 +59,7 @@ class DeepseekR1Llama70BDistilledConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0005, output_price_per_1k=0.001)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.00075, output_price_per_1k=0.00099)),
         release_date=datetime(2024, 1, 1),
         data_cutoff_date=datetime(2024, 1, 1),
     )

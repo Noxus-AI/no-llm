@@ -63,7 +63,7 @@ class GPT4OMiniConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.01, output_price_per_1k=0.02)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.00015, output_price_per_1k=0.0006)),
         release_date=datetime(2024, 5, 13),
         data_cutoff_date=datetime(2023, 10, 1),
     )
