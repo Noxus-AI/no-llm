@@ -25,7 +25,7 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
-from no_llm.providers import FireworksProvider, GroqProvider, OpenRouterProvider, Provider, TogetherProvider
+from no_llm.providers import FireworksProvider, GroqProvider, OpenRouterProvider, Providers, TogetherProvider
 
 
 class Llama3370BConfiguration(ModelConfiguration):
@@ -39,7 +39,7 @@ class Llama3370BConfiguration(ModelConfiguration):
         creator="Meta",
     )
 
-    providers: Sequence[Provider] = [FireworksProvider(), TogetherProvider(), GroqProvider(), OpenRouterProvider()]
+    providers: Sequence[Providers] = [FireworksProvider(), TogetherProvider(), GroqProvider(), OpenRouterProvider()]
 
     mode: ModelMode = ModelMode.CHAT
 

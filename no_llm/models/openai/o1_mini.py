@@ -24,7 +24,7 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
-from no_llm.providers import AzureProvider, OpenAIProvider, OpenRouterProvider, Provider
+from no_llm.providers import AzureProvider, OpenAIProvider, OpenRouterProvider, Providers
 
 
 class O1MiniConfiguration(ModelConfiguration):
@@ -38,7 +38,7 @@ class O1MiniConfiguration(ModelConfiguration):
         creator="OpenAI",
     )
 
-    providers: Sequence[Provider] = [AzureProvider(), OpenRouterProvider(), OpenAIProvider()]
+    providers: Sequence[Providers] = [AzureProvider(), OpenRouterProvider(), OpenAIProvider()]
 
     mode: ModelMode = ModelMode.CHAT
 

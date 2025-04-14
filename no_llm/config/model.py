@@ -12,7 +12,7 @@ from no_llm.config.integrations import IntegrationAliases
 from no_llm.config.metadata import ModelMetadata
 from no_llm.config.parameters import ConfigurableModelParameters, ModelParameters
 from no_llm.config.properties import ModelProperties
-from no_llm.providers import Provider
+from no_llm.providers import Provider, Providers
 
 
 class ModelIdentity(BaseModel):
@@ -46,7 +46,7 @@ class ModelConfiguration(BaseModel):
     identity: ModelIdentity
 
     # Provider information
-    providers: Sequence[Provider] = Field(default_factory=list, description="Provider configuration", min_length=1)
+    providers: Sequence[Providers] = Field(default_factory=list, description="Provider configuration", min_length=1)
 
     # Model capabilities
     mode: ModelMode

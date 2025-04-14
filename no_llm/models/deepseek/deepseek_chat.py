@@ -25,7 +25,7 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
-from no_llm.providers import DeepseekProvider, OpenRouterProvider, Provider
+from no_llm.providers import DeepseekProvider, OpenRouterProvider, Providers
 
 
 class DeepseekChatConfiguration(ModelConfiguration):
@@ -39,7 +39,7 @@ class DeepseekChatConfiguration(ModelConfiguration):
         creator="DeepSeek",
     )
 
-    providers: Sequence[Provider] = [OpenRouterProvider(), DeepseekProvider()]
+    providers: Sequence[Providers] = [OpenRouterProvider(), DeepseekProvider()]
 
     mode: ModelMode = ModelMode.CHAT
 

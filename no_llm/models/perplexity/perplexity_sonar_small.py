@@ -25,7 +25,7 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
-from no_llm.providers import OpenRouterProvider, PerplexityProvider, Provider
+from no_llm.providers import OpenRouterProvider, PerplexityProvider, Providers
 
 
 class PerplexitySonarSmallConfiguration(ModelConfiguration):
@@ -39,7 +39,7 @@ class PerplexitySonarSmallConfiguration(ModelConfiguration):
         creator="Perplexity",
     )
 
-    providers: Sequence[Provider] = [OpenRouterProvider(), PerplexityProvider()]
+    providers: Sequence[Providers] = [OpenRouterProvider(), PerplexityProvider()]
 
     mode: ModelMode = ModelMode.CHAT
 

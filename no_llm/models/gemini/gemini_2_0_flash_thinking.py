@@ -23,7 +23,7 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
-from no_llm.providers import OpenRouterProvider, Provider, VertexProvider
+from no_llm.providers import OpenRouterProvider, Providers, VertexProvider
 
 
 class Gemini20FlashThinkingConfiguration(ModelConfiguration):
@@ -37,7 +37,7 @@ class Gemini20FlashThinkingConfiguration(ModelConfiguration):
         creator="Google",
     )
 
-    providers: Sequence[Provider] = [VertexProvider(), OpenRouterProvider()]
+    providers: Sequence[Providers] = [VertexProvider(), OpenRouterProvider()]
 
     mode: ModelMode = ModelMode.CHAT
 

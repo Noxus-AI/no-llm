@@ -25,7 +25,7 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
-from no_llm.providers import AnthropicProvider, BedrockProvider, OpenRouterProvider, Provider, VertexProvider
+from no_llm.providers import AnthropicProvider, BedrockProvider, OpenRouterProvider, Providers, VertexProvider
 
 
 class Claude37SonnetConfiguration(ModelConfiguration):
@@ -40,7 +40,7 @@ class Claude37SonnetConfiguration(ModelConfiguration):
     )
 
     mode: ModelMode = ModelMode.CHAT
-    providers: Sequence[Provider] = [VertexProvider(), BedrockProvider(), AnthropicProvider(), OpenRouterProvider()]
+    providers: Sequence[Providers] = [VertexProvider(), BedrockProvider(), AnthropicProvider(), OpenRouterProvider()]
 
     capabilities: set[ModelCapability] = {
         ModelCapability.STREAMING,

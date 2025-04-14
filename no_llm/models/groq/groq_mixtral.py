@@ -25,7 +25,7 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
-from no_llm.providers import GroqProvider, Provider
+from no_llm.providers import GroqProvider, Providers
 
 
 class GroqMixtralConfiguration(ModelConfiguration):
@@ -39,7 +39,7 @@ class GroqMixtralConfiguration(ModelConfiguration):
         creator="Mistral",
     )
 
-    providers: Sequence[Provider] = [GroqProvider()]
+    providers: Sequence[Providers] = [GroqProvider()]
 
     mode: ModelMode = ModelMode.CHAT
 

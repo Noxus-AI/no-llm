@@ -24,7 +24,7 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
-from no_llm.providers import Provider, VertexProvider
+from no_llm.providers import Providers, VertexProvider
 
 
 class Gemini20ProConfiguration(ModelConfiguration):
@@ -38,7 +38,7 @@ class Gemini20ProConfiguration(ModelConfiguration):
         creator="Google",
     )
 
-    providers: Sequence[Provider] = [VertexProvider()]
+    providers: Sequence[Providers] = [VertexProvider()]
 
     mode: ModelMode = ModelMode.CHAT
 

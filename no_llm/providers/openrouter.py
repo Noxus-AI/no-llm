@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Literal
+
 from pydantic import Field
 
 from no_llm.providers.env_var import EnvVar
@@ -9,7 +11,7 @@ from no_llm.providers.openai import OpenAIProvider
 class OpenRouterProvider(OpenAIProvider):
     """OpenRouter provider configuration"""
 
-    type: str = "openrouter"
+    type: Literal["openrouter"] = "openrouter"  # type: ignore
     name: str = "OpenRouter"
     api_key: EnvVar[str] = Field(
         default_factory=lambda: EnvVar[str]("$OPENROUTER_API_KEY"),

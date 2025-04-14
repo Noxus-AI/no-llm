@@ -1,4 +1,5 @@
 from collections.abc import Iterator
+from typing import Literal
 
 from pydantic import Field, PrivateAttr
 
@@ -9,7 +10,7 @@ from no_llm.providers.env_var import EnvVar
 class BedrockProvider(Provider):
     """AWS Bedrock provider configuration"""
 
-    type: str = "bedrock"
+    type: Literal["bedrock"] = "bedrock"
     name: str = "Bedrock"
     region: EnvVar[str] = Field(default_factory=lambda: EnvVar[str]("$BEDROCK_REGION"), description="AWS region")
     locations: list[str] = Field(default=["us-east-1"], description="AWS regions")

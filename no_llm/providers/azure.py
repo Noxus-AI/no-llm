@@ -1,4 +1,5 @@
 from collections.abc import Iterator
+from typing import Literal
 
 from pydantic import Field, PrivateAttr
 
@@ -9,7 +10,7 @@ from no_llm.providers.env_var import EnvVar
 class AzureProvider(Provider):
     """Azure provider configuration"""
 
-    type: str = "azure"
+    type: Literal["azure"] = "azure"
     name: str = "Azure"
     api_key: EnvVar[str] = Field(
         default_factory=lambda: EnvVar[str]("$AZURE_API_KEY"),

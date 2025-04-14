@@ -25,7 +25,7 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
-from no_llm.providers import GroqProvider, OpenRouterProvider, Provider
+from no_llm.providers import GroqProvider, OpenRouterProvider, Providers
 
 
 class DeepseekR1Llama70BDistilledConfiguration(ModelConfiguration):
@@ -39,7 +39,7 @@ class DeepseekR1Llama70BDistilledConfiguration(ModelConfiguration):
         creator="DeepSeek",
     )
 
-    providers: Sequence[Provider] = [OpenRouterProvider(), GroqProvider()]
+    providers: Sequence[Providers] = [OpenRouterProvider(), GroqProvider()]
 
     mode: ModelMode = ModelMode.CHAT
 

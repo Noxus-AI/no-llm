@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Literal
 
 from pydantic import Field, PrivateAttr
 
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class VertexProvider(Provider):
     """Google Vertex AI provider configuration"""
 
-    type: str = "vertex"
+    type: Literal["vertex"] = "vertex"
     name: str = "Vertex AI"
     project_id: EnvVar[str] = Field(default_factory=lambda: EnvVar[str]("$VERTEX_PROJECT_ID"))
     locations: list[str] = Field(default=["us-central1", "europe-west1"])

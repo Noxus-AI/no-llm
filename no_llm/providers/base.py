@@ -18,7 +18,7 @@ class ParameterMapping(BaseModel):
 class Provider(BaseModel):
     """Base provider configuration"""
 
-    type: str = Field(description="Provider type")
+    # type: str = Field(description="Provider type")
     name: str = Field(description="Provider name for display")
     parameter_mappings: dict[str, ParameterMapping] = Field(
         default_factory=dict, description="Mapping of standard parameters to provider-specific parameters"

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Literal
+
 from pydantic import Field
 
 from no_llm.providers.base import Provider
@@ -9,7 +11,7 @@ from no_llm.providers.env_var import EnvVar
 class AnthropicProvider(Provider):
     """Anthropic provider configuration"""
 
-    type: str = "anthropic"
+    type: Literal["anthropic"] = "anthropic"
     name: str = "Anthropic"
     api_key: EnvVar[str] = Field(
         default_factory=lambda: EnvVar[str]("$ANTHROPIC_API_KEY"),

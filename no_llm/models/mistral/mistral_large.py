@@ -31,7 +31,7 @@ from no_llm.providers import (
     GroqProvider,
     MistralProvider,
     OpenRouterProvider,
-    Provider,
+    Providers,
     TogetherProvider,
     VertexProvider,
 )
@@ -48,7 +48,7 @@ class MistralLargeConfiguration(ModelConfiguration):
         creator="Mistral",
     )
 
-    providers: Sequence[Provider] = [
+    providers: Sequence[Providers] = [
         VertexProvider(),
         BedrockProvider(),
         OpenRouterProvider(),
