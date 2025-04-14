@@ -122,7 +122,7 @@ class NoLLMModel(Model):
                                 model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
                                 provider=PydanticMistralProvider(
                                     mistral_client=MistralGoogleCloud(  # type: ignore
-                                        project_id=provider.project_id, region=provider.current
+                                        project_id=str(provider.project_id), region=str(provider.current)
                                     ),
                                 ),
                             )
@@ -131,7 +131,7 @@ class NoLLMModel(Model):
                                 model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
                                 provider=PydanticAnthropicProvider(
                                     anthropic_client=AsyncAnthropicVertex(  # type: ignore
-                                        project_id=provider.project_id, region=provider.current
+                                        project_id=str(provider.project_id), region=str(provider.current)
                                     ),
                                 ),
                             )
@@ -140,35 +140,39 @@ class NoLLMModel(Model):
                                 model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
                                 provider=PydanticVertexProvider(
                                     region=cast(VertexAiRegion, provider.current),
-                                    project_id=provider.project_id,
+                                    project_id=str(provider.project_id),
                                 ),
                             )
                     elif isinstance(provider, AnthropicProvider):
                         pyd_model = AnthropicModel(
                             model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
                             provider=PydanticAnthropicProvider(
-                                api_key=provider.api_key,
+                                api_key=str(provider.api_key),
                             ),
                         )
                     elif isinstance(provider, MistralProvider):
                         pyd_model = MistralModel(
                             model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
-                            provider=PydanticMistralProvider(api_key=provider.api_key),
+                            provider=PydanticMistralProvider(api_key=str(provider.api_key)),
                         )
                     elif isinstance(provider, GroqProvider):
                         pyd_model = GroqModel(
                             model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
-                            provider=PydanticGroqProvider(api_key=provider.api_key),
+                            provider=PydanticGroqProvider(api_key=str(provider.api_key)),
                         )
                     elif isinstance(provider, OpenRouterProvider):
                         pyd_model = OpenAIModel(
                             model_name=model_cfg.integration_aliases.openrouter or model_cfg.identity.id,
-                            provider=PydanticOpenAIProvider(api_key=provider.api_key, base_url=provider.base_url),
+                            provider=PydanticOpenAIProvider(
+                                api_key=str(provider.api_key), base_url=str(provider.base_url)
+                            ),
                         )
                     elif isinstance(provider, AzureProvider):
                         pyd_model = OpenAIModel(
                             model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
-                            provider=PydanticAzureProvider(api_key=provider.api_key, azure_endpoint=provider.base_url),
+                            provider=PydanticAzureProvider(
+                                api_key=str(provider.api_key), azure_endpoint=str(provider.base_url)
+                            ),
                         )
                     elif isinstance(
                         provider,
@@ -181,7 +185,9 @@ class NoLLMModel(Model):
                     ):
                         pyd_model = OpenAIModel(
                             model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
-                            provider=PydanticOpenAIProvider(api_key=provider.api_key, base_url=provider.base_url),
+                            provider=PydanticOpenAIProvider(
+                                api_key=str(provider.api_key), base_url=str(provider.base_url)
+                            ),
                         )
                 except Exception as e:  # noqa: BLE001
                     logger.opt(exception=e).warning(f"Failed to create model for provider {type(provider).__name__}")
