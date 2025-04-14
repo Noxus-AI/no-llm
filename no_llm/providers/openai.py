@@ -17,4 +17,4 @@ class OpenAIProvider(Provider):
         default_factory=lambda: EnvVar[str]("$OPENAI_API_KEY"),
         description="Name of environment variable containing API key",
     )
-    base_url: str | None = Field(default=None, description="Optional base URL override")
+    base_url: str | None = Field(default="https://api.openai.com", description="Optional base URL override")
