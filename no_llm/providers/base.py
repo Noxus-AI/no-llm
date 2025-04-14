@@ -80,11 +80,9 @@ class Provider(BaseModel):
             if not isinstance(value, str) or not value.startswith("$"):
                 continue
 
-            # Check if field is annotated as EnvVar[str]
             if field.annotation and getattr(field.annotation, "__origin__", None) is EnvVar:
                 args = get_args(field.annotation)
                 if args and args[0] is str:
-                    # Convert string starting with $ to EnvVar
                     data[field_name] = EnvVar(value)
 
         return data
