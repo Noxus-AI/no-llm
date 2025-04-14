@@ -60,7 +60,7 @@ class Claude3SonnetConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.08, output_price_per_1k=0.24)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.003, output_price_per_1k=0.015)),
         release_date=datetime(2024, 5, 31),
         data_cutoff_date=datetime(2023, 8, 1),
     )

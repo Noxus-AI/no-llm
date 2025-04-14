@@ -95,7 +95,7 @@ class Claude35HaikuConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.03, output_price_per_1k=0.08)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0008, output_price_per_1k=0.004)),
         release_date=datetime(2024, 2, 1),
         data_cutoff_date=datetime(2024, 8, 1),
     )

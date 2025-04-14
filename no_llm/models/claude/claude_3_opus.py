@@ -60,7 +60,7 @@ class Claude3OpusConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.15, output_price_per_1k=0.75)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.015, output_price_per_1k=0.075)),
         release_date=datetime(2024, 5, 31),
         data_cutoff_date=datetime(2023, 8, 1),
     )

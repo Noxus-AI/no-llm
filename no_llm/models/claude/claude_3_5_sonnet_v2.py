@@ -61,7 +61,7 @@ class Claude35SonnetV2Configuration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.05, output_price_per_1k=0.15)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.003, output_price_per_1k=0.015)),
         release_date=datetime(2024, 2, 1),
         data_cutoff_date=datetime(2024, 8, 1),
     )
