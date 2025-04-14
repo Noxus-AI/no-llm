@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, get_args
 
-from pydantic import BaseModel, Field, PrivateAttr, model_serializer
+from pydantic import BaseModel, Field, PrivateAttr, model_serializer, model_validator
 
 from no_llm.providers.env_var import EnvVar
 
@@ -65,3 +65,26 @@ class Provider(BaseModel):
     def reset_iterator(self) -> None:
         """Reset iteration state"""
         self._iterator_index = 0
+
+    @model_validator(mode="before")
+    @classmethod
+    def convert_env_vars(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        for field_name, field in cls.model_fields.items():
+            if field_name not in data:
+                continue
+
+            value = data[field_name]
+            if not isinstance(value, str) or not value.startswith("$"):
+                continue
+
+            # Check if field is annotated as EnvVar[str]
+            if field.annotation and getattr(field.annotation, "__origin__", None) is EnvVar:
+                args = get_args(field.annotation)
+                if args and args[0] is str:
+                    # Convert string starting with $ to EnvVar
+                    data[field_name] = EnvVar(value)
+
+        return data
