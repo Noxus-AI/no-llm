@@ -52,7 +52,7 @@ class Gemini20ProConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=1000000, max_input_tokens=1000000, max_output_tokens=4096
+         max_input_tokens=2097152, max_output_tokens=8192
     )
 
     properties: ModelProperties | None = ModelProperties(
@@ -62,14 +62,14 @@ class Gemini20ProConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0025, output_price_per_1k=0.015)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.00125, output_price_per_1k=0.01)),
         release_date=datetime(2024, 6, 15),
         data_cutoff_date=datetime(2024, 1, 1),
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
         pydantic_ai="gemini-2.0-pro-exp-02-05",
-        litellm="vertex_ai/gemini-2.0-pro-exp-02-05",
+        litellm="gemini-2.0-pro-exp-02-05",
         langfuse="gemini-2.0-pro-exp-02-05",
         lmarena="gemini-2.0-pro-exp-02-05",
     )

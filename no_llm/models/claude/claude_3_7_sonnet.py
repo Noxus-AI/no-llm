@@ -52,7 +52,7 @@ class Claude37SonnetConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=200000, max_input_tokens=200000, max_output_tokens=8192
+         max_input_tokens=200000, max_output_tokens=8192
     )
 
     properties: ModelProperties | None = ModelProperties(

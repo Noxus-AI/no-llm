@@ -49,7 +49,7 @@ class GPT4Configuration(ModelConfiguration):
         ModelCapability.SYSTEM_PROMPT,
     }
 
-    constraints: ModelConstraints = ModelConstraints(context_window=8192, max_input_tokens=8000, max_output_tokens=4000)
+    constraints: ModelConstraints = ModelConstraints( max_input_tokens=8000, max_output_tokens=4000)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=75.5, label="Medium", description="Average (1-3 seconds)"),

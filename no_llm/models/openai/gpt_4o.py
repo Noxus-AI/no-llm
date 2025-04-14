@@ -53,7 +53,7 @@ class GPT4OConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=128000, max_input_tokens=128000, max_output_tokens=4096
+         max_input_tokens=128000, max_output_tokens=16384
     )
 
     properties: ModelProperties | None = ModelProperties(
@@ -69,7 +69,7 @@ class GPT4OConfiguration(ModelConfiguration):
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
-        pydantic_ai="gpt-4o", litellm="openai/gpt-4o-2024-08-06", langfuse="gpt-4o", openrouter="openai/gpt-4o-latest"
+        pydantic_ai="gpt-4o", litellm="gpt-4o-2024-08-06", langfuse="gpt-4o", openrouter="openai/gpt-4o-latest"
     )
 
     class Parameters(ConfigurableModelParameters):

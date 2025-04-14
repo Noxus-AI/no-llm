@@ -52,7 +52,7 @@ class PerplexitySonarLargeConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=12000, max_input_tokens=12000, max_output_tokens=4096
+         max_input_tokens=127072, max_output_tokens=127072
     )
 
     properties: ModelProperties | None = ModelProperties(
@@ -69,7 +69,7 @@ class PerplexitySonarLargeConfiguration(ModelConfiguration):
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
         pydantic_ai="llama-3.1-sonar-large-128k-online",
-        litellm="perplexity/sonar-large-online",
+        litellm="perplexity/llama-3.1-sonar-large-128k-online",
         langfuse="perplexity-sonar-large",
         lmarena="sonar-large-latest",
         openrouter="perplexity/llama-3.1-sonar-large-128k-online:free",

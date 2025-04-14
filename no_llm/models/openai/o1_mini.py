@@ -47,7 +47,7 @@ class O1MiniConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=128000, max_input_tokens=128000, max_output_tokens=65536
+         max_input_tokens=128000, max_output_tokens=65536
     )
 
     properties: ModelProperties | None = ModelProperties(
@@ -57,13 +57,13 @@ class O1MiniConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.001, output_price_per_1k=0.0044)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0011, output_price_per_1k=0.0044)),
         release_date=datetime(2024, 9, 12),
         data_cutoff_date=datetime(2023, 10, 1),
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
-        pydantic_ai="o1-mini", litellm="openai/o1-mini", langfuse="o1-mini", openrouter="openai/o1-mini"
+        pydantic_ai="o1-mini", litellm="o1-mini", langfuse="o1-mini", openrouter="openai/o1-mini"
     )
 
     class Parameters(ConfigurableModelParameters):

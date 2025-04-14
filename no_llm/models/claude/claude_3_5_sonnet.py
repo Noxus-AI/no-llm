@@ -51,7 +51,7 @@ class Claude35SonnetConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=200000, max_input_tokens=200000, max_output_tokens=4096
+        max_input_tokens=200000, max_output_tokens=4096
     )
 
     properties: ModelProperties | None = ModelProperties(
@@ -68,7 +68,7 @@ class Claude35SonnetConfiguration(ModelConfiguration):
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
         pydantic_ai="claude-3.5-sonnet",
-        litellm="vertex_ai/claude-3-5-sonnet-20241022",
+        litellm="vertex_ai/claude-3-5-sonnet-20240620",
         langfuse="claude-3.5-sonnet",
         lmarena="claude-3-5-sonnet-20241022",
         openrouter="anthropic/claude-3.5-sonnet:free",

@@ -47,7 +47,7 @@ class Gemini20FlashThinkingConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=128000, max_input_tokens=128000, max_output_tokens=8192
+         max_input_tokens=1048576, max_output_tokens=8192
     )
 
     properties: ModelProperties | None = ModelProperties(
@@ -64,7 +64,7 @@ class Gemini20FlashThinkingConfiguration(ModelConfiguration):
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
         pydantic_ai="gemini-2.0-flash-thinking-exp-01-21",
-        litellm="vertex_ai/gemini-2.0-flash-thinking-exp-01-21",
+        litellm="gemini-2.0-flash-thinking-exp-01-21",
         langfuse="gemini-2.0-flash-thinking-exp-01-21",
         lmarena="gemini-2.0-flash-thinking-exp-01-21",
         openrouter="google/gemini-2.0-flash-thinking-exp:free",

@@ -52,7 +52,7 @@ class Llama31405BConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=128000, max_input_tokens=128000, max_output_tokens=4096
+         max_input_tokens=128000, max_output_tokens=4096
     )
 
     properties: ModelProperties | None = ModelProperties(

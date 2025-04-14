@@ -52,7 +52,7 @@ class Gemini20FlashLiteConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=1000000, max_input_tokens=1000000, max_output_tokens=4096
+         max_input_tokens=1048576, max_output_tokens=8192
     )
 
     properties: ModelProperties | None = ModelProperties(
@@ -69,7 +69,7 @@ class Gemini20FlashLiteConfiguration(ModelConfiguration):
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
         pydantic_ai="gemini-2.0-flash-lite-001",
-        litellm="vertex_ai/gemini-2.0-flash-lite",
+        litellm="gemini/gemini-2.0-flash-lite-preview-02-05",
         langfuse="gemini-2.0-flash-lite",
         lmarena="gemini-2.0-flash-lite-001",
         openrouter="google/gemini-2.0-flash-lite-001",

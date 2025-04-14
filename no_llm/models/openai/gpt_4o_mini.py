@@ -53,7 +53,7 @@ class GPT4OMiniConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=128000, max_input_tokens=128000, max_output_tokens=4096
+         max_input_tokens=128000, max_output_tokens=16384
     )
 
     properties: ModelProperties | None = ModelProperties(
@@ -70,7 +70,7 @@ class GPT4OMiniConfiguration(ModelConfiguration):
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
         pydantic_ai="gpt-4o-mini",
-        litellm="openai/gpt-4o-mini-2024-08-06",
+        litellm="gpt-4o-mini",
         langfuse="gpt-4o-mini",
         openrouter="openai/gpt-4o-mini-latest",
     )

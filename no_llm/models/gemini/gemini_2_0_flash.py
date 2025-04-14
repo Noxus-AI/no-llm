@@ -52,7 +52,7 @@ class Gemini20FlashConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=1000000, max_input_tokens=1000000, max_output_tokens=4096
+         max_input_tokens=1048576, max_output_tokens=8192
     )
 
     properties: ModelProperties | None = ModelProperties(
@@ -62,14 +62,14 @@ class Gemini20FlashConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0001, output_price_per_1k=0.0004)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.00015, output_price_per_1k=0.0006)),
         release_date=datetime(2024, 6, 15),
         data_cutoff_date=datetime(2024, 1, 1),
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
         pydantic_ai="gemini-2.0-flash",
-        litellm="vertex_ai/gemini-2.0-flash-002",
+        litellm="gemini-2.0-flash-001",
         langfuse="gemini-2.0-flash",
         lmarena="gemini-2.0-flash-001",
         openrouter="google/gemini-2.0-flash-001:free",

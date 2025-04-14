@@ -68,7 +68,7 @@ class MistralNemoConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=128000, max_input_tokens=128000, max_output_tokens=4096
+         max_input_tokens=128000, max_output_tokens=128000
     )
 
     properties: ModelProperties | None = ModelProperties(
@@ -78,14 +78,14 @@ class MistralNemoConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.005, output_price_per_1k=0.01)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.00015, output_price_per_1k=0.00015)),
         release_date=datetime(2024, 7, 24),
         data_cutoff_date=datetime(2023, 12, 1),
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
         pydantic_ai="mistral-nemo",
-        litellm="vertex_ai/mistral-nemo",
+        litellm="vertex_ai/mistral-nemo@latest",
         langfuse="mistral-nemo",
         lmarena="mistral-nemo-latest",
         openrouter="mistralai/mistral-nemo:free",

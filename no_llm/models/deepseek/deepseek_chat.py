@@ -52,7 +52,7 @@ class DeepseekChatConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=128000, max_input_tokens=128000, max_output_tokens=8192
+         max_input_tokens=65536, max_output_tokens=8192
     )
 
     properties: ModelProperties | None = ModelProperties(

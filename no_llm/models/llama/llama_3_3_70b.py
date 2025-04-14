@@ -51,7 +51,7 @@ class Llama3370BConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=128000, max_input_tokens=128000, max_output_tokens=4096
+         max_input_tokens=128000, max_output_tokens=4096
     )
 
     properties: ModelProperties | None = ModelProperties(
@@ -61,7 +61,7 @@ class Llama3370BConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0005, output_price_per_1k=0.001)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.00059, output_price_per_1k=0.00099)),
         release_date=datetime(2024, 10, 1),
         data_cutoff_date=datetime(2024, 8, 1),
     )

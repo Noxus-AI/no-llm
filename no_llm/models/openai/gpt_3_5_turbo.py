@@ -49,7 +49,7 @@ class GPT35TurboConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=16385, max_input_tokens=16385, max_output_tokens=4096
+         max_input_tokens=16385, max_output_tokens=4096
     )
 
     properties: ModelProperties | None = ModelProperties(
@@ -66,7 +66,7 @@ class GPT35TurboConfiguration(ModelConfiguration):
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
         pydantic_ai="gpt-3.5-turbo",
-        litellm="openai/gpt-3.5-turbo",
+        litellm="gpt-3.5-turbo",
         langfuse="gpt-3.5-turbo",
         openrouter="openai/gpt-3.5-turbo-0613",
     )

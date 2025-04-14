@@ -85,7 +85,7 @@ class Claude35HaikuConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=200000, max_input_tokens=200000, max_output_tokens=4096
+        max_input_tokens=200000, max_output_tokens=8192
     )
 
     properties: ModelProperties | None = ModelProperties(
@@ -102,7 +102,7 @@ class Claude35HaikuConfiguration(ModelConfiguration):
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
         pydantic_ai="claude-3-5-haiku",
-        litellm="vertex_ai/claude-3-5-haiku@20241022",
+        litellm="claude-3-5-haiku-20241022",
         langfuse="claude-3-5-haiku",
         lmarena="claude-3-5-haiku-20241022",
         openrouter="anthropic/claude-3-5-haiku:free",

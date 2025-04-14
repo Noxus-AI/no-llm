@@ -68,7 +68,7 @@ class MistralLargeConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=128000, max_input_tokens=128000, max_output_tokens=4096
+         max_input_tokens=128000, max_output_tokens=8191
     )
 
     properties: ModelProperties | None = ModelProperties(
@@ -78,7 +78,7 @@ class MistralLargeConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.02, output_price_per_1k=0.06)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.002, output_price_per_1k=0.006)),
         release_date=datetime(2024, 7, 24),
         data_cutoff_date=datetime(2023, 12, 1),
     )

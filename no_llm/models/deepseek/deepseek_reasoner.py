@@ -49,7 +49,7 @@ class DeepseekReasonerConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=64000, max_input_tokens=64000, max_output_tokens=8192
+         max_input_tokens=128000, max_output_tokens=8192
     )
 
     properties: ModelProperties | None = ModelProperties(
@@ -59,7 +59,7 @@ class DeepseekReasonerConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.00055, output_price_per_1k=0.00219)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.00135, output_price_per_1k=0.0054)),
         release_date=datetime(2024, 12, 1),
         data_cutoff_date=datetime(2024, 10, 1),
     )

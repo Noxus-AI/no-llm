@@ -30,12 +30,12 @@ from no_llm.providers import AzureProvider, OpenAIProvider, OpenRouterProvider, 
 
 
 class O3MiniConfiguration(ModelConfiguration):
-    """Configuration for O3 Mini Low model"""
+    """Configuration for O3 Mini model"""
 
     identity: ModelIdentity = ModelIdentity(
-        id="o3-mini-low",
-        name="O3 Mini Low",
-        version="2024.02",
+        id="o3-mini",
+        name="O3 Mini",
+        version="2024.04",
         description="Newest and most advanced model from OpenAI with the most advanced performance and speed.",
         creator="OpenAI",
     )
@@ -52,7 +52,7 @@ class O3MiniConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=128000, max_input_tokens=128000, max_output_tokens=65536
+         max_input_tokens=200000, max_output_tokens=100000
     )
 
     properties: ModelProperties | None = ModelProperties(
@@ -62,13 +62,13 @@ class O3MiniConfiguration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.001, output_price_per_1k=0.0044)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0011, output_price_per_1k=0.0044)),
         release_date=datetime(2024, 9, 12),
         data_cutoff_date=datetime(2023, 10, 1),
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
-        pydantic_ai="o3-mini", litellm="openai/o3-mini", langfuse="o3-mini-low", openrouter="openai/o3-mini"
+        pydantic_ai="o3-mini", litellm="o3-mini-2025-01-31", langfuse="o3-mini-low", openrouter="openai/o3-mini"
     )
 
     class Parameters(ConfigurableModelParameters):

@@ -50,7 +50,7 @@ class Claude3SonnetConfiguration(ModelConfiguration):
     }
 
     constraints: ModelConstraints = ModelConstraints(
-        context_window=200000, max_input_tokens=200000, max_output_tokens=4096
+         max_input_tokens=200000, max_output_tokens=4096
     )
 
     properties: ModelProperties | None = ModelProperties(
