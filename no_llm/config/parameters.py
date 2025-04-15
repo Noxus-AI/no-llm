@@ -148,6 +148,7 @@ class ParameterValue(BaseModel, Generic[V]):
 
 class ConfigurableModelParameters(BaseModel):
     """Complete set of model parameters"""
+
     temperature: ParameterValue[float | NotGiven] = Field(
         default_factory=lambda: ParameterValue[float | NotGiven](
             variant=ParameterVariant.VARIABLE,

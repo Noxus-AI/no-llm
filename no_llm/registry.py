@@ -125,9 +125,12 @@ class ModelRegistry:
                     config = yaml.safe_load(f)
                 logger.debug(f"Loaded YAML config: {config}")
 
-                if model_id in self._models:
-                    logger.debug(f"Found existing model {model_id}, merging configs")
-                    base_model = self._models[model_id]
+
+                base_config = config["identity"].get("base_config", None)
+                if model_id in self._models or base_config in self._models:
+                    normalized_id = base_config or model_id
+                    logger.debug(f"Found existing model {normalized_id}, merging configs")
+                    base_model = self._models[normalized_id]
                     base_config = base_model.model_dump()
                     merged_config = self._merge_configs(base_config, config)
                     model = ModelConfiguration(**merged_config)

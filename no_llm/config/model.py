@@ -22,6 +22,7 @@ class ModelIdentity(BaseModel):
     description: str = Field(description="Detailed description")
     creator: str = Field(description="Creator of the model")
     model_api_name: str | None = Field(default=None, description="Model API name")
+    base_config: str | None = Field(default=None, description="Base config")
 
 
 class ModelConstraints(BaseModel):
