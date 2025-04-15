@@ -16,8 +16,6 @@ from no_llm.providers import Provider, Providers
 
 
 class ModelIdentity(BaseModel):
-    """Model identity information"""
-
     id: str = Field(description="Unique identifier for the model")
     name: str = Field(description="Display name")
     version: str = Field(description="Model version")
@@ -27,9 +25,6 @@ class ModelIdentity(BaseModel):
 
 
 class ModelConstraints(BaseModel):
-    """Model technical constraints"""
-
-    context_window: int = Field(gt=0, description="Total context length")
     max_input_tokens: int = Field(gt=0, description="Maximum input size")
     max_output_tokens: int = Field(gt=0, description="Maximum output size")
 
@@ -40,21 +35,12 @@ class ModelConstraints(BaseModel):
 
 
 class ModelConfiguration(BaseModel):
-    """Complete model configuration with parameter validation"""
-
-    # Identity
     identity: ModelIdentity
-
-    # Provider information
     providers: Sequence[Providers] = Field(default_factory=list, description="Provider configuration", min_length=1)
-
-    # Model capabilities
     mode: ModelMode
     capabilities: set[ModelCapability]
     constraints: ModelConstraints
     properties: ModelProperties | None = Field(default=None, description="Model properties")
-
-    # Parameters and metadata
     parameters: ConfigurableModelParameters = Field(
         default_factory=ConfigurableModelParameters, description="Model parameters with their constraints"
     )
@@ -62,11 +48,9 @@ class ModelConfiguration(BaseModel):
     benchmarks: BenchmarkScores | None = Field(default=None, description="Model benchmark scores")
     integration_aliases: IntegrationAliases | None = Field(default=None, description="Integration aliases")
     extra: dict[str, Any] = Field(default_factory=dict, description="Extra model configuration")
-
     model_config = {"json_encoders": {set[ModelCapability]: lambda x: sorted(x, key=lambda c: c.value)}}
 
     def iter(self) -> Iterator[Provider]:
-        """Iterate through all providers and their variants"""
         for provider in self.providers:
             yield from provider.iter()
 

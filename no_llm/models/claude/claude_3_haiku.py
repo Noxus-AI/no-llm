@@ -50,9 +50,7 @@ class Claude3HaikuConfiguration(ModelConfiguration):
         ModelCapability.VISION,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-         max_input_tokens=200000, max_output_tokens=4096
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=200000, max_output_tokens=4096)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=135.8, label="Fast", description="Average (0.5-2 seconds)"),

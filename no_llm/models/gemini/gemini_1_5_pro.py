@@ -50,9 +50,7 @@ class Gemini15ProConfiguration(ModelConfiguration):
         ModelCapability.VISION,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-         max_input_tokens=2097152, max_output_tokens=8192
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=2097152, max_output_tokens=8192)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=64.3, label="Medium", description="Average (1-3 seconds)"),

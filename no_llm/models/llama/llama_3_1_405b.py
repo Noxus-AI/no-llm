@@ -51,9 +51,7 @@ class Llama31405BConfiguration(ModelConfiguration):
         ModelCapability.VISION,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-         max_input_tokens=128000, max_output_tokens=4096
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=128000, max_output_tokens=4096)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=28.3, label="High", description="Average (1-3 seconds)"),

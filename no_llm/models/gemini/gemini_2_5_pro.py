@@ -52,9 +52,7 @@ class Gemini25ProConfiguration(ModelConfiguration):
         ModelCapability.REASONING,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-         max_input_tokens=1048576, max_output_tokens=65536
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=1048576, max_output_tokens=65536)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=248.6, label="High", description="Average (1-3 seconds)"),

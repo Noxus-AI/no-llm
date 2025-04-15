@@ -3,6 +3,7 @@ from no_llm.models.claude import (
     Claude3OpusConfiguration,
     Claude3SonnetConfiguration,
     Claude35HaikuConfiguration,
+    Claude35SonnetConfiguration,
     Claude35SonnetV2Configuration,
     Claude37SonnetConfiguration,
 )
@@ -40,6 +41,7 @@ __all__ = [
     "Claude35HaikuConfiguration",
     "Claude35SonnetV2Configuration",
     "Claude37SonnetConfiguration",
+    "Claude35SonnetConfiguration",
     "DeepseekChatConfiguration",
     "DeepseekR1Llama70BDistilledConfiguration",
     "DeepseekReasonerConfiguration",

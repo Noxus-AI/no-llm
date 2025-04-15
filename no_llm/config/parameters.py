@@ -11,7 +11,7 @@ from no_llm.config.errors import FixedParameterError, InvalidEnumError, InvalidR
 from no_llm.settings import ValidationMode
 from no_llm.settings import settings as no_llm_settings
 
-V = TypeVar("V")  # Value type
+V = TypeVar("V")
 NotGiven = Literal["NOT_GIVEN"]
 NOT_GIVEN: NotGiven = "NOT_GIVEN"
 
@@ -23,10 +23,8 @@ class ParameterVariant(str, Enum):
 
 
 class ValidationRule(BaseModel):
-    """Base class for parameter validation rules"""
-
     def validate_value(self, value: Any) -> None:
-        """Validate a value against this rule"""
+        pass
 
 
 class RangeValidation(ValidationRule):
@@ -34,7 +32,6 @@ class RangeValidation(ValidationRule):
     max_value: float | int
 
     def validate_value(self, value: Any) -> None:
-        # Skip validation for NOT_GIVEN values
         if value == NOT_GIVEN:
             return
 
@@ -51,7 +48,6 @@ class EnumValidation(ValidationRule):
     allowed_values: list[Any]
 
     def validate_value(self, value: Any) -> None:
-        # Skip validation for NOT_GIVEN values
         if value == NOT_GIVEN:
             return
 
@@ -128,7 +124,6 @@ class ParameterValue(BaseModel, Generic[V]):
             raise FixedParameterError(
                 param_name=field_name, current_value=self.value, attempted_value=new_value, description=None
             )
-        # Skip validation for NOT_GIVEN values
         if new_value != NOT_GIVEN and self.validation_rule is not None:
             self.validation_rule.validate_value(new_value)
 
@@ -153,8 +148,6 @@ class ParameterValue(BaseModel, Generic[V]):
 
 class ConfigurableModelParameters(BaseModel):
     """Complete set of model parameters"""
-
-    # Sampling parameters
     temperature: ParameterValue[float | NotGiven] = Field(
         default_factory=lambda: ParameterValue[float | NotGiven](
             variant=ParameterVariant.VARIABLE,
@@ -180,7 +173,6 @@ class ConfigurableModelParameters(BaseModel):
         description="Top-k sampling threshold",
     )
 
-    # Penalty parameters
     frequency_penalty: ParameterValue[float | NotGiven] = Field(
         default_factory=lambda: ParameterValue[float | NotGiven](
             variant=ParameterVariant.VARIABLE,
@@ -203,8 +195,6 @@ class ConfigurableModelParameters(BaseModel):
         ),
         description="Token biasing dictionary",
     )
-
-    # Output parameters
     max_tokens: ParameterValue[int | NotGiven] = Field(
         default_factory=lambda: ParameterValue[int | NotGiven](
             variant=ParameterVariant.VARIABLE,
@@ -239,7 +229,6 @@ class ConfigurableModelParameters(BaseModel):
         default_factory=lambda: ParameterValue[int | NotGiven](variant=ParameterVariant.VARIABLE, value=NOT_GIVEN),
         description="Random seed for reproducibility",
     )
-    # Request parameters
     timeout: ParameterValue[float | NotGiven] = Field(
         default_factory=lambda: ParameterValue[float | NotGiven](
             variant=ParameterVariant.VARIABLE,
@@ -249,7 +238,6 @@ class ConfigurableModelParameters(BaseModel):
         description="Request timeout in seconds",
     )
 
-    # Reasoning parameters
     include_reasoning: ParameterValue[bool | NotGiven] = Field(
         default_factory=lambda: ParameterValue[bool | NotGiven](
             variant=ParameterVariant.VARIABLE, value=NOT_GIVEN, required_capability=ModelCapability.REASONING
@@ -289,7 +277,6 @@ class ConfigurableModelParameters(BaseModel):
                             data[field_name] = {"variant": ParameterVariant.FIXED, "value": value}
                             continue
 
-                        # Handle dict format
                         result = {}
 
                         # Handle variant
@@ -323,7 +310,6 @@ class ConfigurableModelParameters(BaseModel):
         return data
 
     def get_parameters(self) -> dict[str, Any]:
-        """Get all parameter values"""
         values = {}
         for field_name in self.model_fields:
             value = getattr(self, field_name)
@@ -334,20 +320,16 @@ class ConfigurableModelParameters(BaseModel):
         return values
 
     def validate_parameters(self, drop_unsupported: bool = True, **kwargs) -> dict[str, Any]:
-        """Validate and prepare parameters for model usage"""
         capabilities = kwargs.pop("capabilities", set())
         settings = {}
 
-        # Process configured parameters
         for field_name, field in self.model_fields.items():
             value = getattr(self, field_name)
             description = field.description
 
             if isinstance(value, ParameterValue):
-                # Check capabilities and potentially mark as unsupported
                 value = value.check_capability(capabilities)
 
-                # Handle unsupported parameters
                 if value.is_unsupported():
                     if field_name in kwargs:
                         if drop_unsupported:
@@ -361,10 +343,8 @@ class ConfigurableModelParameters(BaseModel):
                             )
                     continue
 
-                # If parameter is in kwargs, validate override
                 if field_name in kwargs:
                     try:
-                        # Skip validation if the override value is NOT_GIVEN
                         if kwargs[field_name] != NOT_GIVEN:
                             value.validate_new_value(kwargs[field_name], field_name)
                         settings[field_name] = kwargs[field_name]
@@ -394,21 +374,12 @@ class ConfigurableModelParameters(BaseModel):
                     gotten_value = value.get()
                     settings[field_name] = NOT_GIVEN if gotten_value is None else gotten_value
 
-                # Remove validated parameter from kwargs
                 kwargs.pop(field_name, None)
-
-        # Add any remaining kwargs (for parameters not specified in config)
         settings.update(kwargs)
 
         return settings
 
     def set_parameters(self, capabilities: set[ModelCapability] | None = None, **kwargs) -> None:
-        """Validate and set parameter values.
-
-        Args:
-            capabilities: Set of model capabilities to validate against
-            **kwargs: Parameter values to set
-        """
         validated = self.validate_parameters(capabilities=capabilities or set(), drop_unsupported=True, **kwargs)
 
         for field_name, new_value in validated.items():
@@ -433,7 +404,6 @@ class ConfigurableModelParameters(BaseModel):
         for field_name, field in self.model_fields.items():
             value = getattr(self, field_name)
             if isinstance(value, ParameterValue):
-                # Skip if it's the default value from the field
                 default_factory = getattr(field, "default_factory", None)
                 default_value = default_factory() if default_factory else None
 
@@ -449,9 +419,6 @@ class ConfigurableModelParameters(BaseModel):
 
 
 class ModelParameters(BaseModel):
-    """Complete set of model parameters"""
-
-    # Sampling parameters
     temperature: float | NotGiven = Field(
         default=NOT_GIVEN,
         description="Controls randomness in generation",
@@ -464,8 +431,6 @@ class ModelParameters(BaseModel):
         default=NOT_GIVEN,
         description="Top-k sampling threshold",
     )
-
-    # Penalty parameters
     frequency_penalty: float | NotGiven = Field(
         default=NOT_GIVEN,
         description="Penalty for token frequency",
@@ -478,8 +443,6 @@ class ModelParameters(BaseModel):
         default=NOT_GIVEN,
         description="Token biasing dictionary",
     )
-
-    # Output parameters
     max_tokens: int | NotGiven = Field(
         default=NOT_GIVEN,
         description="Maximum number of tokens to generate",
@@ -500,13 +463,10 @@ class ModelParameters(BaseModel):
         default=NOT_GIVEN,
         description="Random seed for reproducibility",
     )
-    # Request parameters
     timeout: float | NotGiven = Field(
         default=NOT_GIVEN,
         description="Request timeout in seconds",
     )
-
-    # Reasoning parameters
     include_reasoning: bool | NotGiven = Field(
         default=NOT_GIVEN,
         description="Whether to include reasoning steps",

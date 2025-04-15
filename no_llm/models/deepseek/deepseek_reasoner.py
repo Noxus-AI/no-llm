@@ -48,9 +48,7 @@ class DeepseekReasonerConfiguration(ModelConfiguration):
         ModelCapability.REASONING,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-         max_input_tokens=128000, max_output_tokens=8192
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=128000, max_output_tokens=8192)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=40.0, label="Average", description="Average (1-3 seconds)"),

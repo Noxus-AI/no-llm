@@ -46,9 +46,7 @@ class Gemini20FlashThinkingConfiguration(ModelConfiguration):
         ModelCapability.SYSTEM_PROMPT,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-         max_input_tokens=1048576, max_output_tokens=8192
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=1048576, max_output_tokens=8192)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=169.0, label="High", description="Average (1-3 seconds)"),

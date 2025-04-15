@@ -50,9 +50,7 @@ class Llama3370BConfiguration(ModelConfiguration):
         ModelCapability.SYSTEM_PROMPT,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-         max_input_tokens=128000, max_output_tokens=4096
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=128000, max_output_tokens=4096)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=101.0, label="High", description="Average (1-3 seconds)"),

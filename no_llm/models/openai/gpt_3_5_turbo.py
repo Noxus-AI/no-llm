@@ -48,9 +48,7 @@ class GPT35TurboConfiguration(ModelConfiguration):
         ModelCapability.SYSTEM_PROMPT,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-         max_input_tokens=16385, max_output_tokens=4096
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=16385, max_output_tokens=4096)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=79.1, label="Average", description="Average (1-3 seconds)"),

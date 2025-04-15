@@ -66,11 +66,6 @@ ToolName = str
 
 @dataclass
 class NoLLMModel(Model):
-    """A model that uses no_llm under the hood.
-
-    This allows using any no_llm model through the pydantic-ai interface.
-    """
-
     _pydantic_model: Model | None = field(default=None, repr=False)
     _current_model_config: ModelConfiguration | None = field(default=None, repr=False)
 
@@ -208,7 +203,8 @@ class NoLLMModel(Model):
         """Get merged model settings from no_llm config and user settings."""
         if user_settings is not None:
             model.parameters.set_parameters(**user_settings)
-        return PydanticModelSettings(**model.parameters.get_model_parameters().get_parameters())  # type: ignore
+        pyd = PydanticModelSettings(**model.parameters.get_model_parameters().get_parameters())  # type: ignore
+        return pyd
 
     async def request(
         self,

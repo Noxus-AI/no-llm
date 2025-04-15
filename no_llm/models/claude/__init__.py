@@ -14,4 +14,5 @@ __all__ = [
     "Claude3HaikuConfiguration",
     "Claude3OpusConfiguration",
     "Claude3SonnetConfiguration",
+    "Claude35SonnetConfiguration",
 ]

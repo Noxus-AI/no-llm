@@ -51,9 +51,7 @@ class PerplexitySonarLargeConfiguration(ModelConfiguration):
         ModelCapability.WEB_SEARCH,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-         max_input_tokens=127072, max_output_tokens=127072
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=127072, max_output_tokens=127072)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=126.4, label="High", description="Average (1-3 seconds)"),

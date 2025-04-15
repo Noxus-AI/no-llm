@@ -51,9 +51,7 @@ class DeepseekChatConfiguration(ModelConfiguration):
         ModelCapability.SYSTEM_PROMPT,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-         max_input_tokens=65536, max_output_tokens=8192
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=65536, max_output_tokens=8192)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=26.0, label="Average", description="Average (1-3 seconds)"),

@@ -50,9 +50,7 @@ class Claude35SonnetConfiguration(ModelConfiguration):
         ModelCapability.VISION,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-        max_input_tokens=200000, max_output_tokens=4096
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=200000, max_output_tokens=4096)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=80.9, label="Average", description="Average (1-3 seconds)"),

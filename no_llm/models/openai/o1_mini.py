@@ -46,9 +46,7 @@ class O1MiniConfiguration(ModelConfiguration):
         ModelCapability.REASONING,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-         max_input_tokens=128000, max_output_tokens=65536
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=128000, max_output_tokens=65536)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=42.0, label="High", description="Average (1-3 seconds)"),

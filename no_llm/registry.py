@@ -29,29 +29,22 @@ class SetFilter(Generic[T]):
 
 
 class ModelRegistry:
-    """Registry that manages both model configurations and providers"""
-
     def __init__(self, config_dir: str | Path | None = None):
         self._models: dict[str, ModelConfiguration] = {}
         self._config_dir = Path(config_dir) if config_dir else None
 
         logger.debug("Initializing ModelRegistry")
 
-        # Load built-in models first
         self._register_builtin_models()
 
-        # Then load any custom configurations if directory provided
         if config_dir:
             logger.debug(f"Using config directory: {config_dir}")
             self._load_configurations()
 
     def _register_builtin_models(self) -> None:
-        """Register built-in model configurations from Python classes"""
         logger.debug("Loading built-in model configurations")
 
-        # Import all model configuration classes
         for config_class_name in model_configs:
-            # Dynamically discover and import from all submodules
             from no_llm import models
 
             for module_info in pkgutil.iter_modules(models.__path__):
@@ -68,15 +61,13 @@ class ModelRegistry:
                     continue
 
     def _find_yaml_file(self, base_path: Path, name: str) -> Path:
-        """Try both .yml and .yaml extensions"""
         for ext in [".yml", ".yaml"]:
             path = base_path / f"{name}{ext}"
             if path.exists():
                 return path
-        return base_path / f"{name}.yml"  # Default to .yml if neither exists
+        return base_path / f"{name}.yml"
 
     def _merge_configs(self, base: dict, override: dict) -> dict:
-        """Deep merge two configuration dictionaries"""
         merged = base.copy()
         for key, value in override.items():
             if isinstance(value, dict) and key in base and isinstance(base[key], dict):
@@ -86,7 +77,6 @@ class ModelRegistry:
         return merged
 
     def _load_model_config(self, model_id: str) -> ModelConfiguration:
-        """Load a model configuration from YAML, using builtin as base if it exists"""
         if not self._config_dir:
             msg = "No config directory set"
             raise NotADirectoryError(msg)
@@ -99,7 +89,6 @@ class ModelRegistry:
                 config = yaml.safe_load(f)
             logger.debug(f"Loaded YAML config: {config}")
 
-            # If this is overriding a builtin model, use the builtin as base
             if model_id in self._models:
                 logger.debug(f"Found existing model {model_id}, merging configs")
                 base_model = self._models[model_id]
@@ -114,7 +103,6 @@ class ModelRegistry:
             raise ConfigurationLoadError(str(model_file), e) from e
 
     def register_models_from_directory(self, models_dir: Path | str) -> None:
-        """Load and register all model configurations from a directory"""
         models_dir = Path(models_dir)
         if not models_dir.exists():
             logger.warning(f"Models directory not found: {models_dir}")
@@ -123,7 +111,6 @@ class ModelRegistry:
         logger.debug(f"Loading models from {models_dir}")
         logger.debug(f"Models directory contents: {list(models_dir.iterdir())}")
 
-        # Change the glob pattern to match both .yml and .yaml files
         yaml_files = []
         for ext in ["*.yml", "*.yaml"]:
             yaml_files.extend(list(models_dir.glob(ext)))
@@ -138,7 +125,6 @@ class ModelRegistry:
                     config = yaml.safe_load(f)
                 logger.debug(f"Loaded YAML config: {config}")
 
-                # If this is overriding a builtin model, use the builtin as base
                 if model_id in self._models:
                     logger.debug(f"Found existing model {model_id}, merging configs")
                     base_model = self._models[model_id]
@@ -154,12 +140,10 @@ class ModelRegistry:
                 logger.opt(exception=e).error(f"Error loading model {model_id}")
 
     def _load_configurations(self) -> None:
-        """Load all configurations from the config directory"""
         if not self._config_dir:
             logger.warning("No config directory set")
             return
 
-        # Load models
         models_dir = self._config_dir / "models"
         logger.debug(f"Models directory path: {models_dir}")
         logger.debug(f"Models directory exists: {models_dir.exists()}")
@@ -168,7 +152,6 @@ class ModelRegistry:
         self.register_models_from_directory(models_dir)
 
     def register_model(self, model: ModelConfiguration) -> None:
-        """Register a new model, overriding if it already exists"""
         if model.identity.id in self._models:
             logger.info(f"Overriding existing model configuration: {model.identity.id}")
 
@@ -176,7 +159,6 @@ class ModelRegistry:
         logger.debug(f"Registered model: {model.identity.id}")
 
     def get_model(self, model_id: str) -> ModelConfiguration:
-        """Get a specific model by ID"""
         if model_id not in self._models:
             logger.error(f"Model {model_id} not found")
             raise ModelNotFoundError(model_id)
@@ -190,8 +172,6 @@ class ModelRegistry:
         privacy_levels: set[PrivacyLevel] | SetFilter[PrivacyLevel] | None = None,
         mode: ModelMode | None = None,
     ) -> Iterator[ModelConfiguration]:
-        """List models matching the given criteria"""
-        # Convert simple sets to SetFilters with default "any" mode
         if isinstance(capabilities, set):
             capabilities = SetFilter(capabilities)
         if isinstance(privacy_levels, set):
@@ -228,7 +208,6 @@ class ModelRegistry:
             yield model
 
     def remove_model(self, model_id: str) -> None:
-        """Remove a model from the registry"""
         if model_id not in self._models:
             logger.error(f"Cannot remove: model {model_id} not found")
             raise ModelNotFoundError(model_id)
@@ -236,7 +215,6 @@ class ModelRegistry:
         logger.debug(f"Removed model: {model_id}")
 
     def reload_configurations(self) -> None:
-        """Reload all configurations from disk"""
         logger.debug("Reloading all configurations")
         self._models.clear()
         self._register_builtin_models()

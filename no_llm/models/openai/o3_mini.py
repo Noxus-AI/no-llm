@@ -51,9 +51,7 @@ class O3MiniConfiguration(ModelConfiguration):
         ModelCapability.TOOLS,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-         max_input_tokens=200000, max_output_tokens=100000
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=200000, max_output_tokens=100000)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=42.0, label="High", description="Average (1-3 seconds)"),

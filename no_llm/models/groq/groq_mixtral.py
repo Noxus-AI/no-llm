@@ -50,9 +50,7 @@ class GroqMixtralConfiguration(ModelConfiguration):
         ModelCapability.SYSTEM_PROMPT,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-         max_input_tokens=32768, max_output_tokens=32768
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=32768, max_output_tokens=32768)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=248.6, label="High", description="Average (1-3 seconds)"),

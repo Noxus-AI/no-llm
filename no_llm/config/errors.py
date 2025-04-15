@@ -4,8 +4,6 @@ from typing import Any
 
 
 class ParameterError(Exception):
-    """Base class for parameter-related errors"""
-
     def __init__(self, param_name: str, message: str, description: str | None = None):
         self.param_name = param_name
         self.description = description
@@ -49,7 +47,6 @@ class InvalidRangeError(ParameterError):
         self.valid_range = valid_range
         self._param_name = param_name
 
-        # Create initial message and call parent's __init__
         self._update_message()
 
     @property
@@ -68,7 +65,6 @@ class InvalidRangeError(ParameterError):
             message.append(f"Valid range: {self.valid_range}")
         message.append(f"Error: {self.reason}")
 
-        # Directly update the Exception args to avoid recursion
         Exception.__init__(self, "\n".join(message))
 
 
@@ -78,8 +74,6 @@ class InvalidEnumError(ParameterError):
         self.reason = reason
         self.valid_values = valid_values
         self._param_name = param_name
-
-        # Create initial message and call parent's __init__
         self._update_message()
 
     @property
@@ -98,7 +92,6 @@ class InvalidEnumError(ParameterError):
             message.append(f"Valid values: {self.valid_values}")
         message.append(f"Error: {self.reason}")
 
-        # Directly update the Exception args to avoid recursion
         Exception.__init__(self, "\n".join(message))
 
 

@@ -67,9 +67,7 @@ class MistralNemoConfiguration(ModelConfiguration):
         ModelCapability.SYSTEM_PROMPT,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-         max_input_tokens=128000, max_output_tokens=128000
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=128000, max_output_tokens=128000)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=136.4, label="Fast", description="Average (0.5-2 seconds)"),

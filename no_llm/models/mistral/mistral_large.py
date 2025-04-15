@@ -67,9 +67,7 @@ class MistralLargeConfiguration(ModelConfiguration):
         ModelCapability.SYSTEM_PROMPT,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-         max_input_tokens=128000, max_output_tokens=8191
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=128000, max_output_tokens=8191)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=38.4, label="Average", description="Average (1-3 seconds)"),

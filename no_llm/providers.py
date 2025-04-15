@@ -22,7 +22,6 @@ class EnvVar(Generic[T]):
 
     def __get__(self, obj: Any, objtype: Any) -> str:
         if self._value is None:
-            # Remove the $ prefix when getting from environment
             env_name = self.var_name[1:]
             self._value = os.environ.get(env_name, self.var_name)
         return self._value

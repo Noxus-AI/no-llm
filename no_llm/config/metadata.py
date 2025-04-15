@@ -17,8 +17,6 @@ class PrivacyLevel(str, Enum):
 
 
 class TokenPrices(BaseModel):
-    """Token-based pricing information"""
-
     input_price_per_1k: float = Field(ge=0, description="Price per 1k input tokens")
     output_price_per_1k: float = Field(ge=0, description="Price per 1k output tokens")
 
@@ -29,8 +27,6 @@ class TokenPrices(BaseModel):
 
 
 class CharacterPrices(BaseModel):
-    """Character-based pricing information"""
-
     input_price_per_1k: float = Field(ge=0, description="Price per 1k input characters")
     output_price_per_1k: float = Field(ge=0, description="Price per 1k output characters")
 
@@ -41,15 +37,12 @@ class CharacterPrices(BaseModel):
 
 
 class ModelPricing(BaseModel):
-    """Model pricing information"""
-
     token_prices: TokenPrices | None = None
     character_prices: CharacterPrices | None = None
 
     @model_validator(mode="before")
     @classmethod
     def validate_pricing_type(cls, data: dict) -> dict:
-        """Validate that either token_prices or character_prices is set"""
         if isinstance(data, dict):
             has_token_prices = "token_prices" in data and data["token_prices"] is not None
             has_char_prices = "character_prices" in data and data["character_prices"] is not None
@@ -66,8 +59,6 @@ class ModelPricing(BaseModel):
 
 
 class ModelMetadata(BaseModel):
-    """Model metadata information"""
-
     privacy_level: list[PrivacyLevel] = Field(description="Privacy level of the model")
     pricing: ModelPricing = Field(description="Pricing information")
     release_date: datetime = Field(description="Model release date")

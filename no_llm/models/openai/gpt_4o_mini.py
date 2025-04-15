@@ -52,9 +52,7 @@ class GPT4OMiniConfiguration(ModelConfiguration):
         ModelCapability.VISION,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-         max_input_tokens=128000, max_output_tokens=16384
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=128000, max_output_tokens=16384)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=111.4, label="High", description="Average (1-3 seconds)"),
