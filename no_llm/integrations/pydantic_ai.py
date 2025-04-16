@@ -203,8 +203,7 @@ class NoLLMModel(Model):
         """Get merged model settings from no_llm config and user settings."""
         if user_settings is not None:
             model.parameters.set_parameters(**user_settings)
-        pyd = PydanticModelSettings(**model.parameters.get_model_parameters().get_parameters())  # type: ignore
-        return pyd
+        return PydanticModelSettings(**model.parameters.get_model_parameters().get_parameters())  # type: ignore
 
     async def request(
         self,
@@ -216,14 +215,15 @@ class NoLLMModel(Model):
         for pyd_model, model in self.models:
             try:
                 merged_settings = self._get_model_settings(model, model_settings)
-                return await pyd_model.request(messages, merged_settings, model_request_parameters)
+                customized_request_parameters = pyd_model.customize_request_parameters(model_request_parameters)
+                return await pyd_model.request(messages, merged_settings, customized_request_parameters)
             except Exception as e:  # noqa: BLE001
                 last_error = e
                 logger.warning(f"Model {model.identity.id} failed, trying next fallback. Error: {e}")
                 continue
 
         msg = f"All models failed. Last error: {last_error}"
-        raise RuntimeError(msg)
+        raise RuntimeError(msg) from last_error
 
     @asynccontextmanager
     async def request_stream(
@@ -236,7 +236,10 @@ class NoLLMModel(Model):
         for pyd_model, model in self.models:
             try:
                 merged_settings = self._get_model_settings(model, model_settings)
-                async with pyd_model.request_stream(messages, merged_settings, model_request_parameters) as response:
+                customized_request_parameters = pyd_model.customize_request_parameters(model_request_parameters)
+                async with pyd_model.request_stream(
+                    messages, merged_settings, customized_request_parameters
+                ) as response:
                     yield response
                     return
             except Exception as e:  # noqa: BLE001

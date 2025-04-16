@@ -125,7 +125,6 @@ class ModelRegistry:
                     config = yaml.safe_load(f)
                 logger.debug(f"Loaded YAML config: {config}")
 
-
                 base_config = config["identity"].get("base_config", None)
                 if model_id in self._models or base_config in self._models:
                     normalized_id = base_config or model_id
