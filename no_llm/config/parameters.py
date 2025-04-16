@@ -120,7 +120,7 @@ class ParameterValue(BaseModel, Generic[V]):
 
     def validate_new_value(self, new_value: V, field_name: str) -> None:
         """Validate a new value against this parameter's constraints"""
-        if self.is_fixed():
+        if self.is_fixed() and new_value != self.value:
             raise FixedParameterError(
                 param_name=field_name, current_value=self.value, attempted_value=new_value, description=None
             )
