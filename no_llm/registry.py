@@ -155,7 +155,7 @@ class ModelRegistry:
 
     def register_model(self, model: ModelConfiguration) -> None:
         if model.identity.id in self._models:
-            logger.info(f"Overriding existing model configuration: {model.identity.id}")
+            logger.debug(f"Overriding existing model configuration: {model.identity.id}")
 
         self._models[model.identity.id] = model
         logger.debug(f"Registered model: {model.identity.id}")
