@@ -2,13 +2,11 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from datetime import datetime
-from typing import Literal
 
 from pydantic import Field
 
 from no_llm.config import (
     ConfigurableModelParameters,
-    EnumValidation,
     IntegrationAliases,
     ModelCapability,
     ModelConfiguration,
@@ -83,36 +81,10 @@ class O3MiniConfiguration(ModelConfiguration):
             )
         )
         frequency_penalty: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](
-                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
-            )
+            default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.FIXED, value=0.0)
         )
         presence_penalty: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](
-                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
-            )
-        )
-        max_tokens: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](
-                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
-            )
-        )
-        stop: ParameterValue[list[str] | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[list[str] | NotGiven](
-                variant=ParameterVariant.VARIABLE, value=NOT_GIVEN
-            )
-        )
-        seed: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](
-                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
-            )
-        )
-        reasoning_effort: ParameterValue[Literal["low", "medium", "high"] | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[Literal["low", "medium", "high"] | NotGiven](
-                variant=ParameterVariant.VARIABLE,
-                value="low",
-                validation_rule=EnumValidation(allowed_values=["low", "medium", "high"]),
-            )
+            default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.FIXED, value=0.0)
         )
 
     parameters: ConfigurableModelParameters = Field(default_factory=Parameters)

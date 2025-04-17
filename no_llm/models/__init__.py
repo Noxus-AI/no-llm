@@ -29,6 +29,9 @@ from no_llm.models.openai import (
     GPT4OConfiguration,
     GPT4OMiniConfiguration,
     GPT35TurboConfiguration,
+    GPT41Configuration,
+    GPT41MiniConfiguration,
+    GPT41NanoConfiguration,
     O1MiniConfiguration,
     O3MiniConfiguration,
 )
@@ -65,4 +68,7 @@ __all__ = [
     "O3MiniConfiguration",
     "PerplexitySonarLargeConfiguration",
     "PerplexitySonarSmallConfiguration",
+    "GPT41Configuration",
+    "GPT41NanoConfiguration",
+    "GPT41MiniConfiguration",
 ]

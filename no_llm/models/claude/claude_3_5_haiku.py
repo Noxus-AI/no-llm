@@ -40,24 +40,15 @@ class Claude35HaikuConfiguration(ModelConfiguration):
                 validation_rule=RangeValidation(min_value=0.0, max_value=1.0),
             )
         )
-        top_p: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.FIXED, value=1.0)
-        )
-        top_k: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](variant=ParameterVariant.FIXED, value=40)
-        )
         frequency_penalty: ParameterValue[float | NotGiven] = Field(
             default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.UNSUPPORTED, value=None)
         )
         presence_penalty: ParameterValue[float | NotGiven] = Field(
             default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.UNSUPPORTED, value=None)
         )
-        max_tokens: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](variant=ParameterVariant.FIXED, value=4096)
-        )
         stop: ParameterValue[list[str] | NotGiven] = Field(
             default_factory=lambda: ParameterValue[list[str] | NotGiven](
-                variant=ParameterVariant.VARIABLE, value=NOT_GIVEN
+                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
             )
         )
         seed: ParameterValue[int | NotGiven] = Field(

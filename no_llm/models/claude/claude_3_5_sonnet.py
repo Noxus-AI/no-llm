@@ -50,7 +50,7 @@ class Claude35SonnetConfiguration(ModelConfiguration):
         ModelCapability.VISION,
     }
 
-    constraints: ModelConstraints = ModelConstraints(max_input_tokens=200000, max_output_tokens=4096)
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=200000, max_output_tokens=8192)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=80.9, label="Average", description="Average (1-3 seconds)"),
@@ -66,7 +66,7 @@ class Claude35SonnetConfiguration(ModelConfiguration):
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
         pydantic_ai="claude-3.5-sonnet",
-        litellm="vertex_ai/claude-3-5-sonnet-20240620",
+        litellm="vertex_ai/claude-3-5-sonnet@20240620",
         langfuse="claude-3.5-sonnet",
         lmarena="claude-3-5-sonnet-20241022",
         openrouter="anthropic/claude-3.5-sonnet:free",
@@ -81,14 +81,6 @@ class Claude35SonnetConfiguration(ModelConfiguration):
                 validation_rule=RangeValidation(min_value=0.0, max_value=1.0),
             )
         )
-        top_p: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.FIXED, value=1.0)
-        )
-        top_k: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](
-                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
-            )
-        )
         frequency_penalty: ParameterValue[float | NotGiven] = Field(
             default_factory=lambda: ParameterValue[float | NotGiven](
                 variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
@@ -99,12 +91,9 @@ class Claude35SonnetConfiguration(ModelConfiguration):
                 variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
             )
         )
-        max_tokens: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](variant=ParameterVariant.FIXED, value=4096)
-        )
         stop: ParameterValue[list[str] | NotGiven] = Field(
             default_factory=lambda: ParameterValue[list[str] | NotGiven](
-                variant=ParameterVariant.VARIABLE, value=NOT_GIVEN
+                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
             )
         )
         seed: ParameterValue[int | NotGiven] = Field(

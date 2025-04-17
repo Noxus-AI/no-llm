@@ -24,7 +24,7 @@ from no_llm.config import (
     SpeedProperties,
     TokenPrices,
 )
-from no_llm.config.parameters import NOT_GIVEN, NotGiven
+from no_llm.config.parameters import NotGiven
 from no_llm.providers import DeepseekProvider, OpenRouterProvider, Providers
 
 
@@ -77,37 +77,6 @@ class DeepseekReasonerConfiguration(ModelConfiguration):
                 variant=ParameterVariant.VARIABLE,
                 value=0.0,
                 validation_rule=RangeValidation(min_value=0.0, max_value=1.0),
-            )
-        )
-        top_p: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.FIXED, value=1.0)
-        )
-        top_k: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](
-                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
-            )
-        )
-        frequency_penalty: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](
-                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
-            )
-        )
-        presence_penalty: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](
-                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
-            )
-        )
-        max_tokens: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](variant=ParameterVariant.FIXED, value=8192)
-        )
-        stop: ParameterValue[list[str] | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[list[str] | NotGiven](
-                variant=ParameterVariant.VARIABLE, value=NOT_GIVEN
-            )
-        )
-        seed: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](
-                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
             )
         )
 

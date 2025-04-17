@@ -78,7 +78,7 @@ class Gemini20FlashConfiguration(ModelConfiguration):
         temperature: ParameterValue[float | NotGiven] = Field(
             default_factory=lambda: ParameterValue[float | NotGiven](
                 variant=ParameterVariant.VARIABLE,
-                value=0.0,
+                value=1.5,
                 validation_rule=RangeValidation(min_value=0.0, max_value=2.0),
             )
         )
@@ -108,15 +108,10 @@ class Gemini20FlashConfiguration(ModelConfiguration):
                 validation_rule=RangeValidation(min_value=0.0, max_value=1.0),
             )
         )
-        max_tokens: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](
-                variant=ParameterVariant.VARIABLE,
-                value=4096,
-                validation_rule=RangeValidation(min_value=1, max_value=100000),
-            )
-        )
         stop: ParameterValue[list[str] | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[list[str] | NotGiven](variant=ParameterVariant.VARIABLE, value=[])
+            default_factory=lambda: ParameterValue[list[str] | NotGiven](
+                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
+            )
         )
         seed: ParameterValue[int | NotGiven] = Field(
             default_factory=lambda: ParameterValue[int | NotGiven](

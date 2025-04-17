@@ -116,16 +116,5 @@ class MistralNemoConfiguration(ModelConfiguration):
                 variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
             )
         )
-        max_tokens: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](variant=ParameterVariant.FIXED, value=4096)
-        )
-        stop: ParameterValue[list[str] | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[list[str] | NotGiven](
-                variant=ParameterVariant.VARIABLE, value=NOT_GIVEN
-            )
-        )
-        seed: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](variant=ParameterVariant.FIXED, value=42)
-        )
 
     parameters: ConfigurableModelParameters = Field(default_factory=Parameters)

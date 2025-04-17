@@ -28,14 +28,12 @@ from no_llm.config.parameters import NotGiven
 from no_llm.providers import AzureProvider, OpenAIProvider, OpenRouterProvider, Providers
 
 
-class GPT4OConfiguration(ModelConfiguration):
-    """Configuration for GPT-4o model"""
-
+class GPT41Configuration(ModelConfiguration):
     identity: ModelIdentity = ModelIdentity(
-        id="gpt-4o",
-        name="GPT-4o",
-        version="2024.02",
-        description="Newest and most advanced model from OpenAI with the most advanced performance and speed.",
+        id="gpt-4.1",
+        name="GPT 4.1",
+        version="1.0.0",
+        description="Latest OpenAI language model with strong generalist capabilities",
         creator="OpenAI",
     )
 
@@ -46,28 +44,31 @@ class GPT4OConfiguration(ModelConfiguration):
     capabilities: set[ModelCapability] = {
         ModelCapability.STREAMING,
         ModelCapability.FUNCTION_CALLING,
-        ModelCapability.TOOLS,
-        ModelCapability.JSON_MODE,
         ModelCapability.SYSTEM_PROMPT,
         ModelCapability.VISION,
     }
 
-    constraints: ModelConstraints = ModelConstraints(max_input_tokens=128000, max_output_tokens=16384)
+    constraints: ModelConstraints = ModelConstraints(
+        max_input_tokens=1047576,
+        max_output_tokens=32768,
+    )
 
     properties: ModelProperties | None = ModelProperties(
-        speed=SpeedProperties(score=111.4, label="High", description="Average (1-3 seconds)"),
-        quality=QualityProperties(score=77.0, label="Very High", description="Very High Quality"),
+        speed=SpeedProperties(score=121.7, label="High", description="Average (1-3 seconds)"),
+        quality=QualityProperties(score=83.0, label="Very High", description="Very High Quality"),
     )
 
     metadata: ModelMetadata = ModelMetadata(
-        privacy_level=[PrivacyLevel.GDPR, PrivacyLevel.HIPAA, PrivacyLevel.SOC2],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0025, output_price_per_1k=0.01)),
-        release_date=datetime(2024, 5, 13),
-        data_cutoff_date=datetime(2023, 10, 1),
+        privacy_level=[PrivacyLevel.BASIC],
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.002, output_price_per_1k=0.008)),
+        release_date=datetime(2024, 1, 25),
+        data_cutoff_date=datetime(2023, 12, 31),
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
-        pydantic_ai="gpt-4o", litellm="gpt-4o-2024-08-06", langfuse="gpt-4o", openrouter="openai/gpt-4o-latest"
+        pydantic_ai="gpt-4.1",
+        litellm="gpt-4.1",
+        langfuse="gpt-4.1",
     )
 
     class Parameters(ConfigurableModelParameters):

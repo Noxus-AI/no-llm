@@ -50,6 +50,7 @@ __all__ = [
     "PerplexityProvider",
     "DeepseekProvider",
     "AzureProvider",
+    "BedrockProvider",
     "TogetherProvider",
     "OpenRouterProvider",
     "GrokProvider",

@@ -24,7 +24,7 @@ from no_llm.config import (
     SpeedProperties,
     TokenPrices,
 )
-from no_llm.config.parameters import NOT_GIVEN, NotGiven
+from no_llm.config.parameters import NotGiven
 from no_llm.providers import FireworksProvider, GroqProvider, OpenRouterProvider, Providers, TogetherProvider
 
 
@@ -50,7 +50,7 @@ class Llama3370BConfiguration(ModelConfiguration):
         ModelCapability.SYSTEM_PROMPT,
     }
 
-    constraints: ModelConstraints = ModelConstraints(max_input_tokens=128000, max_output_tokens=4096)
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=8192, max_output_tokens=8192)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=101.0, label="High", description="Average (1-3 seconds)"),
@@ -78,37 +78,6 @@ class Llama3370BConfiguration(ModelConfiguration):
                 variant=ParameterVariant.VARIABLE,
                 value=0.0,
                 validation_rule=RangeValidation(min_value=0.0, max_value=1.0),
-            )
-        )
-        top_p: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.FIXED, value=1.0)
-        )
-        top_k: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](
-                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
-            )
-        )
-        frequency_penalty: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](
-                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
-            )
-        )
-        presence_penalty: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](
-                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
-            )
-        )
-        max_tokens: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](variant=ParameterVariant.FIXED, value=4096)
-        )
-        stop: ParameterValue[list[str] | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[list[str] | NotGiven](
-                variant=ParameterVariant.VARIABLE, value=NOT_GIVEN
-            )
-        )
-        seed: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](
-                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
             )
         )
 

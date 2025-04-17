@@ -78,38 +78,13 @@ class Gemini20FlashLiteConfiguration(ModelConfiguration):
         temperature: ParameterValue[float | NotGiven] = Field(
             default_factory=lambda: ParameterValue[float | NotGiven](
                 variant=ParameterVariant.VARIABLE,
-                value=0.0,
+                value=1.5,
                 validation_rule=RangeValidation(min_value=0.0, max_value=2.0),
             )
         )
-        top_p: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](
-                variant=ParameterVariant.VARIABLE,
-                value=0.8,
-                validation_rule=RangeValidation(min_value=0.0, max_value=1.0),
-            )
-        )
-        top_k: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](
-                variant=ParameterVariant.VARIABLE, value=20, validation_rule=RangeValidation(min_value=1, max_value=100)
-            )
-        )
-        frequency_penalty: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](
-                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
-            )
-        )
-        presence_penalty: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](
-                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
-            )
-        )
-        max_tokens: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](variant=ParameterVariant.FIXED, value=4096)
-        )
         stop: ParameterValue[list[str] | NotGiven] = Field(
             default_factory=lambda: ParameterValue[list[str] | NotGiven](
-                variant=ParameterVariant.VARIABLE, value=NOT_GIVEN
+                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
             )
         )
         seed: ParameterValue[int | NotGiven] = Field(
