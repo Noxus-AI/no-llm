@@ -34,6 +34,7 @@ from no_llm.models.openai import (
     GPT41NanoConfiguration,
     O1MiniConfiguration,
     O3MiniConfiguration,
+    O4MiniConfiguration,
 )
 from no_llm.models.perplexity import PerplexitySonarLargeConfiguration, PerplexitySonarSmallConfiguration
 
@@ -71,4 +72,5 @@ __all__ = [
     "GPT41Configuration",
     "GPT41NanoConfiguration",
     "GPT41MiniConfiguration",
+    "O4MiniConfiguration",
 ]

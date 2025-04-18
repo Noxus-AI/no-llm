@@ -27,12 +27,12 @@ from no_llm.config.parameters import NOT_GIVEN, NotGiven
 from no_llm.providers import AzureProvider, OpenAIProvider, OpenRouterProvider, Providers
 
 
-class O3MiniConfiguration(ModelConfiguration):
-    """Configuration for O3 Mini model"""
+class O4MiniConfiguration(ModelConfiguration):
+    """Configuration for O4 Mini model"""
 
     identity: ModelIdentity = ModelIdentity(
-        id="o3-mini",
-        name="O3 Mini",
+        id="o4-mini",
+        name="O4 Mini",
         version="2024.04",
         description="Newest and most advanced model from OpenAI with the most advanced performance and speed.",
         creator="OpenAI",
@@ -65,7 +65,7 @@ class O3MiniConfiguration(ModelConfiguration):
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
-        pydantic_ai="o3-mini", litellm="o3-mini-2025-01-31", langfuse="o3-mini-low", openrouter="openai/o3-mini"
+        pydantic_ai="o4-mini", litellm="o4-mini-2025-04-16", langfuse="o4-mini-low", openrouter="openai/o4-mini"
     )
 
     class Parameters(ConfigurableModelParameters):
