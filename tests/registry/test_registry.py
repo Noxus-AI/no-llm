@@ -12,18 +12,11 @@ from no_llm.errors import (
     ConfigurationLoadError,
     ModelNotFoundError,
 )
-from no_llm.providers import Provider
+from no_llm.providers import Provider, OpenAIProvider
 from no_llm.registry import ModelRegistry, SetFilter
 
 
-class MockProvider(Provider):
-    """Mock provider for testing"""
-
-    type: str = 'test'
-    name: str = 'Test Provider'
-
-
-def create_test_model(model_id: str = 'test-model', provider_id: str = 'test') -> ModelConfiguration:
+def create_test_model(model_id: str = 'test-model') -> ModelConfiguration:
     """Create a test model configuration"""
     return ModelConfiguration(
         identity=ModelIdentity(
@@ -33,11 +26,10 @@ def create_test_model(model_id: str = 'test-model', provider_id: str = 'test') -
             description='Test model',
             creator='test',
         ),
-        providers=[MockProvider(type=provider_id)],
+        providers=[OpenAIProvider()],
         mode=ModelMode.CHAT,
         capabilities={ModelCapability.STREAMING},
         constraints=ModelConstraints(
-            context_window=1024,
             max_input_tokens=1000,
             max_output_tokens=500,
         ),
@@ -101,7 +93,7 @@ def test_registry_model_registration(base_registry):
 
     # Test provider was set
     assert model.providers is not None
-    assert isinstance(model.providers[0], MockProvider)
+    assert isinstance(model.providers[0], OpenAIProvider)
 
 
 def test_registry_model_listing(base_registry):
@@ -127,7 +119,7 @@ def test_registry_model_listing(base_registry):
     assert vision_models[0].identity.id == 'model2'
 
     # Test filtering by provider
-    provider_models = list(base_registry.list_models(provider='test'))
+    provider_models = list(base_registry.list_models(provider='openai'))
     assert len(provider_models) == 2
 
 
@@ -390,7 +382,6 @@ identity:
 mode: chat
 capabilities: [streaming]
 constraints:
-  context_window: 1024
   max_input_tokens: 1000
   max_output_tokens: 500
 metadata:
@@ -421,7 +412,6 @@ identity:
 mode: chat
 capabilities: [streaming]
 constraints:
-  context_window: 1024
   max_input_tokens: 1000
   max_output_tokens: 500
 metadata:

@@ -14,7 +14,7 @@ def litellm_facts():
     response.raise_for_status()
     return response.json()
 
-@pytest.mark.skip(reason="To be run locall")
+# @pytest.mark.skip(reason="To be run locally")
 def test_litellm_facts(subtests, registry: ModelRegistry, litellm_facts: dict):
     """Test that model configurations match LiteLLM facts"""
     
