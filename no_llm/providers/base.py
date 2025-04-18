@@ -31,7 +31,7 @@ class Provider(BaseModel):
 
     def has_valid_env(self) -> bool:
         """Check if all required environment variables are set"""
-        for field_name, field in self.model_fields.items():
+        for field_name, field in self.__class__.model_fields.items():
             if field.annotation == EnvVar[str] and not getattr(self, field_name).is_valid():
                 return False
         return True
@@ -39,7 +39,7 @@ class Provider(BaseModel):
     @model_serializer
     def serialize_model(self) -> dict[str, Any]:
         result = {}
-        for field_name in self.model_fields:
+        for field_name in self.__class__.model_fields:
             value = getattr(self, field_name)
             if field_name == "parameter_mappings":
                 continue
