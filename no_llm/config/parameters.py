@@ -312,7 +312,7 @@ class ConfigurableModelParameters(BaseModel):
 
     def get_parameters(self) -> dict[str, Any]:
         values = {}
-        for field_name in self.model_fields:
+        for field_name in self.__class__.model_fields:
             value = getattr(self, field_name)
             if isinstance(value, ParameterValue) and not value.is_unsupported():
                 gotten_value = value.get()
@@ -324,7 +324,7 @@ class ConfigurableModelParameters(BaseModel):
         capabilities = kwargs.pop("capabilities", set())
         settings = {}
 
-        for field_name, field in self.model_fields.items():
+        for field_name, field in self.__class__.model_fields.items():
             value = getattr(self, field_name)
             description = field.description
 
@@ -402,7 +402,7 @@ class ConfigurableModelParameters(BaseModel):
     @model_serializer
     def serialize_model(self) -> dict[str, Any]:
         result = {}
-        for field_name, field in self.model_fields.items():
+        for field_name, field in self.__class__.model_fields.items():
             value = getattr(self, field_name)
             if isinstance(value, ParameterValue):
                 default_factory = getattr(field, "default_factory", None)

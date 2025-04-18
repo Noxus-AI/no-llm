@@ -121,7 +121,8 @@ serve = "mkdocs serve -a localhost:3111"
 build = "mkdocs build"
 deploy = "mkdocs gh-deploy --config-file mkdocs.yml --force"
 
-[tool.hatch.envs.test]
+
+[tool.hatch.envs.hatch-test]
 dependencies = [
   "pytest>=7.0.0",
   "pytest-cov>=4.0.0",
@@ -133,9 +134,9 @@ dependencies = [
   "langchain>=0.3.23",
   "pytest-vcr>=1.0.2",
   "brotli>=1.1.0",
-  "pytest-subtests>=0.13.1",
+  "pytest-subtests==0.13.1",
 ]
 
-[tool.hatch.envs.test.scripts]
-test = "pytest {args:tests}"
-test-cov = "pytest --cov=no_llm --cov-report=term-missing {args:tests}"
+# [tool.hatch.envs.test.scripts]
+# test = "pytest {args:tests}"
+# test-cov = "pytest --cov=no_llm --cov-report=term-missing {args:tests}"

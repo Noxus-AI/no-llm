@@ -20,14 +20,14 @@ async def test_async_chat(openai_model: NoLLMModel):
     """Test async chat completion."""
     agent = Agent(openai_model)
     result = await agent.run("What is the capital of France?")
-    assert "paris" in result.data.lower()
+    assert "paris" in result.output.lower()
 
 @pytest.mark.vcr()
 def test_sync_chat(openai_model: NoLLMModel):
     """Test sync chat completion."""
     agent = Agent(openai_model)
     result = agent.run_sync("What is the capital of Italy??")
-    assert "rome" in result.data.lower()
+    assert "rome" in result.output.lower()
 
 @pytest.mark.asyncio
 @pytest.mark.vcr()
@@ -35,5 +35,5 @@ async def test_stream_chat(openai_model: NoLLMModel):
     """Test streaming chat completion."""
     agent = Agent(openai_model)
     async with agent.run_stream("What is the capital of the UK?") as response:
-        data = await response.get_data()
+        data = await response.get_output()
         assert "london" in data.lower()
