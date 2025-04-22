@@ -1,7 +1,7 @@
 from __future__ import annotations as _annotations
 
 from contextlib import asynccontextmanager
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import TYPE_CHECKING, cast
 
 try:
@@ -66,16 +66,11 @@ ToolName = str
 
 @dataclass
 class NoLLMModel(Model):
-    _pydantic_model: Model | None = field(default=None, repr=False)
-    _current_model_config: ModelConfiguration | None = field(default=None, repr=False)
-
     def __init__(
         self,
         default_model: ModelConfiguration,
         *fallback_models: ModelConfiguration,
     ):
-        self._pydantic_model = None
-        self._current_model_config = None
         self.models: list[tuple[Model, ModelConfiguration]] = self._get_pydantic_models(
             [default_model, *fallback_models]
         )
@@ -201,9 +196,10 @@ class NoLLMModel(Model):
         user_settings: PydanticModelSettings | None = None,
     ) -> PydanticModelSettings:
         """Get merged model settings from no_llm config and user settings."""
+        new_model = model.model_copy(deep=True)
         if user_settings is not None:
-            model.parameters.set_parameters(**user_settings)
-        return PydanticModelSettings(**model.parameters.get_model_parameters().get_parameters())  # type: ignore
+            new_model.parameters.set_parameters(**user_settings)
+        return PydanticModelSettings(**new_model.parameters.get_model_parameters().get_parameters())  # type: ignore
 
     async def request(
         self,

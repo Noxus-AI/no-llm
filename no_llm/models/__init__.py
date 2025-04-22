@@ -19,8 +19,8 @@ from no_llm.models.gemini import (
     Gemini20FlashLiteConfiguration,
     Gemini20FlashThinkingConfiguration,
     Gemini20ProConfiguration,
-    Gemini25ProConfiguration,
     Gemini25FlashConfiguration,
+    Gemini25ProConfiguration,
 )
 from no_llm.models.groq import GroqMixtralConfiguration
 from no_llm.models.llama import Llama3370BConfiguration, Llama31405BConfiguration
