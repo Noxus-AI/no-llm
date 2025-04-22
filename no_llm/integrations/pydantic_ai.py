@@ -21,6 +21,7 @@ except ImportError as _import_error:
 from loguru import logger
 
 from no_llm.config.model import ModelConfiguration
+from no_llm.integrations._utils import _get_pydantic_model
 
 if TYPE_CHECKING:
     from collections.abc import AsyncIterator
@@ -32,10 +33,7 @@ if TYPE_CHECKING:
     )
 
 ToolName = str
-
 ModelPair = tuple[Model, ModelConfiguration]
-
-from ._utils import _get_pydantic_model
 
 
 @dataclass

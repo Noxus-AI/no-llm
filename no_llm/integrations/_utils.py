@@ -37,8 +37,6 @@ from no_llm.providers import (
     VertexProvider,
 )
 
-from .. import ModelConfiguration
-
 
 def pydantic_mistral_gcp_patch():
     from mistralai_gcp import (
