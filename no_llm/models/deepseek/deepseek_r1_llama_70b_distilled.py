@@ -48,7 +48,7 @@ class DeepseekR1Llama70BDistilledConfiguration(ModelConfiguration):
         ModelCapability.REASONING,
     }
 
-    constraints: ModelConstraints = ModelConstraints(max_input_tokens=131072, max_output_tokens=131072)
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=128000, max_output_tokens=128000)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=180.0, label="Average", description="Average (1-3 seconds)"),
