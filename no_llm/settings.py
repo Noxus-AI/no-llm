@@ -13,9 +13,7 @@ class ValidationMode(Enum):
 
 class Settings(BaseModel):
     validation_mode: ValidationMode = Field(
-        default=ValidationMode(
-            os.getenv("NO_LLM_VALIDATION_MODE", ValidationMode.CLAMP.value)
-        ),
+        default=ValidationMode(os.getenv("NO_LLM_VALIDATION_MODE", ValidationMode.CLAMP.value)),
         description="Validation mode for model configurations",
     )
     logging_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = Field(
