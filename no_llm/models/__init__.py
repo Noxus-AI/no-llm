@@ -34,10 +34,14 @@ from no_llm.models.openai import (
     GPT41MiniConfiguration,
     GPT41NanoConfiguration,
     O1MiniConfiguration,
+    O3Configuration,
     O3MiniConfiguration,
     O4MiniConfiguration,
 )
-from no_llm.models.perplexity import PerplexitySonarLargeConfiguration, PerplexitySonarSmallConfiguration
+from no_llm.models.perplexity import (
+    PerplexitySonarLargeConfiguration,
+    PerplexitySonarSmallConfiguration,
+)
 
 __all__ = [
     "Claude3HaikuConfiguration",
@@ -75,4 +79,5 @@ __all__ = [
     "GPT41NanoConfiguration",
     "GPT41MiniConfiguration",
     "O4MiniConfiguration",
+    "O3Configuration",
 ]
