@@ -95,9 +95,9 @@ class ModelRegistry:
                 base_config = base_model.dict()
                 merged_config = self._merge_configs(base_config, config)
                 logger.debug(f'Merged config description: {merged_config["identity"]["description"]}')
-                return ModelConfiguration(**merged_config)
+                return ModelConfiguration.from_config(merged_config)
 
-            return ModelConfiguration(**config)
+            return ModelConfiguration.from_config(config)
         except Exception as e:
             logger.opt(exception=e).error(f"Error loading config from {model_file}: {e}")
             raise ConfigurationLoadError(str(model_file), e) from e
@@ -132,9 +132,9 @@ class ModelRegistry:
                     base_model = self._models[normalized_id]
                     base_config = base_model.model_dump()
                     merged_config = self._merge_configs(base_config, config)
-                    model = ModelConfiguration(**merged_config)
+                    model = ModelConfiguration.from_config(merged_config)
                 else:
-                    model = ModelConfiguration(**config)
+                    model = ModelConfiguration.from_config(config)
 
                 self.register_model(model)
                 logger.debug(f"Registered model: {model_id} with description: {model.identity.description}")
