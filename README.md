@@ -84,7 +84,7 @@ print(result.data)
 
 ## Next Steps
 
-- [Configuration Guide](configs/overview.md)
-- [Parameter System](parameters/overview.md)
-- [Provider Documentation](providers/overview.md)
-- [Registry System](registry.md)
+- [Configuration Guide](docs/configs/overview.md)
+- [Parameter System](docs/parameters/overview.md)
+- [Provider Documentation](docs/providers/overview.md)
+- [Registry System](docs/registry.md)
