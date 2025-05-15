@@ -48,16 +48,26 @@ class DeepseekR1Llama70BDistilledConfiguration(ModelConfiguration):
         ModelCapability.REASONING,
     }
 
-    constraints: ModelConstraints = ModelConstraints(max_input_tokens=131072, max_output_tokens=131072)
+    constraints: ModelConstraints = ModelConstraints(
+        max_input_tokens=128000, max_output_tokens=128000
+    )
 
     properties: ModelProperties | None = ModelProperties(
-        speed=SpeedProperties(score=180.0, label="Average", description="Average (1-3 seconds)"),
-        quality=QualityProperties(score=82.0, label="High", description="Average Quality"),
+        speed=SpeedProperties(
+            score=180.0, label="Average", description="Average (1-3 seconds)"
+        ),
+        quality=QualityProperties(
+            score=82.0, label="High", description="Average Quality"
+        ),
     )
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.00075, output_price_per_1k=0.00099)),
+        pricing=ModelPricing(
+            token_prices=TokenPrices(
+                input_price_per_1k=0.00075, output_price_per_1k=0.00099
+            )
+        ),
         release_date=datetime(2024, 1, 1),
         data_cutoff_date=datetime(2024, 1, 1),
     )
