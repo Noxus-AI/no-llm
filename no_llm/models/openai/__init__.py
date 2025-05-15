@@ -6,6 +6,7 @@ from no_llm.models.openai.gpt_4_1_nano import GPT41NanoConfiguration
 from no_llm.models.openai.gpt_4o import GPT4OConfiguration
 from no_llm.models.openai.gpt_4o_mini import GPT4OMiniConfiguration
 from no_llm.models.openai.o1_mini import O1MiniConfiguration
+from no_llm.models.openai.o3 import O3Configuration
 from no_llm.models.openai.o3_mini import O3MiniConfiguration
 from no_llm.models.openai.o4_mini import O4MiniConfiguration
 
@@ -20,4 +21,5 @@ __all__ = [
     "GPT41MiniConfiguration",
     "GPT4OConfiguration",
     "O4MiniConfiguration",
+    "O3Configuration",
 ]
