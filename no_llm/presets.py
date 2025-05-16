@@ -33,7 +33,9 @@ class ModelPreset(BaseModel):
         for model in self.models:
             if isinstance(model, str):
                 model_cfg = registry.get_model(model)
-                if not model_cfg.check_capabilities(self.required_capabilities):
+                if len(
+                    self.required_capabilities
+                ) > 0 and not model_cfg.check_capabilities(self.required_capabilities):
                     logger.warning(
                         f"Model {model} does not have the required capabilities: {self.required_capabilities}. Skipping."
                     )
