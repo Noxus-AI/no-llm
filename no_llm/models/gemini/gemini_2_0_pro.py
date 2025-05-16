@@ -38,7 +38,7 @@ class Gemini20ProConfiguration(ModelConfiguration):
         creator="Google",
     )
 
-    providers: Sequence[Providers] = [VertexProvider()]
+    providers: Sequence[Providers] = [VertexProvider(model_family="gemini")]
 
     mode: ModelMode = ModelMode.CHAT
 
@@ -51,16 +51,26 @@ class Gemini20ProConfiguration(ModelConfiguration):
         ModelCapability.VISION,
     }
 
-    constraints: ModelConstraints = ModelConstraints(max_input_tokens=2097152, max_output_tokens=8192)
+    constraints: ModelConstraints = ModelConstraints(
+        max_input_tokens=2097152, max_output_tokens=8192
+    )
 
     properties: ModelProperties | None = ModelProperties(
-        speed=SpeedProperties(score=248.6, label="High", description="Average (1-3 seconds)"),
-        quality=QualityProperties(score=76.0, label="Very High", description="Very High Quality"),
+        speed=SpeedProperties(
+            score=248.6, label="High", description="Average (1-3 seconds)"
+        ),
+        quality=QualityProperties(
+            score=76.0, label="Very High", description="Very High Quality"
+        ),
     )
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.00125, output_price_per_1k=0.01)),
+        pricing=ModelPricing(
+            token_prices=TokenPrices(
+                input_price_per_1k=0.00125, output_price_per_1k=0.01
+            )
+        ),
         release_date=datetime(2024, 6, 15),
         data_cutoff_date=datetime(2024, 1, 1),
     )
@@ -90,7 +100,9 @@ class Gemini20ProConfiguration(ModelConfiguration):
         )
         top_k: ParameterValue[int | NotGiven] = Field(
             default_factory=lambda: ParameterValue[int | NotGiven](
-                variant=ParameterVariant.VARIABLE, value=20, validation_rule=RangeValidation(min_value=1, max_value=100)
+                variant=ParameterVariant.VARIABLE,
+                value=20,
+                validation_rule=RangeValidation(min_value=1, max_value=100),
             )
         )
         frequency_penalty: ParameterValue[float | NotGiven] = Field(

@@ -25,7 +25,13 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
-from no_llm.providers import AnthropicProvider, BedrockProvider, OpenRouterProvider, Providers, VertexProvider
+from no_llm.providers import (
+    AnthropicProvider,
+    BedrockProvider,
+    OpenRouterProvider,
+    Providers,
+    VertexProvider,
+)
 
 
 class Claude3HaikuConfiguration(ModelConfiguration):
@@ -40,7 +46,12 @@ class Claude3HaikuConfiguration(ModelConfiguration):
     )
 
     mode: ModelMode = ModelMode.CHAT
-    providers: Sequence[Providers] = [VertexProvider(), BedrockProvider(), AnthropicProvider(), OpenRouterProvider()]
+    providers: Sequence[Providers] = [
+        VertexProvider(model_family="claude"),
+        BedrockProvider(),
+        AnthropicProvider(),
+        OpenRouterProvider(),
+    ]
     capabilities: set[ModelCapability] = {
         ModelCapability.STREAMING,
         ModelCapability.FUNCTION_CALLING,
@@ -50,16 +61,26 @@ class Claude3HaikuConfiguration(ModelConfiguration):
         ModelCapability.VISION,
     }
 
-    constraints: ModelConstraints = ModelConstraints(max_input_tokens=200000, max_output_tokens=4096)
+    constraints: ModelConstraints = ModelConstraints(
+        max_input_tokens=200000, max_output_tokens=4096
+    )
 
     properties: ModelProperties | None = ModelProperties(
-        speed=SpeedProperties(score=135.8, label="Fast", description="Average (0.5-2 seconds)"),
-        quality=QualityProperties(score=54.0, label="Balanced", description="Balanced Quality"),
+        speed=SpeedProperties(
+            score=135.8, label="Fast", description="Average (0.5-2 seconds)"
+        ),
+        quality=QualityProperties(
+            score=54.0, label="Balanced", description="Balanced Quality"
+        ),
     )
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.00025, output_price_per_1k=0.00125)),
+        pricing=ModelPricing(
+            token_prices=TokenPrices(
+                input_price_per_1k=0.00025, output_price_per_1k=0.00125
+            )
+        ),
         release_date=datetime(2024, 5, 31),
         data_cutoff_date=datetime(2023, 8, 1),
     )

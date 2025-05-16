@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, get_args
 
 from pydantic import BaseModel, Field, PrivateAttr, model_serializer, model_validator
+from pydantic_ai.providers import Provider as PydanticProvider
 
 from no_llm.providers.env_var import EnvVar
 
@@ -12,7 +14,9 @@ if TYPE_CHECKING:
 
 class ParameterMapping(BaseModel):
     name: str | None = Field(None, description="Provider-specific parameter name")
-    supported: bool = Field(default=True, description="Whether parameter is supported by provider")
+    supported: bool = Field(
+        default=True, description="Whether parameter is supported by provider"
+    )
 
 
 class Provider(BaseModel):
@@ -20,9 +24,9 @@ class Provider(BaseModel):
 
     name: str = Field(description="Provider name for display")
     parameter_mappings: dict[str, ParameterMapping] = Field(
-        default_factory=dict, description="Mapping of standard parameters to provider-specific parameters"
+        default_factory=dict,
+        description="Mapping of standard parameters to provider-specific parameters",
     )
-    _iterator_index: int = PrivateAttr(default=0)
 
     def iter(self) -> Iterator[Provider]:
         """Default implementation yields just the provider itself"""
@@ -32,7 +36,10 @@ class Provider(BaseModel):
     def has_valid_env(self) -> bool:
         """Check if all required environment variables are set"""
         for field_name, field in self.__class__.model_fields.items():
-            if field.annotation == EnvVar[str] and not getattr(self, field_name).is_valid():
+            if (
+                field.annotation == EnvVar[str]
+                and not getattr(self, field_name).is_valid()
+            ):
                 return False
         return True
 
@@ -49,22 +56,6 @@ class Provider(BaseModel):
                 result[field_name] = value
         return result
 
-    def map_parameters(self, params: dict[str, Any]) -> dict[str, Any]:
-        """Maps standard parameters to provider-specific parameters."""
-        result = {}
-        for param_name, value in params.items():
-            mapping = self.parameter_mappings.get(param_name)
-            if mapping:
-                if mapping.supported:
-                    result[mapping.name] = value
-            else:
-                result[param_name] = value
-        return result  # type: ignore
-
-    def reset_iterator(self) -> None:
-        """Reset iteration state"""
-        self._iterator_index = 0
-
     @model_validator(mode="before")
     @classmethod
     def convert_env_vars(cls, data: Any) -> Any:
@@ -79,9 +70,17 @@ class Provider(BaseModel):
             if not isinstance(value, str) or not value.startswith("$"):
                 continue
 
-            if field.annotation and getattr(field.annotation, "__origin__", None) is EnvVar:
+            if (
+                field.annotation
+                and getattr(field.annotation, "__origin__", None) is EnvVar
+            ):
                 args = get_args(field.annotation)
                 if args and args[0] is str:
                     data[field_name] = EnvVar(value)
 
         return data
+
+    @abstractmethod
+    def to_pydantic(self) -> PydanticProvider:
+        """Convert provider to Pydantic provider"""
+        pass

@@ -25,7 +25,13 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
-from no_llm.providers import AnthropicProvider, BedrockProvider, OpenRouterProvider, Providers, VertexProvider
+from no_llm.providers import (
+    AnthropicProvider,
+    BedrockProvider,
+    OpenRouterProvider,
+    Providers,
+    VertexProvider,
+)
 
 
 class Claude35HaikuConfiguration(ModelConfiguration):
@@ -41,10 +47,14 @@ class Claude35HaikuConfiguration(ModelConfiguration):
             )
         )
         frequency_penalty: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.UNSUPPORTED, value=None)
+            default_factory=lambda: ParameterValue[float | NotGiven](
+                variant=ParameterVariant.UNSUPPORTED, value=None
+            )
         )
         presence_penalty: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.UNSUPPORTED, value=None)
+            default_factory=lambda: ParameterValue[float | NotGiven](
+                variant=ParameterVariant.UNSUPPORTED, value=None
+            )
         )
         stop: ParameterValue[list[str] | NotGiven] = Field(
             default_factory=lambda: ParameterValue[list[str] | NotGiven](
@@ -52,7 +62,9 @@ class Claude35HaikuConfiguration(ModelConfiguration):
             )
         )
         seed: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](variant=ParameterVariant.UNSUPPORTED, value=None)
+            default_factory=lambda: ParameterValue[int | NotGiven](
+                variant=ParameterVariant.UNSUPPORTED, value=None
+            )
         )
 
     identity: ModelIdentity = ModelIdentity(
@@ -64,7 +76,12 @@ class Claude35HaikuConfiguration(ModelConfiguration):
     )
 
     mode: ModelMode = ModelMode.CHAT
-    providers: Sequence[Providers] = [VertexProvider(), BedrockProvider(), AnthropicProvider(), OpenRouterProvider()]
+    providers: Sequence[Providers] = [
+        VertexProvider(model_family="claude"),
+        BedrockProvider(),
+        AnthropicProvider(),
+        OpenRouterProvider(),
+    ]
 
     capabilities: set[ModelCapability] = {
         ModelCapability.STREAMING,
@@ -75,16 +92,26 @@ class Claude35HaikuConfiguration(ModelConfiguration):
         ModelCapability.VISION,
     }
 
-    constraints: ModelConstraints = ModelConstraints(max_input_tokens=200000, max_output_tokens=8192)
+    constraints: ModelConstraints = ModelConstraints(
+        max_input_tokens=200000, max_output_tokens=8192
+    )
 
     properties: ModelProperties | None = ModelProperties(
-        speed=SpeedProperties(score=135.8, label="Fast", description="Average (0.5-2 seconds)"),
-        quality=QualityProperties(score=68.0, label="Balanced", description="Balanced Quality"),
+        speed=SpeedProperties(
+            score=135.8, label="Fast", description="Average (0.5-2 seconds)"
+        ),
+        quality=QualityProperties(
+            score=68.0, label="Balanced", description="Balanced Quality"
+        ),
     )
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0008, output_price_per_1k=0.004)),
+        pricing=ModelPricing(
+            token_prices=TokenPrices(
+                input_price_per_1k=0.0008, output_price_per_1k=0.004
+            )
+        ),
         release_date=datetime(2024, 2, 1),
         data_cutoff_date=datetime(2024, 8, 1),
     )

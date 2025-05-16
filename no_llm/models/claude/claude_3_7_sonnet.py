@@ -25,7 +25,13 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
-from no_llm.providers import AnthropicProvider, BedrockProvider, OpenRouterProvider, Providers, VertexProvider
+from no_llm.providers import (
+    AnthropicProvider,
+    BedrockProvider,
+    OpenRouterProvider,
+    Providers,
+    VertexProvider,
+)
 
 
 class Claude37SonnetConfiguration(ModelConfiguration):
@@ -40,7 +46,12 @@ class Claude37SonnetConfiguration(ModelConfiguration):
     )
 
     mode: ModelMode = ModelMode.CHAT
-    providers: Sequence[Providers] = [VertexProvider(), BedrockProvider(), AnthropicProvider(), OpenRouterProvider()]
+    providers: Sequence[Providers] = [
+        VertexProvider(model_family="claude"),
+        BedrockProvider(),
+        AnthropicProvider(),
+        OpenRouterProvider(),
+    ]
 
     capabilities: set[ModelCapability] = {
         ModelCapability.STREAMING,
@@ -51,16 +62,24 @@ class Claude37SonnetConfiguration(ModelConfiguration):
         ModelCapability.VISION,
     }
 
-    constraints: ModelConstraints = ModelConstraints(max_input_tokens=200000, max_output_tokens=8192)
+    constraints: ModelConstraints = ModelConstraints(
+        max_input_tokens=200000, max_output_tokens=8192
+    )
 
     properties: ModelProperties | None = ModelProperties(
-        speed=SpeedProperties(score=81.5, label="Average", description="Average (1-3 seconds)"),
+        speed=SpeedProperties(
+            score=81.5, label="Average", description="Average (1-3 seconds)"
+        ),
         quality=QualityProperties(score=78.0, label="High", description="High Quality"),
     )
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.003, output_price_per_1k=0.015)),
+        pricing=ModelPricing(
+            token_prices=TokenPrices(
+                input_price_per_1k=0.003, output_price_per_1k=0.015
+            )
+        ),
         release_date=datetime(2025, 2, 1),
         data_cutoff_date=datetime(2025, 2, 1),
     )

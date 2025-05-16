@@ -4,6 +4,8 @@ from contextlib import asynccontextmanager
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
+from no_llm.config.parameters import ModelParameters
+
 try:
     from pydantic_ai.models import (
         Model,
@@ -43,7 +45,9 @@ class NoLLMModel(Model):
         default_model: ModelConfiguration,
         *fallback_models: ModelConfiguration,
     ):
-        self.models: list[ModelPair] = self._get_pydantic_models([default_model, *fallback_models])
+        self.models: list[ModelPair] = self._get_pydantic_models(
+            [default_model, *fallback_models]
+        )
         self._current_model: ModelPair = self.models[0]
 
     @property
@@ -86,8 +90,8 @@ class NoLLMModel(Model):
         """Get merged model settings from no_llm config and user settings."""
         new_model = model.model_copy(deep=True)
         if user_settings is not None:
-            new_model.parameters.set_parameters(**user_settings)
-        return PydanticModelSettings(**new_model.parameters.get_model_parameters().get_parameters())  # type: ignore
+            new_model.set_parameters(ModelParameters.from_pydantic(user_settings))
+        return new_model.to_pydantic_settings()
 
     async def request(
         self,
@@ -100,11 +104,17 @@ class NoLLMModel(Model):
             try:
                 self._current_model = (pyd_model, model)
                 merged_settings = self._get_model_settings(model, model_settings)
-                customized_request_parameters = pyd_model.customize_request_parameters(model_request_parameters)
-                return await pyd_model.request(messages, merged_settings, customized_request_parameters)
+                customized_request_parameters = pyd_model.customize_request_parameters(
+                    model_request_parameters
+                )
+                return await pyd_model.request(
+                    messages, merged_settings, customized_request_parameters
+                )
             except Exception as e:  # noqa: BLE001
                 last_error = e
-                logger.warning(f"Model {model.identity.id} failed, trying next fallback. Error: {e}")
+                logger.warning(
+                    f"Model {model.identity.id} failed, trying next fallback. Error: {e}"
+                )
                 continue
 
         msg = f"All models failed. Last error: {last_error}"
@@ -122,7 +132,9 @@ class NoLLMModel(Model):
             try:
                 self._current_model = (pyd_model, model)
                 merged_settings = self._get_model_settings(model, model_settings)
-                customized_request_parameters = pyd_model.customize_request_parameters(model_request_parameters)
+                customized_request_parameters = pyd_model.customize_request_parameters(
+                    model_request_parameters
+                )
                 async with pyd_model.request_stream(
                     messages, merged_settings, customized_request_parameters
                 ) as response:
@@ -130,7 +142,9 @@ class NoLLMModel(Model):
                     return
             except Exception as e:  # noqa: BLE001
                 last_error = e
-                logger.warning(f"Model {model.identity.id} failed, trying next fallback. Error: {e}")
+                logger.warning(
+                    f"Model {model.identity.id} failed, trying next fallback. Error: {e}"
+                )
                 continue
 
         msg = f"All models failed. Last error: {last_error}"

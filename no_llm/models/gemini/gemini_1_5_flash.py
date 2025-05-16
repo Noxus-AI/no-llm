@@ -38,7 +38,10 @@ class Gemini15FlashConfiguration(ModelConfiguration):
         creator="Google",
     )
 
-    providers: Sequence[Providers] = [VertexProvider(), OpenRouterProvider()]
+    providers: Sequence[Providers] = [
+        VertexProvider(model_family="gemini"),
+        OpenRouterProvider(),
+    ]
 
     mode: ModelMode = ModelMode.CHAT
 
@@ -50,16 +53,24 @@ class Gemini15FlashConfiguration(ModelConfiguration):
         ModelCapability.VISION,
     }
 
-    constraints: ModelConstraints = ModelConstraints(max_input_tokens=1048576, max_output_tokens=8192)
+    constraints: ModelConstraints = ModelConstraints(
+        max_input_tokens=1048576, max_output_tokens=8192
+    )
 
     properties: ModelProperties | None = ModelProperties(
-        speed=SpeedProperties(score=204.3, label="High", description="Average (1-3 seconds)"),
+        speed=SpeedProperties(
+            score=204.3, label="High", description="Average (1-3 seconds)"
+        ),
         quality=QualityProperties(score=74.0, label="High", description="High Quality"),
     )
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.000075, output_price_per_1k=0.0003)),
+        pricing=ModelPricing(
+            token_prices=TokenPrices(
+                input_price_per_1k=0.000075, output_price_per_1k=0.0003
+            )
+        ),
         release_date=datetime(2024, 5, 24),
         data_cutoff_date=datetime(2023, 11, 1),
     )

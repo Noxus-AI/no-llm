@@ -38,7 +38,10 @@ class Gemini15ProConfiguration(ModelConfiguration):
         creator="Google",
     )
 
-    providers: Sequence[Providers] = [VertexProvider(), OpenRouterProvider()]
+    providers: Sequence[Providers] = [
+        VertexProvider(model_family="gemini"),
+        OpenRouterProvider(),
+    ]
 
     mode: ModelMode = ModelMode.CHAT
 
@@ -50,16 +53,26 @@ class Gemini15ProConfiguration(ModelConfiguration):
         ModelCapability.VISION,
     }
 
-    constraints: ModelConstraints = ModelConstraints(max_input_tokens=2097152, max_output_tokens=8192)
+    constraints: ModelConstraints = ModelConstraints(
+        max_input_tokens=2097152, max_output_tokens=8192
+    )
 
     properties: ModelProperties | None = ModelProperties(
-        speed=SpeedProperties(score=64.3, label="Medium", description="Average (1-3 seconds)"),
-        quality=QualityProperties(score=80.0, label="Very High", description="Enterprise Grade Quality"),
+        speed=SpeedProperties(
+            score=64.3, label="Medium", description="Average (1-3 seconds)"
+        ),
+        quality=QualityProperties(
+            score=80.0, label="Very High", description="Enterprise Grade Quality"
+        ),
     )
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.00125, output_price_per_1k=0.005)),
+        pricing=ModelPricing(
+            token_prices=TokenPrices(
+                input_price_per_1k=0.00125, output_price_per_1k=0.005
+            )
+        ),
         release_date=datetime(2024, 5, 24),
         data_cutoff_date=datetime(2023, 11, 1),
     )

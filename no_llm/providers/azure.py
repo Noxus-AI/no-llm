@@ -2,6 +2,7 @@ from collections.abc import Iterator
 from typing import Literal
 
 from pydantic import Field, PrivateAttr
+from pydantic_ai.providers.azure import AzureProvider as PydanticAzureProvider
 
 from no_llm.providers.base import Provider
 from no_llm.providers.env_var import EnvVar
@@ -17,9 +18,12 @@ class AzureProvider(Provider):
         description="Name of environment variable containing API key",
     )
     base_url: EnvVar[str] = Field(
-        default_factory=lambda: EnvVar[str]("$AZURE_BASE_URL"), description="Optional base URL override"
+        default_factory=lambda: EnvVar[str]("$AZURE_BASE_URL"),
+        description="Optional base URL override",
     )
-    locations: list[str] = Field(default=["eastus", "eastus2"], description="Azure regions")
+    locations: list[str] = Field(
+        default=["eastus", "eastus2"], description="Azure regions"
+    )
     _value: str | None = PrivateAttr(default=None)
 
     def iter(self) -> Iterator[Provider]:
@@ -38,3 +42,9 @@ class AzureProvider(Provider):
 
     def reset_variants(self) -> None:
         self._value = None
+
+    def to_pydantic(self) -> PydanticAzureProvider:
+        return PydanticAzureProvider(
+            api_key=str(self.api_key),
+            azure_endpoint=str(self.base_url),
+        )

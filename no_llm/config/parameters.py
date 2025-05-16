@@ -4,7 +4,8 @@ from enum import Enum
 from typing import Any, Generic, Literal, TypeVar
 
 from loguru import logger
-from pydantic import BaseModel, Field, model_serializer, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_serializer, model_validator
+from pydantic_ai.settings import ModelSettings
 
 from no_llm.config.enums import ModelCapability
 from no_llm.config.errors import (
@@ -498,17 +499,9 @@ class ConfigurableModelParameters(BaseModel):
 
         return result
 
-    def set_parameters(self, parameters: dict[str, Any] | ModelParameters) -> None:
-        """Set parameters from a dictionary"""
-        if isinstance(parameters, ModelParameters):
-            parameters = parameters.model_dump()
-
-        for key, value in parameters.items():
-            if key in self.model_fields:
-                setattr(self, key, value)
-
 
 class ModelParameters(BaseModel):
+    model_config = ConfigDict(extra="ignore")
     temperature: float | NotGiven = Field(
         default=NOT_GIVEN,
         description="Controls randomness in generation",
@@ -579,10 +572,6 @@ class ModelParameters(BaseModel):
             }
         )
 
-    def get_parameters(self) -> dict[str, Any]:
-        """Get all parameter values"""
-        return self.model_dump(exclude_defaults=True)
-
     def dump_parameters(
         self, with_defaults: bool = False, model_override: str | None = None
     ) -> dict[str, Any]:
@@ -599,3 +588,14 @@ class ModelParameters(BaseModel):
             )
             params.update(override_params)
         return params
+
+    @classmethod
+    def from_pydantic(cls, model_settings: ModelSettings) -> ModelParameters:
+        model_settings.pop("extra_body")
+        model_settings.pop("extra_headers")
+        model_settings.pop("stop_sequences")
+        model_settings.pop("parallel_tool_calls")
+        extra = {**model_settings}
+        # if "openai_reasoning_effort" in model_settings:
+        #     extra["reasoning_effort"] = model_settings.pop("openai_reasoning_effort")
+        return ModelParameters(**extra)
