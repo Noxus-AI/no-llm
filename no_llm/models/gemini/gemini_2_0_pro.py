@@ -38,7 +38,7 @@ class Gemini20ProConfiguration(ModelConfiguration):
         creator="Google",
     )
 
-    providers: Sequence[Providers] = [VertexProvider()]
+    providers: Sequence[Providers] = [VertexProvider(model_family="gemini")]
 
     mode: ModelMode = ModelMode.CHAT
 
@@ -90,7 +90,9 @@ class Gemini20ProConfiguration(ModelConfiguration):
         )
         top_k: ParameterValue[int | NotGiven] = Field(
             default_factory=lambda: ParameterValue[int | NotGiven](
-                variant=ParameterVariant.VARIABLE, value=20, validation_rule=RangeValidation(min_value=1, max_value=100)
+                variant=ParameterVariant.VARIABLE,
+                value=20,
+                validation_rule=RangeValidation(min_value=1, max_value=100),
             )
         )
         frequency_penalty: ParameterValue[float | NotGiven] = Field(

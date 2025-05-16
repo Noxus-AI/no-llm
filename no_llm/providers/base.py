@@ -1,13 +1,16 @@
 from __future__ import annotations
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, get_args
 
-from pydantic import BaseModel, Field, PrivateAttr, model_serializer, model_validator
+from pydantic import BaseModel, Field, model_serializer, model_validator
 
 from no_llm.providers.env_var import EnvVar
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
+
+    from pydantic_ai.providers import Provider as PydanticProvider
 
 
 class ParameterMapping(BaseModel):
@@ -20,9 +23,9 @@ class Provider(BaseModel):
 
     name: str = Field(description="Provider name for display")
     parameter_mappings: dict[str, ParameterMapping] = Field(
-        default_factory=dict, description="Mapping of standard parameters to provider-specific parameters"
+        default_factory=dict,
+        description="Mapping of standard parameters to provider-specific parameters",
     )
-    _iterator_index: int = PrivateAttr(default=0)
 
     def iter(self) -> Iterator[Provider]:
         """Default implementation yields just the provider itself"""
@@ -49,22 +52,6 @@ class Provider(BaseModel):
                 result[field_name] = value
         return result
 
-    def map_parameters(self, params: dict[str, Any]) -> dict[str, Any]:
-        """Maps standard parameters to provider-specific parameters."""
-        result = {}
-        for param_name, value in params.items():
-            mapping = self.parameter_mappings.get(param_name)
-            if mapping:
-                if mapping.supported:
-                    result[mapping.name] = value
-            else:
-                result[param_name] = value
-        return result  # type: ignore
-
-    def reset_iterator(self) -> None:
-        """Reset iteration state"""
-        self._iterator_index = 0
-
     @model_validator(mode="before")
     @classmethod
     def convert_env_vars(cls, data: Any) -> Any:
@@ -85,3 +72,7 @@ class Provider(BaseModel):
                     data[field_name] = EnvVar(value)
 
         return data
+
+    @abstractmethod
+    def to_pydantic(self) -> PydanticProvider:
+        """Convert provider to Pydantic provider"""

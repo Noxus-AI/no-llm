@@ -4,13 +4,18 @@ from collections.abc import Iterator, Sequence
 from typing import Any, Literal
 
 from pydantic import BaseModel, Field
+from pydantic_ai.settings import ModelSettings
 
 from no_llm.config.benchmarks import BenchmarkScores
 from no_llm.config.enums import ModelCapability, ModelMode
 from no_llm.config.errors import MissingCapabilitiesError
 from no_llm.config.integrations import IntegrationAliases
 from no_llm.config.metadata import ModelMetadata
-from no_llm.config.parameters import ConfigurableModelParameters, ModelParameters
+from no_llm.config.parameters import (
+    NOT_GIVEN,
+    ConfigurableModelParameters,
+    ModelParameters,
+)
 from no_llm.config.properties import ModelProperties
 from no_llm.providers import Provider, Providers
 
@@ -43,7 +48,8 @@ class ModelConfiguration(BaseModel):
     constraints: ModelConstraints
     properties: ModelProperties | None = Field(default=None, description="Model properties")
     parameters: ConfigurableModelParameters = Field(
-        default_factory=ConfigurableModelParameters, description="Model parameters with their constraints"
+        default_factory=ConfigurableModelParameters,
+        description="Model parameters with their constraints",
     )
     metadata: ModelMetadata
     benchmarks: BenchmarkScores | None = Field(default=None, description="Model benchmark scores")
@@ -73,23 +79,25 @@ class ModelConfiguration(BaseModel):
         output_cost = output_tokens * self.metadata.pricing.token_prices.output_price_per_1k / 1000
         return input_cost, output_cost
 
-    def from_parameters(self, **kwargs) -> ModelConfiguration:
-        new = self.model_copy()
-        new.parameters.set_parameters(**kwargs)
-        return new
+    @classmethod
+    def from_config(cls, config: dict[str, Any]) -> ModelConfiguration:
+        parameters = ConfigurableModelParameters.from_config(config.pop("parameters"))
+        return cls(**config, parameters=parameters)
 
-    def from_model_parameters(self, model_parameters: ModelParameters) -> ModelConfiguration:
-        new = self.model_copy()
-        new.parameters.set_parameters(**model_parameters.get_parameters())
-        return new
+    def set_parameters(self, parameters: ModelParameters) -> None:
+        """Set parameters from a dictionary"""
+        copied_parameters = parameters.model_copy(deep=True)
+        if (
+            copied_parameters.model_override
+            and copied_parameters.model_override != NOT_GIVEN
+            and self.identity.id in copied_parameters.model_override
+        ):
+            copied_parameters = copied_parameters & copied_parameters.model_override[self.identity.id]
 
-    def get_parameters(self, overrides: ModelParameters | None = None) -> ModelParameters:
-        copied_self = self.model_copy()
-        if overrides is not None:
-            copied_self.parameters.set_parameters(**overrides.dump_parameters(with_defaults=False))
+        for key, value in copied_parameters.model_dump(exclude_defaults=True).items():
+            if key in self.parameters.model_fields:
+                setattr(self.parameters, key, value)
 
-        params = copied_self.parameters.get_parameters()
-        return ModelParameters(**params)
-
-    def set_parameters(self, model_parameters: ModelParameters) -> None:
-        self.parameters.set_parameters(**model_parameters.dump_parameters(with_defaults=False))
+    def to_pydantic_settings(self) -> ModelSettings:
+        # TODO: translate to each specific model
+        return ModelSettings(**self.parameters.model_dump())

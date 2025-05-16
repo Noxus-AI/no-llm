@@ -49,7 +49,7 @@ class MistralLargeConfiguration(ModelConfiguration):
     )
 
     providers: Sequence[Providers] = [
-        VertexProvider(),
+        VertexProvider(model_family="mistral"),
         BedrockProvider(),
         OpenRouterProvider(),
         FireworksProvider(),

@@ -38,7 +38,10 @@ class Gemini20FlashLiteConfiguration(ModelConfiguration):
         creator="Google",
     )
 
-    providers: Sequence[Providers] = [VertexProvider(), OpenRouterProvider()]
+    providers: Sequence[Providers] = [
+        VertexProvider(model_family="gemini"),
+        OpenRouterProvider(),
+    ]
 
     mode: ModelMode = ModelMode.CHAT
 

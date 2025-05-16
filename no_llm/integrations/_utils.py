@@ -1,9 +1,6 @@
 import sys
-from typing import cast
 
-from anthropic import AsyncAnthropicVertex
 from loguru import logger
-from mistralai_gcp import MistralGoogleCloud
 from pydantic_ai.models import (
     Model,
 )
@@ -12,13 +9,6 @@ from pydantic_ai.models.gemini import GeminiModel
 from pydantic_ai.models.groq import GroqModel
 from pydantic_ai.models.mistral import MistralModel
 from pydantic_ai.models.openai import OpenAIModel
-from pydantic_ai.providers.anthropic import AnthropicProvider as PydanticAnthropicProvider
-from pydantic_ai.providers.azure import AzureProvider as PydanticAzureProvider
-from pydantic_ai.providers.google_vertex import GoogleVertexProvider as PydanticVertexProvider
-from pydantic_ai.providers.google_vertex import VertexAiRegion
-from pydantic_ai.providers.groq import GroqProvider as PydanticGroqProvider
-from pydantic_ai.providers.mistral import MistralProvider as PydanticMistralProvider
-from pydantic_ai.providers.openai import OpenAIProvider as PydanticOpenAIProvider
 
 from no_llm.config.enums import ModelMode
 from no_llm.config.model import ModelConfiguration
@@ -75,13 +65,17 @@ def pydantic_mistral_gcp_patch():
     from mistralai_gcp.models import (
         ToolCall as MistralToolCall,
     )
-    from mistralai_gcp.models.assistantmessage import AssistantMessage as MistralAssistantMessage
+    from mistralai_gcp.models.assistantmessage import (
+        AssistantMessage as MistralAssistantMessage,
+    )
     from mistralai_gcp.models.function import Function as MistralFunction
     from mistralai_gcp.models.systemmessage import SystemMessage as MistralSystemMessage
     from mistralai_gcp.models.toolmessage import ToolMessage as MistralToolMessage
     from mistralai_gcp.models.usermessage import UserMessage as MistralUserMessage
     from mistralai_gcp.types.basemodel import Unset as MistralUnset
-    from mistralai_gcp.utils.eventstreaming import EventStreamAsync as MistralEventStreamAsync
+    from mistralai_gcp.utils.eventstreaming import (
+        EventStreamAsync as MistralEventStreamAsync,
+    )
 
     # from mistralai_gcp.models.imageurl import (
     #     ImageURL as MistralImageURL,
@@ -134,61 +128,42 @@ def _get_pydantic_model(
                     pydantic_mistral_gcp_patch()
                     pyd_model = MistralModel(
                         model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
-                        provider=PydanticMistralProvider(
-                            mistral_client=MistralGoogleCloud(  # type: ignore
-                                project_id=str(provider.project_id), region=str(provider.current)
-                            ),
-                        ),
+                        provider=provider.to_pydantic(),  # type: ignore
                     )
                 elif "claude" in model_cfg.identity.id:
                     pyd_model = AnthropicModel(
                         model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
-                        provider=PydanticAnthropicProvider(
-                            anthropic_client=AsyncAnthropicVertex(  # type: ignore
-                                project_id=str(provider.project_id), region=str(provider.current)
-                            ),
-                        ),
+                        provider=provider.to_pydantic(),  # type: ignore
                     )
                 elif "gemini" in model_cfg.identity.id:
                     pyd_model = GeminiModel(
                         model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
-                        provider=PydanticVertexProvider(
-                            region=cast(VertexAiRegion, provider.current),
-                            project_id=str(provider.project_id),
-                        ),
+                        provider=provider.to_pydantic(),  # type: ignore
                     )
             elif isinstance(provider, AnthropicProvider):
                 pyd_model = AnthropicModel(
                     model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
-                    provider=PydanticAnthropicProvider(
-                        api_key=str(provider.api_key),
-                    ),
+                    provider=provider.to_pydantic(),
                 )
             elif isinstance(provider, MistralProvider):
                 pyd_model = MistralModel(
                     model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
-                    provider=PydanticMistralProvider(api_key=str(provider.api_key)),
+                    provider=provider.to_pydantic(),
                 )
             elif isinstance(provider, GroqProvider):
                 pyd_model = GroqModel(
                     model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
-                    provider=PydanticGroqProvider(api_key=str(provider.api_key)),
+                    provider=provider.to_pydantic(),
                 )
             elif isinstance(provider, OpenRouterProvider):
                 pyd_model = OpenAIModel(
                     model_name=model_cfg.integration_aliases.openrouter or model_cfg.identity.id,
-                    provider=PydanticOpenAIProvider(api_key=str(provider.api_key), base_url=str(provider.base_url)),
-                )
-            elif isinstance(provider, AzureProvider):
-                pyd_model = OpenAIModel(
-                    model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
-                    provider=PydanticAzureProvider(
-                        api_key=str(provider.api_key), azure_endpoint=str(provider.base_url)
-                    ),
+                    provider=provider.to_pydantic(),
                 )
             elif isinstance(
                 provider,
-                OpenAIProvider
+                AzureProvider
+                | OpenAIProvider
                 | DeepseekProvider
                 | PerplexityProvider
                 | FireworksProvider
@@ -197,7 +172,7 @@ def _get_pydantic_model(
             ):
                 pyd_model = OpenAIModel(
                     model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
-                    provider=PydanticOpenAIProvider(api_key=str(provider.api_key), base_url=str(provider.base_url)),
+                    provider=provider.to_pydantic(),
                 )
         except Exception as e:  # noqa: BLE001
             logger.opt(exception=e).warning(f"Failed to create model for provider {type(provider).__name__}")

@@ -25,7 +25,13 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
-from no_llm.providers import AnthropicProvider, BedrockProvider, OpenRouterProvider, Providers, VertexProvider
+from no_llm.providers import (
+    AnthropicProvider,
+    BedrockProvider,
+    OpenRouterProvider,
+    Providers,
+    VertexProvider,
+)
 
 
 class Claude35HaikuConfiguration(ModelConfiguration):
@@ -64,7 +70,12 @@ class Claude35HaikuConfiguration(ModelConfiguration):
     )
 
     mode: ModelMode = ModelMode.CHAT
-    providers: Sequence[Providers] = [VertexProvider(), BedrockProvider(), AnthropicProvider(), OpenRouterProvider()]
+    providers: Sequence[Providers] = [
+        VertexProvider(model_family="claude"),
+        BedrockProvider(),
+        AnthropicProvider(),
+        OpenRouterProvider(),
+    ]
 
     capabilities: set[ModelCapability] = {
         ModelCapability.STREAMING,

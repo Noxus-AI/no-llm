@@ -1,15 +1,23 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Any, Generic, Literal, TypeVar
+from typing import TYPE_CHECKING, Any, Generic, Literal, TypeVar
 
 from loguru import logger
-from pydantic import BaseModel, Field, model_serializer, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_serializer, model_validator
 
 from no_llm.config.enums import ModelCapability
-from no_llm.config.errors import FixedParameterError, InvalidEnumError, InvalidRangeError, UnsupportedParameterError
+from no_llm.config.errors import (
+    FixedParameterError,
+    InvalidEnumError,
+    InvalidRangeError,
+    UnsupportedParameterError,
+)
 from no_llm.settings import ValidationMode
 from no_llm.settings import settings as no_llm_settings
+
+if TYPE_CHECKING:
+    from pydantic_ai.settings import ModelSettings
 
 V = TypeVar("V")
 NotGiven = Literal["NOT_GIVEN"]
@@ -53,7 +61,10 @@ class EnumValidation(ValidationRule):
 
         if value not in self.allowed_values:
             raise InvalidEnumError(
-                param_name="value", value=value, reason="Value not in allowed values", valid_values=self.allowed_values
+                param_name="value",
+                value=value,
+                reason="Value not in allowed values",
+                valid_values=self.allowed_values,
             )
 
 
@@ -106,7 +117,11 @@ class ParameterValue(BaseModel, Generic[V]):
 
     @classmethod
     def create_variable(cls, value: V, required_capability: ModelCapability | None = None) -> ParameterValue[V]:
-        return cls(variant=ParameterVariant.VARIABLE, value=value, required_capability=required_capability)
+        return cls(
+            variant=ParameterVariant.VARIABLE,
+            value=value,
+            required_capability=required_capability,
+        )
 
     def check_capability(self, capabilities: set[ModelCapability]) -> ParameterValue[V]:
         """Check if this parameter is supported given the capabilities.
@@ -114,7 +129,9 @@ class ParameterValue(BaseModel, Generic[V]):
         """
         if self.required_capability and self.required_capability not in capabilities:
             return ParameterValue(
-                variant=ParameterVariant.UNSUPPORTED, value=None, required_capability=self.required_capability
+                variant=ParameterVariant.UNSUPPORTED,
+                value=None,
+                required_capability=self.required_capability,
             )
         return self
 
@@ -122,7 +139,10 @@ class ParameterValue(BaseModel, Generic[V]):
         """Validate a new value against this parameter's constraints"""
         if self.is_fixed() and new_value != self.value:
             raise FixedParameterError(
-                param_name=field_name, current_value=self.value, attempted_value=new_value, description=None
+                param_name=field_name,
+                current_value=self.value,
+                attempted_value=new_value,
+                description=None,
             )
         if new_value != NOT_GIVEN and self.validation_rule is not None:
             self.validation_rule.validate_value(new_value)
@@ -139,7 +159,10 @@ class ParameterValue(BaseModel, Generic[V]):
         result: dict[str, Any] = {"value": self.value}
 
         if isinstance(self.validation_rule, RangeValidation):
-            result["range"] = [self.validation_rule.min_value, self.validation_rule.max_value]
+            result["range"] = [
+                self.validation_rule.min_value,
+                self.validation_rule.max_value,
+            ]
         elif isinstance(self.validation_rule, EnumValidation):
             result["values"] = self.validation_rule.allowed_values
 
@@ -241,20 +264,24 @@ class ConfigurableModelParameters(BaseModel):
 
     include_reasoning: ParameterValue[bool | NotGiven] = Field(
         default_factory=lambda: ParameterValue[bool | NotGiven](
-            variant=ParameterVariant.VARIABLE, value=NOT_GIVEN, required_capability=ModelCapability.REASONING
+            variant=ParameterVariant.VARIABLE,
+            value=NOT_GIVEN,
+            required_capability=ModelCapability.REASONING,
         ),
         description="Whether to include reasoning steps",
     )
     reasoning_effort: ParameterValue[Literal["low", "medium", "high"] | NotGiven] = Field(
         default_factory=lambda: ParameterValue[Literal["low", "medium", "high"] | NotGiven](
-            variant=ParameterVariant.VARIABLE, value=NOT_GIVEN, required_capability=ModelCapability.REASONING
+            variant=ParameterVariant.VARIABLE,
+            value=NOT_GIVEN,
+            required_capability=ModelCapability.REASONING,
         ),
         description="Reasoning level",
     )
 
-    @model_validator(mode="before")
+    # @model_validator(mode="before")
     @classmethod
-    def parse_yaml(cls, data: dict[str, Any]) -> dict[str, Any]:
+    def from_config(cls, data: dict[str, Any]) -> ConfigurableModelParameters:
         """Extract capabilities from field defaults and handle YAML parsing."""
         if not isinstance(data, dict):
             return data
@@ -271,11 +298,17 @@ class ConfigurableModelParameters(BaseModel):
 
                         # Handle shorthand formats
                         if value == "unsupported":
-                            data[field_name] = {"variant": ParameterVariant.UNSUPPORTED, "value": None}
+                            data[field_name] = {
+                                "variant": ParameterVariant.UNSUPPORTED,
+                                "value": None,
+                            }
                             continue
 
                         if not isinstance(value, dict):
-                            data[field_name] = {"variant": ParameterVariant.FIXED, "value": value}
+                            data[field_name] = {
+                                "variant": ParameterVariant.FIXED,
+                                "value": value,
+                            }
                             continue
 
                         result = {}
@@ -308,118 +341,147 @@ class ConfigurableModelParameters(BaseModel):
 
                         data[field_name] = result
 
-        return data
+        return cls(**data)
 
-    def get_parameters(self) -> dict[str, Any]:
-        values = {}
-        for field_name in self.__class__.model_fields:
-            value = getattr(self, field_name)
-            if isinstance(value, ParameterValue) and not value.is_unsupported():
-                gotten_value = value.get()
-                if gotten_value is not None:
-                    values[field_name] = gotten_value
-        return values
+    def validate_parameter(
+        self,
+        field_name: str,
+        value: Any,
+        capabilities: set[ModelCapability] | None = None,
+    ) -> Any:
+        """Validate a single parameter value, raising errors if invalid."""
+        if not hasattr(self, field_name):
+            msg = f"Unknown parameter: {field_name}"
+            raise ValueError(msg)
 
-    def validate_parameters(self, drop_unsupported: bool = True, **kwargs) -> dict[str, Any]:
-        capabilities = kwargs.pop("capabilities", set())
-        settings = {}
+        current_value = getattr(self, field_name)
+        if not isinstance(current_value, ParameterValue):
+            return value
 
-        for field_name, field in self.__class__.model_fields.items():
-            value = getattr(self, field_name)
-            description = field.description
+        # Check capabilities
+        current_value = current_value.check_capability(capabilities or set())
+        if current_value.is_unsupported():
+            raise UnsupportedParameterError(
+                param_name=field_name,
+                required_capability=str(current_value.required_capability),
+                description=self.model_fields[field_name].description,
+            )
 
+        # Validate the value
+        current_value.validate_new_value(value, field_name)
+        return value
+
+    def _handle_validation_error(
+        self,
+        error: Exception,
+        field_name: str,
+        value: Any,
+        param_value: ParameterValue[Any],
+    ) -> ParameterValue[Any] | None:
+        """Handle validation errors according to validation mode settings.
+        Returns new ParameterValue if value should be updated, None otherwise."""
+        if isinstance(error, FixedParameterError):
+            if no_llm_settings.validation_mode == ValidationMode.ERROR:
+                raise error
+            logger.warning(f"Invalid parameter value for {field_name}: {error}")
+            return None
+
+        if isinstance(error, InvalidRangeError):
+            if no_llm_settings.validation_mode == ValidationMode.ERROR:
+                raise error
+            if no_llm_settings.validation_mode == ValidationMode.WARN:
+                logger.warning(f"Invalid parameter value for {field_name}: {error}")
+                return None
+            if no_llm_settings.validation_mode == ValidationMode.CLAMP:
+                logger.warning(f"Clamping invalid parameter value for {field_name}: {error}")
+                clamped_value = error.valid_range[0] if value < error.valid_range[0] else error.valid_range[1]
+                return ParameterValue(
+                    variant=param_value.variant,
+                    value=clamped_value,
+                    validation_rule=param_value.validation_rule,
+                    required_capability=param_value.required_capability,
+                )
+            return None
+
+        if isinstance(error, InvalidEnumError | UnsupportedParameterError):
+            if no_llm_settings.validation_mode == ValidationMode.ERROR:
+                raise error
+            logger.warning(f"Invalid parameter value for {field_name}: {error}")
+            return None
+
+        raise error  # Re-raise unexpected errors
+
+    def _validate_and_update_parameter(
+        self,
+        field_name: str,
+        value: Any,
+        capabilities: set[ModelCapability] | None = None,
+    ) -> None:
+        """Validate and update a parameter value, handling any validation errors."""
+        current_value = getattr(self, field_name)
+        try:
+            validated_value = self.validate_parameter(field_name, value, capabilities)
+            if isinstance(current_value, ParameterValue):
+                super().__setattr__(
+                    field_name,
+                    ParameterValue(
+                        variant=current_value.variant,
+                        value=validated_value,
+                        validation_rule=current_value.validation_rule,
+                        required_capability=current_value.required_capability,
+                    ),
+                )
+        except (
+            FixedParameterError,
+            InvalidRangeError,
+            InvalidEnumError,
+            UnsupportedParameterError,
+        ) as e:
+            new_value = self._handle_validation_error(e, field_name, value, current_value)
+            if new_value is not None:
+                super().__setattr__(field_name, new_value)
+
+    def __setattr__(self, name: str, value: Any) -> None:
+        """Override setattr to validate parameters when set directly."""
+        if name in self.model_fields:
             if isinstance(value, ParameterValue):
-                value = value.check_capability(capabilities)
+                super().__setattr__(name, value)
+                return
+            self._validate_and_update_parameter(name, value)
+            return
+        super().__setattr__(name, value)
 
-                if value.is_unsupported():
-                    if field_name in kwargs:
-                        if drop_unsupported:
-                            logger.warning(f"Dropping unsupported parameter: {field_name}")
-                            kwargs.pop(field_name, None)
-                        else:
-                            raise UnsupportedParameterError(
-                                param_name=field_name,
-                                required_capability=str(value.required_capability),
-                                description=description,
-                            )
-                    continue
-
-                if field_name in kwargs:
-                    try:
-                        if kwargs[field_name] != NOT_GIVEN:
-                            value.validate_new_value(kwargs[field_name], field_name)
-                        settings[field_name] = kwargs[field_name]
-                    except (FixedParameterError, InvalidRangeError, InvalidEnumError) as e:
-                        if isinstance(e, InvalidEnumError | InvalidRangeError):
-                            e.param_name = field_name
-
-                        if no_llm_settings.validation_mode == ValidationMode.ERROR:
-                            raise
-
-                        if isinstance(e, InvalidRangeError):
-                            if no_llm_settings.validation_mode == ValidationMode.CLAMP:
-                                logger.warning(
-                                    f"Clamping invalid parameter value for {field_name}: {kwargs[field_name]}"
-                                )
-                                settings[field_name] = (
-                                    e.valid_range[0]
-                                    if kwargs[field_name] < e.valid_range[0]
-                                    else e.valid_range[1]
-                                    if kwargs[field_name] > e.valid_range[1]
-                                    else kwargs[field_name]
-                                )
-                        else:
-                            logger.warning(f"Invalid parameter value for {field_name}: {e}")
-                else:
-                    # Convert None values to NOT_GIVEN
-                    gotten_value = value.get()
-                    settings[field_name] = NOT_GIVEN if gotten_value is None else gotten_value
-
-                kwargs.pop(field_name, None)
-        settings.update(kwargs)
-
-        return settings
-
-    def set_parameters(self, capabilities: set[ModelCapability] | None = None, **kwargs) -> None:
-        validated = self.validate_parameters(capabilities=capabilities or set(), drop_unsupported=True, **kwargs)
-
-        for field_name, new_value in validated.items():
-            if hasattr(self, field_name):
-                param_value = getattr(self, field_name)
-                if isinstance(param_value, ParameterValue):
-                    # Create new ParameterValue with updated value but same validation rules
-                    setattr(
-                        self,
-                        field_name,
-                        ParameterValue(
-                            variant=ParameterVariant.VARIABLE,
-                            value=new_value,
-                            validation_rule=param_value.validation_rule,
-                            required_capability=param_value.required_capability,
-                        ),
-                    )
+    @model_validator(mode="after")
+    def validate_parameters(self) -> ConfigurableModelParameters:
+        """Validate all parameters during model initialization."""
+        for field_name in self.model_fields:
+            value = getattr(self, field_name)
+            if isinstance(value, ParameterValue) and value.value != NOT_GIVEN:
+                self._validate_and_update_parameter(field_name, value.value)
+        return self
 
     @model_serializer
     def serialize_model(self) -> dict[str, Any]:
         result = {}
-        for field_name, field in self.__class__.model_fields.items():
+        for field_name in self.__class__.model_fields:
             value = getattr(self, field_name)
             if isinstance(value, ParameterValue):
-                default_factory = getattr(field, "default_factory", None)
-                default_value = default_factory() if default_factory else None
+                # Skip unsupported parameters
+                if value.is_unsupported():
+                    continue
 
-                # Include if unsupported or has non-default, non-null value
-                if value.is_unsupported() or (
-                    value.value is not None and (default_value is None or value.value != default_value.value)
-                ):
-                    result[field_name] = value
+                # Skip NOT_GIVEN values
+                if value.value == NOT_GIVEN:
+                    continue
+
+                # Include the current value for all supported parameters
+                result[field_name] = value.value
+
         return result
-
-    def get_model_parameters(self) -> ModelParameters:
-        return ModelParameters(**self.get_parameters())
 
 
 class ModelParameters(BaseModel):
+    model_config = ConfigDict(extra="ignore")
     temperature: float | NotGiven = Field(
         default=NOT_GIVEN,
         description="Controls randomness in generation",
@@ -484,12 +546,11 @@ class ModelParameters(BaseModel):
     def __and__(self, other: ModelParameters) -> ModelParameters:
         """Merge two ModelParameters objects with right-hand overrides"""
         return ModelParameters(
-            **{**other.dump_parameters(with_defaults=False), **self.dump_parameters(with_defaults=False)}
+            **{
+                **other.dump_parameters(with_defaults=False),
+                **self.dump_parameters(with_defaults=False),
+            }
         )
-
-    def get_parameters(self) -> dict[str, Any]:
-        """Get all parameter values"""
-        return self.model_dump(exclude_defaults=True)
 
     def dump_parameters(self, with_defaults: bool = False, model_override: str | None = None) -> dict[str, Any]:
         """Get all parameter values"""
@@ -503,3 +564,14 @@ class ModelParameters(BaseModel):
             override_params = self.model_override[model_override].dump_parameters(with_defaults=not with_defaults)
             params.update(override_params)
         return params
+
+    @classmethod
+    def from_pydantic(cls, model_settings: ModelSettings) -> ModelParameters:
+        model_settings.pop("extra_body")
+        model_settings.pop("extra_headers")
+        model_settings.pop("stop_sequences")
+        model_settings.pop("parallel_tool_calls")
+        extra = {**model_settings}
+        # if "openai_reasoning_effort" in model_settings:
+        #     extra["reasoning_effort"] = model_settings.pop("openai_reasoning_effort")
+        return ModelParameters(**extra)

@@ -68,7 +68,7 @@ class O3Configuration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0011, output_price_per_1k=0.0044)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.01, output_price_per_1k=0.04)),
         release_date=datetime(2024, 9, 12),
         data_cutoff_date=datetime(2023, 10, 1),
     )

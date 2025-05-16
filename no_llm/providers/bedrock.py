@@ -2,6 +2,7 @@ from collections.abc import Iterator
 from typing import Literal
 
 from pydantic import Field, PrivateAttr
+from pydantic_ai.providers.bedrock import BedrockProvider as PydanticBedrockProvider
 
 from no_llm.providers.base import Provider
 from no_llm.providers.env_var import EnvVar
@@ -32,3 +33,8 @@ class BedrockProvider(Provider):
 
     def reset_variants(self) -> None:
         self._value = None
+
+    def to_pydantic(self) -> PydanticBedrockProvider:
+        return PydanticBedrockProvider(
+            region_name=str(self.region),
+        )

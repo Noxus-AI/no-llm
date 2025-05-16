@@ -4,13 +4,14 @@ from contextlib import asynccontextmanager
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
+from no_llm.config.parameters import ModelParameters
+
 try:
     from pydantic_ai.models import (
         Model,
         ModelRequestParameters,
         StreamedResponse,
     )
-    from pydantic_ai.settings import ModelSettings as PydanticModelSettings
 except ImportError as _import_error:
     msg = (
         "Please install pydantic-ai to use the Pydantic AI integration, "
@@ -31,6 +32,7 @@ if TYPE_CHECKING:
         ModelMessage,
         ModelResponse,
     )
+    from pydantic_ai.settings import ModelSettings as PydanticModelSettings
 
 ToolName = str
 ModelPair = tuple[Model, ModelConfiguration]
@@ -86,8 +88,8 @@ class NoLLMModel(Model):
         """Get merged model settings from no_llm config and user settings."""
         new_model = model.model_copy(deep=True)
         if user_settings is not None:
-            new_model.parameters.set_parameters(**user_settings)
-        return PydanticModelSettings(**new_model.parameters.get_model_parameters().get_parameters())  # type: ignore
+            new_model.set_parameters(ModelParameters.from_pydantic(user_settings))
+        return new_model.to_pydantic_settings()
 
     async def request(
         self,

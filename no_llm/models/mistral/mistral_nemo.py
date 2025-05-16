@@ -49,7 +49,7 @@ class MistralNemoConfiguration(ModelConfiguration):
     )
 
     providers: Sequence[Providers] = [
-        VertexProvider(),
+        VertexProvider(model_family="mistral"),
         BedrockProvider(),
         OpenRouterProvider(),
         MistralProvider(),
