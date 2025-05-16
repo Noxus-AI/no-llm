@@ -60,26 +60,16 @@ class Claude3OpusConfiguration(ModelConfiguration):
         ModelCapability.VISION,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-        max_input_tokens=200000, max_output_tokens=4096
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=200000, max_output_tokens=4096)
 
     properties: ModelProperties | None = ModelProperties(
-        speed=SpeedProperties(
-            score=25.3, label="Slow", description="Slow (2-5 seconds)"
-        ),
-        quality=QualityProperties(
-            score=70.0, label="Very High", description="Very High Quality"
-        ),
+        speed=SpeedProperties(score=25.3, label="Slow", description="Slow (2-5 seconds)"),
+        quality=QualityProperties(score=70.0, label="Very High", description="Very High Quality"),
     )
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(
-            token_prices=TokenPrices(
-                input_price_per_1k=0.015, output_price_per_1k=0.075
-            )
-        ),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.015, output_price_per_1k=0.075)),
         release_date=datetime(2024, 5, 31),
         data_cutoff_date=datetime(2023, 8, 1),
     )

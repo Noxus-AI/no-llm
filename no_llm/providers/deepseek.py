@@ -18,9 +18,7 @@ class DeepseekProvider(OpenAIProvider):
         default_factory=lambda: EnvVar[str]("$DEEPSEEK_API_KEY"),
         description="Name of environment variable containing API key",
     )
-    base_url: str | None = Field(
-        default="https://api.deepseek.com", description="Base URL for Deepseek API"
-    )
+    base_url: str | None = Field(default="https://api.deepseek.com", description="Base URL for Deepseek API")
 
     def to_pydantic(self) -> PydanticOpenAIProvider:
         return PydanticOpenAIProvider(

@@ -12,7 +12,6 @@ try:
         ModelRequestParameters,
         StreamedResponse,
     )
-    from pydantic_ai.settings import ModelSettings as PydanticModelSettings
 except ImportError as _import_error:
     msg = (
         "Please install pydantic-ai to use the Pydantic AI integration, "
@@ -33,6 +32,7 @@ if TYPE_CHECKING:
         ModelMessage,
         ModelResponse,
     )
+    from pydantic_ai.settings import ModelSettings as PydanticModelSettings
 
 ToolName = str
 ModelPair = tuple[Model, ModelConfiguration]
@@ -45,9 +45,7 @@ class NoLLMModel(Model):
         default_model: ModelConfiguration,
         *fallback_models: ModelConfiguration,
     ):
-        self.models: list[ModelPair] = self._get_pydantic_models(
-            [default_model, *fallback_models]
-        )
+        self.models: list[ModelPair] = self._get_pydantic_models([default_model, *fallback_models])
         self._current_model: ModelPair = self.models[0]
 
     @property
@@ -104,17 +102,11 @@ class NoLLMModel(Model):
             try:
                 self._current_model = (pyd_model, model)
                 merged_settings = self._get_model_settings(model, model_settings)
-                customized_request_parameters = pyd_model.customize_request_parameters(
-                    model_request_parameters
-                )
-                return await pyd_model.request(
-                    messages, merged_settings, customized_request_parameters
-                )
+                customized_request_parameters = pyd_model.customize_request_parameters(model_request_parameters)
+                return await pyd_model.request(messages, merged_settings, customized_request_parameters)
             except Exception as e:  # noqa: BLE001
                 last_error = e
-                logger.warning(
-                    f"Model {model.identity.id} failed, trying next fallback. Error: {e}"
-                )
+                logger.warning(f"Model {model.identity.id} failed, trying next fallback. Error: {e}")
                 continue
 
         msg = f"All models failed. Last error: {last_error}"
@@ -132,9 +124,7 @@ class NoLLMModel(Model):
             try:
                 self._current_model = (pyd_model, model)
                 merged_settings = self._get_model_settings(model, model_settings)
-                customized_request_parameters = pyd_model.customize_request_parameters(
-                    model_request_parameters
-                )
+                customized_request_parameters = pyd_model.customize_request_parameters(model_request_parameters)
                 async with pyd_model.request_stream(
                     messages, merged_settings, customized_request_parameters
                 ) as response:
@@ -142,9 +132,7 @@ class NoLLMModel(Model):
                     return
             except Exception as e:  # noqa: BLE001
                 last_error = e
-                logger.warning(
-                    f"Model {model.identity.id} failed, trying next fallback. Error: {e}"
-                )
+                logger.warning(f"Model {model.identity.id} failed, trying next fallback. Error: {e}")
                 continue
 
         msg = f"All models failed. Last error: {last_error}"

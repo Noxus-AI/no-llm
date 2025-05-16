@@ -18,9 +18,7 @@ class PerplexityProvider(OpenAIProvider):
         default_factory=lambda: EnvVar[str]("$PERPLEXITY_API_KEY"),
         description="Name of environment variable containing API key",
     )
-    base_url: str | None = Field(
-        default="https://api.perplexity.ai/", description="Base URL for Perplexity API"
-    )
+    base_url: str | None = Field(default="https://api.perplexity.ai/", description="Base URL for Perplexity API")
 
     def to_pydantic(self) -> PydanticOpenAIProvider:
         return PydanticOpenAIProvider(

@@ -77,37 +77,21 @@ def pydantic_mistral_gcp_patch():
     # )
 
     sys.modules["pydantic_ai.models.mistral"].MistralUserMessage = MistralUserMessage  # type: ignore
-    sys.modules[
-        "pydantic_ai.models.mistral"
-    ].MistralSystemMessage = MistralSystemMessage  # type: ignore
-    sys.modules[
-        "pydantic_ai.models.mistral"
-    ].MistralAssistantMessage = MistralAssistantMessage  # type: ignore
+    sys.modules["pydantic_ai.models.mistral"].MistralSystemMessage = MistralSystemMessage  # type: ignore
+    sys.modules["pydantic_ai.models.mistral"].MistralAssistantMessage = MistralAssistantMessage  # type: ignore
     sys.modules["pydantic_ai.models.mistral"].MistralFunction = MistralFunction  # type: ignore
     sys.modules["pydantic_ai.models.mistral"].MistralToolMessage = MistralToolMessage  # type: ignore
-    sys.modules[
-        "pydantic_ai.models.mistral"
-    ].MistralChatCompletionResponse = MistralChatCompletionResponse  # type: ignore
-    sys.modules[
-        "pydantic_ai.models.mistral"
-    ].MistralCompletionEvent = MistralCompletionEvent  # type: ignore
+    sys.modules["pydantic_ai.models.mistral"].MistralChatCompletionResponse = MistralChatCompletionResponse  # type: ignore
+    sys.modules["pydantic_ai.models.mistral"].MistralCompletionEvent = MistralCompletionEvent  # type: ignore
     sys.modules["pydantic_ai.models.mistral"].MistralMessages = MistralMessages  # type: ignore
     sys.modules["pydantic_ai.models.mistral"].MistralTool = MistralTool  # type: ignore
     sys.modules["pydantic_ai.models.mistral"].MistralToolCall = MistralToolCall  # type: ignore
     sys.modules["pydantic_ai.models.mistral"].MistralUnset = MistralUnset  # type: ignore
-    sys.modules[
-        "pydantic_ai.models.mistral"
-    ].MistralEventStreamAsync = MistralEventStreamAsync  # type: ignore
-    sys.modules[
-        "pydantic_ai.models.mistral"
-    ].MistralOptionalNullable = MistralOptionalNullable  # type: ignore
+    sys.modules["pydantic_ai.models.mistral"].MistralEventStreamAsync = MistralEventStreamAsync  # type: ignore
+    sys.modules["pydantic_ai.models.mistral"].MistralOptionalNullable = MistralOptionalNullable  # type: ignore
     sys.modules["pydantic_ai.models.mistral"].MistralTextChunk = MistralTextChunk  # type: ignore
-    sys.modules[
-        "pydantic_ai.models.mistral"
-    ].MistralToolChoiceEnum = MistralToolChoiceEnum  # type: ignore
-    sys.modules[
-        "pydantic_ai.models.mistral"
-    ].MistralCompletionChunk = MistralCompletionChunk  # type: ignore
+    sys.modules["pydantic_ai.models.mistral"].MistralToolChoiceEnum = MistralToolChoiceEnum  # type: ignore
+    sys.modules["pydantic_ai.models.mistral"].MistralCompletionChunk = MistralCompletionChunk  # type: ignore
     sys.modules["pydantic_ai.models.mistral"].MistralContent = MistralContent  # type: ignore
     sys.modules["pydantic_ai.models.mistral"].MistralContentChunk = MistralContentChunk  # type: ignore
     sys.modules["pydantic_ai.models.mistral"].MistralFunctionCall = MistralFunctionCall  # type: ignore
@@ -120,9 +104,7 @@ class VertexProvider(Provider):
 
     type: Literal["vertex"] = "vertex"
     name: str = "Vertex AI"
-    project_id: EnvVar[str] = Field(
-        default_factory=lambda: EnvVar[str]("$VERTEX_PROJECT_ID")
-    )
+    project_id: EnvVar[str] = Field(default_factory=lambda: EnvVar[str]("$VERTEX_PROJECT_ID"))
     locations: list[str] = Field(default=["us-central1", "europe-west1"])
     model_family: Literal["gemini", "claude", "mistral", "llama"] = Field(
         description="The family of models to use",
@@ -148,11 +130,7 @@ class VertexProvider(Provider):
 
     def to_pydantic(
         self,
-    ) -> (
-        PydanticGoogleVertexProvider
-        | PydanticAnthropicProvider
-        | PydanticMistralProvider
-    ):
+    ) -> PydanticGoogleVertexProvider | PydanticAnthropicProvider | PydanticMistralProvider:
         if self.model_family == "gemini":
             return PydanticGoogleVertexProvider(
                 project_id=str(self.project_id),
@@ -174,6 +152,7 @@ class VertexProvider(Provider):
                 ),
             )
         elif self.model_family == "llama":
-            raise NotImplementedError("LLama is not supported in Vertex AI")
+            msg = "LLama is not supported in Vertex AI"
+            raise NotImplementedError(msg)
         else:
             assert_never(self.model_family)

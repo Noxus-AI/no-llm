@@ -4,19 +4,18 @@ from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, get_args
 
 from pydantic import BaseModel, Field, model_serializer, model_validator
-from pydantic_ai.providers import Provider as PydanticProvider
 
 from no_llm.providers.env_var import EnvVar
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
 
+    from pydantic_ai.providers import Provider as PydanticProvider
+
 
 class ParameterMapping(BaseModel):
     name: str | None = Field(None, description="Provider-specific parameter name")
-    supported: bool = Field(
-        default=True, description="Whether parameter is supported by provider"
-    )
+    supported: bool = Field(default=True, description="Whether parameter is supported by provider")
 
 
 class Provider(BaseModel):
@@ -36,10 +35,7 @@ class Provider(BaseModel):
     def has_valid_env(self) -> bool:
         """Check if all required environment variables are set"""
         for field_name, field in self.__class__.model_fields.items():
-            if (
-                field.annotation == EnvVar[str]
-                and not getattr(self, field_name).is_valid()
-            ):
+            if field.annotation == EnvVar[str] and not getattr(self, field_name).is_valid():
                 return False
         return True
 
@@ -70,10 +66,7 @@ class Provider(BaseModel):
             if not isinstance(value, str) or not value.startswith("$"):
                 continue
 
-            if (
-                field.annotation
-                and getattr(field.annotation, "__origin__", None) is EnvVar
-            ):
+            if field.annotation and getattr(field.annotation, "__origin__", None) is EnvVar:
                 args = get_args(field.annotation)
                 if args and args[0] is str:
                     data[field_name] = EnvVar(value)

@@ -49,24 +49,16 @@ class Gemini20FlashThinkingConfiguration(ModelConfiguration):
         ModelCapability.SYSTEM_PROMPT,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-        max_input_tokens=1048576, max_output_tokens=8192
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=1048576, max_output_tokens=8192)
 
     properties: ModelProperties | None = ModelProperties(
-        speed=SpeedProperties(
-            score=169.0, label="High", description="Average (1-3 seconds)"
-        ),
+        speed=SpeedProperties(score=169.0, label="High", description="Average (1-3 seconds)"),
         quality=QualityProperties(score=85.0, label="High", description="High Quality"),
     )
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[],
-        pricing=ModelPricing(
-            token_prices=TokenPrices(
-                input_price_per_1k=0.00010, output_price_per_1k=0.0004
-            )
-        ),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.00010, output_price_per_1k=0.0004)),
         release_date=datetime(2024, 12, 1),
         data_cutoff_date=datetime(2024, 12, 1),
     )

@@ -67,26 +67,16 @@ class MistralNemoConfiguration(ModelConfiguration):
         ModelCapability.SYSTEM_PROMPT,
     }
 
-    constraints: ModelConstraints = ModelConstraints(
-        max_input_tokens=128000, max_output_tokens=128000
-    )
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=128000, max_output_tokens=128000)
 
     properties: ModelProperties | None = ModelProperties(
-        speed=SpeedProperties(
-            score=136.4, label="Fast", description="Average (0.5-2 seconds)"
-        ),
-        quality=QualityProperties(
-            score=52.0, label="Balanced", description="Balanced Quality"
-        ),
+        speed=SpeedProperties(score=136.4, label="Fast", description="Average (0.5-2 seconds)"),
+        quality=QualityProperties(score=52.0, label="Balanced", description="Balanced Quality"),
     )
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(
-            token_prices=TokenPrices(
-                input_price_per_1k=0.00015, output_price_per_1k=0.00015
-            )
-        ),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.00015, output_price_per_1k=0.00015)),
         release_date=datetime(2024, 7, 24),
         data_cutoff_date=datetime(2023, 12, 1),
     )
@@ -109,9 +99,7 @@ class MistralNemoConfiguration(ModelConfiguration):
             )
         )
         top_p: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](
-                variant=ParameterVariant.FIXED, value=1.0
-            )
+            default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.FIXED, value=1.0)
         )
         top_k: ParameterValue[int | NotGiven] = Field(
             default_factory=lambda: ParameterValue[int | NotGiven](

@@ -21,9 +21,7 @@ class AzureProvider(Provider):
         default_factory=lambda: EnvVar[str]("$AZURE_BASE_URL"),
         description="Optional base URL override",
     )
-    locations: list[str] = Field(
-        default=["eastus", "eastus2"], description="Azure regions"
-    )
+    locations: list[str] = Field(default=["eastus", "eastus2"], description="Azure regions")
     _value: str | None = PrivateAttr(default=None)
 
     def iter(self) -> Iterator[Provider]:

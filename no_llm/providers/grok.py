@@ -17,9 +17,7 @@ class GrokProvider(OpenAIProvider):
         default_factory=lambda: EnvVar[str]("$GROK_API_KEY"),
         description="Name of environment variable containing API key",
     )
-    base_url: str | None = Field(
-        default="https://api.x.ai/v1", description="Base URL for Grok API"
-    )
+    base_url: str | None = Field(default="https://api.x.ai/v1", description="Base URL for Grok API")
 
     def to_pydantic(self) -> PydanticOpenAIProvider:
         return PydanticOpenAIProvider(

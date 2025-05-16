@@ -20,9 +20,7 @@ class AnthropicProvider(Provider):
         default_factory=lambda: EnvVar[str]("$ANTHROPIC_API_KEY"),
         description="Name of environment variable containing API key",
     )
-    base_url: EnvVar[str] | None = Field(
-        default=None, description="Optional base URL override"
-    )
+    base_url: EnvVar[str] | None = Field(default=None, description="Optional base URL override")
 
     def to_pydantic(self) -> PydanticAnthropicProvider:
         return PydanticAnthropicProvider(
