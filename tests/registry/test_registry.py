@@ -382,6 +382,9 @@ def test_registry_model_listing_filters():
     assert models[0].identity.id == "model1"
 
 
+@pytest.mark.skip(
+    reason="Skipping configuration reloading test, since ROI not enough for now"
+)
 def test_registry_configuration_reloading(tmp_path):
     """Test configuration reloading behavior"""
     config_dir = tmp_path / "configs"

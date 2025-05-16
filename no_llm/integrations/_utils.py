@@ -183,21 +183,7 @@ def _get_pydantic_model(
                     or model_cfg.identity.id,
                     provider=provider.to_pydantic(),
                 )
-            elif isinstance(provider, AzureProvider):
-                pyd_model = OpenAIModel(
-                    model_name=model_cfg.integration_aliases.pydantic_ai
-                    or model_cfg.identity.id,
-                    provider=provider.to_pydantic(),
-                )
-            elif isinstance(
-                provider,
-                OpenAIProvider
-                | DeepseekProvider
-                | PerplexityProvider
-                | FireworksProvider
-                | TogetherProvider
-                | GrokProvider,
-            ):
+            elif isinstance(provider, AzureProvider | OpenAIProvider | DeepseekProvider | PerplexityProvider | FireworksProvider | TogetherProvider | GrokProvider):
                 pyd_model = OpenAIModel(
                     model_name=model_cfg.integration_aliases.pydantic_ai
                     or model_cfg.identity.id,

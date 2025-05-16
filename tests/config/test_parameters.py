@@ -8,6 +8,7 @@ from no_llm.config.errors import (
     UnsupportedParameterError,
 )
 from no_llm.config.parameters import (
+    NOT_GIVEN,
     ConfigurableModelParameters,
     EnumValidation,
     ModelParameters,
@@ -133,6 +134,9 @@ def test_model_parameters_capabilities():
 
 def test_model_parameters_unsupported_error():
     """Test handling of unsupported parameters"""
+    from no_llm.settings import ValidationMode, settings
+
+    settings.validation_mode = ValidationMode.ERROR
     params = ConfigurableModelParameters()
 
     params.temperature = ParameterValue(variant=ParameterVariant.VARIABLE, value=0.7)
@@ -144,20 +148,23 @@ def test_model_parameters_unsupported_error():
 
     # Should raise error when trying to get value of unsupported parameter
     with pytest.raises(UnsupportedParameterError):
-        _ = params.include_reasoning.get()
+        _ = params.validate_parameter("include_reasoning", None)
+    settings.validation_mode = ValidationMode.CLAMP
 
 
 def test_fixed_parameter_modification():
     """Test modification of fixed parameters"""
-    params = ConfigurableModelParameters()
+    from no_llm.settings import ValidationMode, settings
 
-    # Create fixed parameter
-    fixed_param = ParameterValue(variant=ParameterVariant.FIXED, value=0.7)
-    params.temperature = fixed_param
+    settings.validation_mode = ValidationMode.ERROR
+    params = ConfigurableModelParameters(
+        temperature=ParameterValue(variant=ParameterVariant.FIXED, value=0.7),
+    )
 
     # Should raise when trying to modify fixed parameter's value
     with pytest.raises(FixedParameterError):
-        fixed_param.value = 0.8
+        params.temperature = 0.8
+    settings.validation_mode = ValidationMode.CLAMP
 
 
 def test_multiple_validation():
@@ -222,7 +229,7 @@ def test_model_parameters_direct_yaml():
             "temperature": 0.7,
             "top_p": {"value": 0.9, "range": [0.0, 1.0]},
             "frequency_penalty": {"value": 0.5},
-            "presence_penalty": {"value": None},
+            "presence_penalty": {"value": 0.5},
             "max_tokens": 100,
             "top_k": "unsupported",
             "include_reasoning": {"value": True, "required_capability": "reasoning"},
@@ -239,7 +246,7 @@ def test_model_parameters_direct_yaml():
         },
     }
 
-    model = ModelConfiguration.model_validate(config)
+    model = ModelConfiguration.from_config(config)
 
     # Test that parameters were loaded correctly
     params = model.parameters
@@ -261,7 +268,7 @@ def test_model_parameters_direct_yaml():
 
     # Test variable with None value
     assert params.presence_penalty.is_variable()
-    assert params.presence_penalty.get() is None
+    assert params.presence_penalty.get() == 0.5
 
     # Test fixed value
     assert params.max_tokens.get() == 100
@@ -275,7 +282,7 @@ def test_model_parameters_direct_yaml():
     assert params.include_reasoning.get() is True
 
     # Test parameter validation
-    values = model.parameters.get_parameters()
+    values = model.parameters.model_dump()
     assert values["temperature"] == 0.7
     assert values["top_p"] == 0.9
     assert values["frequency_penalty"] == 0.5
@@ -284,7 +291,7 @@ def test_model_parameters_direct_yaml():
     assert "top_k" not in values  # Unsupported parameter should be dropped
 
 
-def test_model_parameters_validation(no_llm_error_settings):
+def test_model_parameters_validation():
     """Test parameter validation through model configuration"""
     from no_llm.config.model import ModelConfiguration
 
@@ -325,22 +332,22 @@ def test_model_parameters_validation(no_llm_error_settings):
         },
     }
 
-    model = ModelConfiguration.model_validate(config)
+    model = ModelConfiguration.from_config(config)
 
     # Test fixed parameter modification
     with pytest.raises(FixedParameterError) as exc_info:
-        model.parameters.validate_parameters(temperature=0.8)
+        model.parameters.validate_parameter("temperature", 0.8)
     assert "Cannot modify fixed parameter 'temperature'" in str(exc_info.value)
 
     # Test range validation
     with pytest.raises(InvalidRangeError) as exc_info:
-        model.parameters.validate_parameters(top_p=1.5)  # Outside [0.0, 1.0]
+        model.parameters.validate_parameter("top_p", 1.5)  # Outside [0.0, 1.0]
     assert "Value 1.5 outside range [0.0, 1.0]" in str(exc_info.value)
 
     # Test valid modification
-    values = model.parameters.validate_parameters(top_p=0.5)
-    assert values["temperature"] == 0.7  # Fixed value unchanged
-    assert values["top_p"] == 0.5  # New value within range
+    model.parameters.top_p = 0.5
+    assert model.parameters.top_p.value == 0.5  # New value within range
+    assert model.parameters.temperature.value == 0.7  # Fixed value unchanged
 
 
 def test_parameter_conversion_flow():
@@ -359,7 +366,7 @@ def test_parameter_conversion_flow():
     )
 
     # Test validation with required capability
-    validated = config_params.get_parameters()
+    validated = config_params.model_dump()
     model_params = ModelParameters(**validated)
     assert model_params.temperature == 0.7
     assert model_params.include_reasoning is True
@@ -367,35 +374,45 @@ def test_parameter_conversion_flow():
 
 def test_parameter_override_validation():
     """Test parameter validation during conversion"""
-    config_params = ConfigurableModelParameters.model_validate(
-        {
-            "temperature": {"value": 0.7, "range": [0.0, 2.0]},
-            "top_p": {"variant": "fixed", "value": 0.9},
-        }
+    config_params = ConfigurableModelParameters()
+
+    config_params.temperature = ParameterValue(
+        variant=ParameterVariant.VARIABLE,
+        value=0.7,
+        validation_rule=RangeValidation(min_value=0.0, max_value=2.0),
     )
+    config_params.top_p = ParameterValue(variant=ParameterVariant.FIXED, value=0.9)
 
     # Test valid override
-    validated = config_params.validate_parameters(temperature=1.5)
-    model_params = ModelParameters(**validated)
-    assert model_params.temperature == 1.5
-    assert model_params.top_p == 0.9
+    config_params.validate_parameter("temperature", 1.5)
+    config_params.temperature = 1.5
+    assert config_params.temperature.value == 1.5
+    assert config_params.top_p.value == 0.9
 
 
 def test_not_given_handling():
     """Test handling of NOT_GIVEN vs None values"""
-    config_params = ConfigurableModelParameters.model_validate(
-        {
-            "temperature": {"value": 0.7},
-            "max_tokens": {"value": None},  # Explicitly set to None
-            "top_p": "unsupported",  # Will not be included
-        }
+    config_params = ConfigurableModelParameters()
+
+    config_params.temperature = ParameterValue(
+        variant=ParameterVariant.VARIABLE,
+        value=0.7,
+    )
+    config_params.max_tokens = ParameterValue(
+        variant=ParameterVariant.VARIABLE,
+        value=None,
+    )
+    config_params.top_p = ParameterValue(
+        variant=ParameterVariant.UNSUPPORTED,
+        value=None,
     )
 
-    validated = config_params.validate_parameters()
-    model_params = ModelParameters(**validated)
-    assert model_params.temperature == 0.7
-    assert model_params.max_tokens == "NOT_GIVEN"  # Default when not provided
-    assert model_params.top_p == "NOT_GIVEN"  # Default when not provided
+    # Test validation preserves NOT_GIVEN
+    config_params.validate_parameter("temperature", 0.8)
+    config_params.temperature = 0.8
+    assert config_params.temperature.value == 0.8
+    assert config_params.max_tokens.value is None
+    assert config_params.top_p.variant == ParameterVariant.UNSUPPORTED
 
 
 def test_model_parameters_merge():
@@ -413,16 +430,15 @@ def test_model_parameters_merge():
 
 def test_parameter_dump_and_get():
     """Test parameter dumping and getting methods"""
-    config_params = ConfigurableModelParameters.model_validate(
+    config_params = ConfigurableModelParameters.from_config(
         {
             "temperature": {"value": 0.7},
-            "max_tokens": {"value": None},
             "top_p": "unsupported",
         }
     )
 
     # Get parameters (excludes None values and unsupported)
-    params = config_params.get_parameters()
+    params = config_params.model_dump()
     model_params = ModelParameters(**params)
     dumped = model_params.dump_parameters(with_defaults=False)
     assert dumped == {"temperature": 0.7}  # Only non-default values
@@ -478,8 +494,8 @@ def test_configurable_parameters_serialization():
     )
 
     serialized = params.serialize_model()  # Use serialize_model instead of model_dump
-    assert isinstance(serialized["temperature"], dict)
-    assert serialized["temperature"]["value"] == 0.7
+    assert isinstance(serialized["temperature"], float)
+    assert serialized["temperature"] == 0.7
 
 
 def test_parameter_value_direct_serialization():
@@ -551,8 +567,10 @@ def test_configurable_parameters_validation_modes():
     import no_llm.settings as settings
     from no_llm.settings import ValidationMode
 
+    settings.settings.validation_mode = ValidationMode.CLAMP
+
     params = ConfigurableModelParameters()
-    param = ParameterValue(
+    param = ParameterValue[float](
         variant=ParameterVariant.VARIABLE,
         value=0.7,
         validation_rule=RangeValidation(min_value=0.0, max_value=1.0),
@@ -560,9 +578,8 @@ def test_configurable_parameters_validation_modes():
     params.temperature = param
 
     # Test CLAMP mode
-    settings.settings.validation_mode = ValidationMode.CLAMP
-    param.value = 1.5  # Should be clamped to 1.0
-    assert param.value == 1.0
+    params.temperature = 1.5  # Should be clamped to 1.0
+    assert params.temperature.value == 1.0
 
-    param.value = -0.5  # Should be clamped to 0.0
-    assert param.value == 0.0
+    params.temperature = -0.5  # Should be clamped to 0.0
+    assert params.temperature.value == 0.0

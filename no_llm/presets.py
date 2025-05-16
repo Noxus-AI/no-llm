@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Iterator, Sequence, assert_never
+from collections.abc import Iterator, Sequence
+from typing import assert_never
 
 from loguru import logger
 from pydantic import BaseModel, Field

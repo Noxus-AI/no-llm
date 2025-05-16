@@ -3,7 +3,7 @@ from __future__ import annotations
 from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, get_args
 
-from pydantic import BaseModel, Field, PrivateAttr, model_serializer, model_validator
+from pydantic import BaseModel, Field, model_serializer, model_validator
 from pydantic_ai.providers import Provider as PydanticProvider
 
 from no_llm.providers.env_var import EnvVar
@@ -83,4 +83,3 @@ class Provider(BaseModel):
     @abstractmethod
     def to_pydantic(self) -> PydanticProvider:
         """Convert provider to Pydantic provider"""
-        pass
