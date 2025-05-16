@@ -93,7 +93,11 @@ class ParameterValue(BaseModel, Generic[V]):
 
     @model_validator(mode="after")
     def validate_model(self) -> ParameterValue[V]:
-        if self.validation_rule is not None and self.value is not None and self.value != NOT_GIVEN:
+        if (
+            self.validation_rule is not None
+            and self.value is not None
+            and self.value != NOT_GIVEN
+        ):
             self.validation_rule.validate_value(self.value)
         return self
 
@@ -113,7 +117,9 @@ class ParameterValue(BaseModel, Generic[V]):
         return self.variant == ParameterVariant.UNSUPPORTED
 
     @classmethod
-    def create_variable(cls, value: V, required_capability: ModelCapability | None = None) -> ParameterValue[V]:
+    def create_variable(
+        cls, value: V, required_capability: ModelCapability | None = None
+    ) -> ParameterValue[V]:
         return cls(
             variant=ParameterVariant.VARIABLE,
             value=value,
@@ -247,7 +253,9 @@ class ConfigurableModelParameters(BaseModel):
         description="Number of most likely tokens to return",
     )
     seed: ParameterValue[int | NotGiven] = Field(
-        default_factory=lambda: ParameterValue[int | NotGiven](variant=ParameterVariant.VARIABLE, value=NOT_GIVEN),
+        default_factory=lambda: ParameterValue[int | NotGiven](
+            variant=ParameterVariant.VARIABLE, value=NOT_GIVEN
+        ),
         description="Random seed for reproducibility",
     )
     timeout: ParameterValue[float | NotGiven] = Field(
@@ -267,13 +275,17 @@ class ConfigurableModelParameters(BaseModel):
         ),
         description="Whether to include reasoning steps",
     )
-    reasoning_effort: ParameterValue[Literal["low", "medium", "high"] | NotGiven] = Field(
-        default_factory=lambda: ParameterValue[Literal["low", "medium", "high"] | NotGiven](
-            variant=ParameterVariant.VARIABLE,
-            value=NOT_GIVEN,
-            required_capability=ModelCapability.REASONING,
-        ),
-        description="Reasoning level",
+    reasoning_effort: ParameterValue[Literal["low", "medium", "high"] | NotGiven] = (
+        Field(
+            default_factory=lambda: ParameterValue[
+                Literal["low", "medium", "high"] | NotGiven
+            ](
+                variant=ParameterVariant.VARIABLE,
+                value=NOT_GIVEN,
+                required_capability=ModelCapability.REASONING,
+            ),
+            description="Reasoning level",
+        )
     )
 
     # @model_validator(mode="before")
@@ -326,7 +338,9 @@ class ConfigurableModelParameters(BaseModel):
                         # Handle validation rule
                         if "range" in value:
                             min_val, max_val = value["range"]
-                            result["validation_rule"] = RangeValidation(min_value=min_val, max_value=max_val)
+                            result["validation_rule"] = RangeValidation(
+                                min_value=min_val, max_value=max_val
+                            )
                         elif default.validation_rule:
                             result["validation_rule"] = default.validation_rule
 
@@ -390,8 +404,14 @@ class ConfigurableModelParameters(BaseModel):
                 logger.warning(f"Invalid parameter value for {field_name}: {error}")
                 return None
             if no_llm_settings.validation_mode == ValidationMode.CLAMP:
-                logger.warning(f"Clamping invalid parameter value for {field_name}: {error}")
-                clamped_value = error.valid_range[0] if value < error.valid_range[0] else error.valid_range[1]
+                logger.warning(
+                    f"Clamping invalid parameter value for {field_name}: {error}"
+                )
+                clamped_value = (
+                    error.valid_range[0]
+                    if value < error.valid_range[0]
+                    else error.valid_range[1]
+                )
                 return ParameterValue(
                     variant=param_value.variant,
                     value=clamped_value,
@@ -434,7 +454,9 @@ class ConfigurableModelParameters(BaseModel):
             InvalidEnumError,
             UnsupportedParameterError,
         ) as e:
-            new_value = self._handle_validation_error(e, field_name, value, current_value)
+            new_value = self._handle_validation_error(
+                e, field_name, value, current_value
+            )
             if new_value is not None:
                 super().__setattr__(field_name, new_value)
 
@@ -476,8 +498,11 @@ class ConfigurableModelParameters(BaseModel):
 
         return result
 
-    def set_parameters(self, parameters: dict[str, Any]) -> None:
+    def set_parameters(self, parameters: dict[str, Any] | ModelParameters) -> None:
         """Set parameters from a dictionary"""
+        if isinstance(parameters, ModelParameters):
+            parameters = parameters.model_dump()
+
         for key, value in parameters.items():
             if key in self.model_fields:
                 setattr(self, key, value)
@@ -558,7 +583,9 @@ class ModelParameters(BaseModel):
         """Get all parameter values"""
         return self.model_dump(exclude_defaults=True)
 
-    def dump_parameters(self, with_defaults: bool = False, model_override: str | None = None) -> dict[str, Any]:
+    def dump_parameters(
+        self, with_defaults: bool = False, model_override: str | None = None
+    ) -> dict[str, Any]:
         """Get all parameter values"""
         params = self.model_dump(exclude_defaults=not with_defaults)
         if (
@@ -567,6 +594,8 @@ class ModelParameters(BaseModel):
             and isinstance(self.model_override, dict)
             and model_override in self.model_override
         ):
-            override_params = self.model_override[model_override].dump_parameters(with_defaults=not with_defaults)
+            override_params = self.model_override[model_override].dump_parameters(
+                with_defaults=not with_defaults
+            )
             params.update(override_params)
         return params
