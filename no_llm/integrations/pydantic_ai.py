@@ -27,7 +27,6 @@ from no_llm.integrations._utils import _get_pydantic_model
 if TYPE_CHECKING:
     from collections.abc import AsyncIterator
 
-    from pydantic_ai import usage
     from pydantic_ai.messages import (
         ModelMessage,
         ModelResponse,
@@ -96,7 +95,7 @@ class NoLLMModel(Model):
         messages: list[ModelMessage],
         model_settings: PydanticModelSettings | None,
         model_request_parameters: ModelRequestParameters,
-    ) -> tuple[ModelResponse, usage.Usage]:
+    ) -> ModelResponse:
         last_error = None
         for pyd_model, model in self.models:
             try:
