@@ -5,6 +5,8 @@ from no_llm.models.claude.claude_3_7_sonnet import Claude37SonnetConfiguration
 from no_llm.models.claude.claude_3_haiku import Claude3HaikuConfiguration
 from no_llm.models.claude.claude_3_opus import Claude3OpusConfiguration
 from no_llm.models.claude.claude_3_sonnet import Claude3SonnetConfiguration
+from no_llm.models.claude.claude_4_opus import Claude4OpusConfiguration
+from no_llm.models.claude.claude_4_sonnet import Claude4SonnetConfiguration
 
 __all__ = [
     "Claude35HaikuConfiguration",
@@ -14,5 +16,6 @@ __all__ = [
     "Claude3HaikuConfiguration",
     "Claude3OpusConfiguration",
     "Claude3SonnetConfiguration",
-    "Claude35SonnetConfiguration",
+    "Claude4OpusConfiguration",
+    "Claude4SonnetConfiguration",
 ]
