@@ -4,15 +4,13 @@ build-backend = "hatchling.build"
 
 [project]
 name = "no_llm"
-version = "0.0.2"
+version = "0.0.3"
 description = 'Standard Interface for Large Language Models'
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 keywords = []
-authors = [
-  { name = "pedro", email = "pedro@noxus.ai" },
-]
+authors = [{ name = "pedro", email = "pedro@noxus.ai" }]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
@@ -25,21 +23,16 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-    "pydantic>=2.0.0",
-    "typing-extensions>=4.0.0",
-    "PyYAML>=6.0.0",
-    "loguru>=0.7.0"
+  "pydantic>=2.0.0",
+  "typing-extensions>=4.0.0",
+  "PyYAML>=6.0.0",
+  "loguru>=0.7.0",
 ]
 
 [project.optional-dependencies]
-langchain = [
-    "langchain>=0.3.23",
-    "langchain-core>=0.3.51"
-]
+langchain = ["langchain>=0.3.23", "langchain-core>=0.3.51"]
 
-pydantic-ai = [
-    "pydantic-ai>=0.2.0"
-]
+pydantic-ai = ["pydantic-ai>=0.2.0"]
 
 [project.urls]
 Documentation = "https://github.com/Noxus-AI/no-llm#readme"
@@ -53,9 +46,7 @@ Source = "https://github.com/Noxus-AI/no-llm"
 [tool.ruff]
 line-length = 120
 target-version = "py310"
-include = [
-    "no_llm/**/*.py",
-]
+include = ["no_llm/**/*.py"]
 
 [tool.ruff.lint]
 ignore = [
@@ -72,10 +63,7 @@ ignore = [
 ignore_missing_imports = true
 
 [tool.hatch.envs.types]
-dependencies = [
-  "mypy>=1.15.0",
-  "types-PyYAML",
-]
+dependencies = ["mypy>=1.15.0", "types-PyYAML"]
 
 [tool.hatch.envs.types.scripts]
 check = "mypy --install-types --non-interactive {args:no_llm}"
@@ -92,29 +80,20 @@ parallel = true
 no_llm = ["no_llm", "*/no_llm/no_llm"]
 
 [tool.coverage.report]
-exclude_lines = [
-  "no cov",
-  "if __name__ == .__main__.:",
-  "if TYPE_CHECKING:",
-]
+exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
 fail_under = 90
 
 [tool.pytest.ini_options]
 addopts = "-ra -q --doctest-modules --doctest-glob='*.md'"
-testpaths = [
-    "tests",
-    "examples",
-]
-python_files = [
-    "*.py",
-]
+testpaths = ["tests", "examples"]
+python_files = ["*.py"]
 
 [tool.hatch.envs.docs]
 dependencies = [
-    "mkdocs",
-    "mkdocs-material[imaging]",
-    "mkdocstrings[python]",
-    "mkdocs-glightbox"
+  "mkdocs",
+  "mkdocs-material[imaging]",
+  "mkdocstrings[python]",
+  "mkdocs-glightbox",
 ]
 [tool.hatch.envs.docs.scripts]
 serve = "mkdocs serve -a localhost:3111"
