@@ -85,7 +85,7 @@ class Claude4SonnetConfiguration(ModelConfiguration):
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
-        pydantic_ai="claude-4-sonnet",
+        pydantic_ai="claude-sonnet-4@20250514",
         litellm="vertex_ai/claude-sonnet-4@20250514",
         langfuse="claude-4-sonnet",
         lmarena="claude-4-sonnet-20250514-thinking-32k",

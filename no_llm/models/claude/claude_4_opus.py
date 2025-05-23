@@ -85,7 +85,7 @@ class Claude4OpusConfiguration(ModelConfiguration):
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
-        pydantic_ai="claude-4-opus",
+        pydantic_ai="claude-opus-4@20250514",
         litellm="vertex_ai/claude-opus-4@20250514",
         langfuse="claude-4-opus",
         lmarena="claude-4-opus-20250514",
