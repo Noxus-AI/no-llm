@@ -85,14 +85,11 @@ class Claude4SonnetConfiguration(ModelConfiguration):
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
-        # pydantic_ai="claude-3-7-sonnet",
-        # litellm="vertex_ai/claude-3-7-sonnet@20250219",
-        # langfuse="claude-3-7-sonnet"
         pydantic_ai="claude-4-sonnet",
         litellm="vertex_ai/claude-sonnet-4@20250514",
         langfuse="claude-4-sonnet",
         lmarena="claude-4-sonnet-20250514-thinking-32k",
-        openrouter="anthropic/claude-4-sonnet:free",
+        openrouter="anthropic/claude-4-sonnet",
     )
 
     class Parameters(ConfigurableModelParameters):

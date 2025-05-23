@@ -89,7 +89,7 @@ class Claude4OpusConfiguration(ModelConfiguration):
         litellm="vertex_ai/claude-opus-4@20250514",
         langfuse="claude-4-opus",
         lmarena="claude-4-opus-20250514",
-        openrouter="anthropic/claude-4-opus:free",
+        openrouter="anthropic/claude-4-opus",
     )
 
     class Parameters(ConfigurableModelParameters):
