@@ -37,30 +37,6 @@ from no_llm.providers import (
 class Claude35HaikuConfiguration(ModelConfiguration):
     """Configuration for Claude 3.5 Haiku model"""
 
-    class Parameters(ConfigurableModelParameters):
-        model_config = ConfigurableModelParameters.model_config
-        temperature: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](
-                variant=ParameterVariant.VARIABLE,
-                value=0.0,
-                validation_rule=RangeValidation(min_value=0.0, max_value=1.0),
-            )
-        )
-        frequency_penalty: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.UNSUPPORTED, value=None)
-        )
-        presence_penalty: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.UNSUPPORTED, value=None)
-        )
-        stop: ParameterValue[list[str] | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[list[str] | NotGiven](
-                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
-            )
-        )
-        seed: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](variant=ParameterVariant.UNSUPPORTED, value=None)
-        )
-
     identity: ModelIdentity = ModelIdentity(
         id="claude-3.5-haiku",
         name="Claude 3.5 Haiku",
@@ -107,5 +83,35 @@ class Claude35HaikuConfiguration(ModelConfiguration):
         lmarena="claude-3-5-haiku-20241022",
         openrouter="anthropic/claude-3-5-haiku:free",
     )
+
+    class Parameters(ConfigurableModelParameters):
+        model_config = ConfigurableModelParameters.model_config
+        temperature: ParameterValue[float | NotGiven] = Field(
+            default_factory=lambda: ParameterValue[float | NotGiven](
+                variant=ParameterVariant.VARIABLE,
+                value=0.0,
+                validation_rule=RangeValidation(min_value=0.0, max_value=1.0),
+            )
+        )
+        frequency_penalty: ParameterValue[float | NotGiven] = Field(
+            default_factory=lambda: ParameterValue[float | NotGiven](
+                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
+            )
+        )
+        presence_penalty: ParameterValue[float | NotGiven] = Field(
+            default_factory=lambda: ParameterValue[float | NotGiven](
+                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
+            )
+        )
+        stop: ParameterValue[list[str] | NotGiven] = Field(
+            default_factory=lambda: ParameterValue[list[str] | NotGiven](
+                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
+            )
+        )
+        seed: ParameterValue[int | NotGiven] = Field(
+            default_factory=lambda: ParameterValue[int | NotGiven](
+                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
+            )
+        )
 
     parameters: ConfigurableModelParameters = Field(default_factory=Parameters)
