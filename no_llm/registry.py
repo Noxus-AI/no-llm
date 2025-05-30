@@ -92,7 +92,8 @@ class ModelRegistry:
             if model_id in self._models:
                 logger.debug(f"Found existing model {model_id}, merging configs")
                 base_model = self._models[model_id]
-                base_config = base_model.dict()
+                base_config = base_model.model_dump()
+                base_config["parameters"] = {}
                 merged_config = self._merge_configs(base_config, config)
                 logger.debug(f'Merged config description: {merged_config["identity"]["description"]}')
                 return ModelConfiguration.from_config(merged_config)
@@ -131,6 +132,7 @@ class ModelRegistry:
                     logger.debug(f"Found existing model {normalized_id}, merging configs")
                     base_model = self._models[normalized_id]
                     base_config = base_model.model_dump()
+                    base_config["parameters"] = {}
                     merged_config = self._merge_configs(base_config, config)
                     model = ModelConfiguration.from_config(merged_config)
                 else:

@@ -81,7 +81,8 @@ class ModelConfiguration(BaseModel):
 
     @classmethod
     def from_config(cls, config: dict[str, Any]) -> ModelConfiguration:
-        parameters = ConfigurableModelParameters.from_config(config.pop("parameters"))
+        parameters_cfg = config.pop("parameters", {})
+        parameters = ConfigurableModelParameters.from_config(parameters_cfg)
         return cls(**config, parameters=parameters)
 
     def set_parameters(self, parameters: ModelParameters) -> None:
