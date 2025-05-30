@@ -42,69 +42,41 @@ class ModelConstraints(BaseModel):
 
 class ModelConfiguration(BaseModel):
     identity: ModelIdentity
-    providers: Sequence[Providers] = Field(
-        default_factory=list, description="Provider configuration", min_length=1
-    )
+    providers: Sequence[Providers] = Field(default_factory=list, description="Provider configuration", min_length=1)
     mode: ModelMode
     capabilities: set[ModelCapability]
     constraints: ModelConstraints
-    properties: ModelProperties | None = Field(
-        default=None, description="Model properties"
-    )
+    properties: ModelProperties | None = Field(default=None, description="Model properties")
     parameters: ConfigurableModelParameters = Field(
         default_factory=ConfigurableModelParameters,
         description="Model parameters with their constraints",
     )
     metadata: ModelMetadata
-    benchmarks: BenchmarkScores | None = Field(
-        default=None, description="Model benchmark scores"
-    )
-    integration_aliases: IntegrationAliases | None = Field(
-        default=None, description="Integration aliases"
-    )
-    extra: dict[str, Any] = Field(
-        default_factory=dict, description="Extra model configuration"
-    )
-    model_config = {
-        "json_encoders": {
-            set[ModelCapability]: lambda x: sorted(x, key=lambda c: c.value)
-        }
-    }
+    benchmarks: BenchmarkScores | None = Field(default=None, description="Model benchmark scores")
+    integration_aliases: IntegrationAliases | None = Field(default=None, description="Integration aliases")
+    extra: dict[str, Any] = Field(default_factory=dict, description="Extra model configuration")
+    model_config = {"json_encoders": {set[ModelCapability]: lambda x: sorted(x, key=lambda c: c.value)}}
 
     def iter(self) -> Iterator[Provider]:
         for provider in self.providers:
             yield from provider.iter()
 
-    def check_capabilities(
-        self, capabilities: set[ModelCapability], mode: Literal["any", "all"] = "any"
-    ) -> bool:
+    def check_capabilities(self, capabilities: set[ModelCapability], mode: Literal["any", "all"] = "any") -> bool:
         if mode == "any":
             return bool(capabilities.intersection(self.capabilities))
         return capabilities.issubset(self.capabilities)
 
-    def assert_capabilities(
-        self, capabilities: set[ModelCapability], mode: Literal["any", "all"] = "any"
-    ) -> None:
+    def assert_capabilities(self, capabilities: set[ModelCapability], mode: Literal["any", "all"] = "any") -> None:
         if not self.check_capabilities(capabilities, mode):
-            raise MissingCapabilitiesError(
-                self.identity.name, list(capabilities), list(self.capabilities)
-            )
+            raise MissingCapabilitiesError(self.identity.name, list(capabilities), list(self.capabilities))
 
-    def calculate_cost(
-        self, input_tokens: int, output_tokens: int
-    ) -> tuple[float, float]:
+    def calculate_cost(self, input_tokens: int, output_tokens: int) -> tuple[float, float]:
         if self.metadata.pricing.token_prices is None:
             msg = "Token pricing not available for this model. Character level pricing is not supported yet."
             raise NotImplementedError(msg)
 
-        input_cost = (
-            input_tokens * self.metadata.pricing.token_prices.input_price_per_1k / 1000
-        )
-        output_cost = (
-            output_tokens
-            * self.metadata.pricing.token_prices.output_price_per_1k
-            / 1000
-        )
+        input_cost = input_tokens * self.metadata.pricing.token_prices.input_price_per_1k / 1000
+        output_cost = output_tokens * self.metadata.pricing.token_prices.output_price_per_1k / 1000
         return input_cost, output_cost
 
     @classmethod
@@ -121,13 +93,11 @@ class ModelConfiguration(BaseModel):
             and copied_parameters.model_override != NOT_GIVEN
             and self.identity.id in copied_parameters.model_override
         ):
-            copied_parameters = (
-                copied_parameters & copied_parameters.model_override[self.identity.id]
-            )
+            copied_parameters = copied_parameters & copied_parameters.model_override[self.identity.id]
 
         for key, value in copied_parameters.model_dump(exclude_defaults=True).items():
             if key in self.parameters.model_fields:
-                self.parameters._validate_and_update_parameter(
+                self.parameters._validate_and_update_parameter(  # noqa: SLF001
                     key, value, capabilities=self.capabilities
                 )
                 # setattr(self.parameters, key, value)
