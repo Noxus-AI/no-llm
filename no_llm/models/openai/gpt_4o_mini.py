@@ -25,7 +25,12 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NotGiven
-from no_llm.providers import AzureProvider, OpenAIProvider, OpenRouterProvider, Providers
+from no_llm.providers import (
+    AzureProvider,
+    OpenAIProvider,
+    OpenRouterProvider,
+    Providers,
+)
 
 
 class GPT4OMiniConfiguration(ModelConfiguration):
@@ -39,7 +44,11 @@ class GPT4OMiniConfiguration(ModelConfiguration):
         creator="OpenAI",
     )
 
-    providers: Sequence[Providers] = [AzureProvider(), OpenRouterProvider(), OpenAIProvider()]
+    providers: Sequence[Providers] = [
+        AzureProvider(),
+        OpenRouterProvider(),
+        OpenAIProvider(),
+    ]
 
     mode: ModelMode = ModelMode.CHAT
 
@@ -50,6 +59,7 @@ class GPT4OMiniConfiguration(ModelConfiguration):
         ModelCapability.JSON_MODE,
         ModelCapability.SYSTEM_PROMPT,
         ModelCapability.VISION,
+        ModelCapability.PARALLEL_FUNCTION_CALLING,
     }
 
     constraints: ModelConstraints = ModelConstraints(max_input_tokens=128000, max_output_tokens=16384)

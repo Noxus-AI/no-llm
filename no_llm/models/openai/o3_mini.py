@@ -24,7 +24,12 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
-from no_llm.providers import AzureProvider, OpenAIProvider, OpenRouterProvider, Providers
+from no_llm.providers import (
+    AzureProvider,
+    OpenAIProvider,
+    OpenRouterProvider,
+    Providers,
+)
 
 
 class O3MiniConfiguration(ModelConfiguration):
@@ -38,7 +43,11 @@ class O3MiniConfiguration(ModelConfiguration):
         creator="OpenAI",
     )
 
-    providers: Sequence[Providers] = [AzureProvider(), OpenRouterProvider(), OpenAIProvider()]
+    providers: Sequence[Providers] = [
+        AzureProvider(),
+        OpenRouterProvider(),
+        OpenAIProvider(),
+    ]
 
     mode: ModelMode = ModelMode.CHAT
 
@@ -48,6 +57,7 @@ class O3MiniConfiguration(ModelConfiguration):
         ModelCapability.FUNCTION_CALLING,
         ModelCapability.TOOLS,
         ModelCapability.VISION,
+        ModelCapability.PARALLEL_FUNCTION_CALLING,
     }
 
     constraints: ModelConstraints = ModelConstraints(max_input_tokens=200000, max_output_tokens=100000)
@@ -65,7 +75,10 @@ class O3MiniConfiguration(ModelConfiguration):
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
-        pydantic_ai="o3-mini", litellm="o3-mini-2025-01-31", langfuse="o3-mini-low", openrouter="openai/o3-mini"
+        pydantic_ai="o3-mini",
+        litellm="o3-mini-2025-01-31",
+        langfuse="o3-mini-low",
+        openrouter="openai/o3-mini",
     )
 
     class Parameters(ConfigurableModelParameters):

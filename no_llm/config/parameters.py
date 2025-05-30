@@ -278,6 +278,14 @@ class ConfigurableModelParameters(BaseModel):
         ),
         description="Reasoning level",
     )
+    parallel_tool_calls: ParameterValue[bool | NotGiven] = Field(
+        default_factory=lambda: ParameterValue[bool | NotGiven](
+            variant=ParameterVariant.VARIABLE,
+            value=NOT_GIVEN,
+            required_capability=ModelCapability.PARALLEL_FUNCTION_CALLING,
+        ),
+        description="Whether to allow parallel tool calling",
+    )
 
     # @model_validator(mode="before")
     @classmethod
@@ -538,6 +546,9 @@ class ModelParameters(BaseModel):
         default=NOT_GIVEN,
         description="Reasoning level",
     )
+    parallel_tool_calls: bool | NotGiven = Field(
+        default=NOT_GIVEN, description="Whether to allow parallel function calling"
+    )
     model_override: dict[str, ModelParameters] | NotGiven = Field(
         default=NOT_GIVEN,
         description="Model override parameters",
@@ -573,8 +584,6 @@ class ModelParameters(BaseModel):
             model_settings.pop("extra_headers")
         if "stop_sequences" in model_settings:
             model_settings.pop("stop_sequences")
-        if "parallel_tool_calls" in model_settings:
-            model_settings.pop("parallel_tool_calls")
         extra = {**model_settings}
         # if "openai_reasoning_effort" in model_settings:
         #     extra["reasoning_effort"] = model_settings.pop("openai_reasoning_effort")

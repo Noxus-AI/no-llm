@@ -60,6 +60,7 @@ class Claude37SonnetConfiguration(ModelConfiguration):
         ModelCapability.JSON_MODE,
         ModelCapability.SYSTEM_PROMPT,
         ModelCapability.VISION,
+        ModelCapability.PARALLEL_FUNCTION_CALLING,
     }
 
     constraints: ModelConstraints = ModelConstraints(max_input_tokens=200000, max_output_tokens=8192)

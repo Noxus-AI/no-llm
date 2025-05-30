@@ -25,7 +25,12 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NotGiven
-from no_llm.providers import AzureProvider, OpenAIProvider, OpenRouterProvider, Providers
+from no_llm.providers import (
+    AzureProvider,
+    OpenAIProvider,
+    OpenRouterProvider,
+    Providers,
+)
 
 
 class GPT41MiniConfiguration(ModelConfiguration):
@@ -37,7 +42,11 @@ class GPT41MiniConfiguration(ModelConfiguration):
         creator="OpenAI",
     )
 
-    providers: Sequence[Providers] = [AzureProvider(), OpenRouterProvider(), OpenAIProvider()]
+    providers: Sequence[Providers] = [
+        AzureProvider(),
+        OpenRouterProvider(),
+        OpenAIProvider(),
+    ]
 
     mode: ModelMode = ModelMode.CHAT
 
@@ -46,6 +55,7 @@ class GPT41MiniConfiguration(ModelConfiguration):
         ModelCapability.FUNCTION_CALLING,
         ModelCapability.SYSTEM_PROMPT,
         ModelCapability.VISION,
+        ModelCapability.PARALLEL_FUNCTION_CALLING,
     }
 
     constraints: ModelConstraints = ModelConstraints(
