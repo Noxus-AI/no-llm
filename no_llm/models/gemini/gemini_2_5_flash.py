@@ -52,6 +52,7 @@ class Gemini25FlashConfiguration(ModelConfiguration):
         ModelCapability.JSON_MODE,
         ModelCapability.SYSTEM_PROMPT,
         ModelCapability.VISION,
+        ModelCapability.PARALLEL_FUNCTION_CALLING,
     }
 
     constraints: ModelConstraints = ModelConstraints(max_input_tokens=1048576, max_output_tokens=65535)
