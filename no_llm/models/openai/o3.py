@@ -57,6 +57,7 @@ class O3Configuration(ModelConfiguration):
         ModelCapability.FUNCTION_CALLING,
         ModelCapability.TOOLS,
         ModelCapability.VISION,
+        ModelCapability.PARALLEL_FUNCTION_CALLING,
     }
 
     constraints: ModelConstraints = ModelConstraints(max_input_tokens=200000, max_output_tokens=100000)
