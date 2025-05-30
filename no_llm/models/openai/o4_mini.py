@@ -97,7 +97,9 @@ class O4MiniConfiguration(ModelConfiguration):
             default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.FIXED, value=0.0)
         )
         presence_penalty: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.FIXED, value=0.0)
+            default_factory=lambda: ParameterValue[float | NotGiven](
+                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
+            )
         )
 
     parameters: ConfigurableModelParameters = Field(default_factory=Parameters)
