@@ -25,7 +25,13 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NotGiven
-from no_llm.providers import FireworksProvider, GroqProvider, OpenRouterProvider, Providers, TogetherProvider
+from no_llm.providers import (
+    FireworksProvider,
+    GroqProvider,
+    OpenRouterProvider,
+    Providers,
+    TogetherProvider,
+)
 
 
 class Llama31405BConfiguration(ModelConfiguration):
@@ -39,7 +45,12 @@ class Llama31405BConfiguration(ModelConfiguration):
         creator="Meta",
     )
 
-    providers: Sequence[Providers] = [TogetherProvider(), OpenRouterProvider(), FireworksProvider(), GroqProvider()]
+    providers: Sequence[Providers] = [
+        TogetherProvider(),
+        OpenRouterProvider(),
+        FireworksProvider(),
+        GroqProvider(),
+    ]
 
     mode: ModelMode = ModelMode.CHAT
 
@@ -83,4 +94,4 @@ class Llama31405BConfiguration(ModelConfiguration):
             )
         )
 
-    parameters: ConfigurableModelParameters = Field(default_factory=Parameters)
+    parameters: Parameters = Field(default_factory=Parameters)  # type: ignore

@@ -82,7 +82,11 @@ class ModelConfiguration(BaseModel):
     @classmethod
     def from_config(cls, config: dict[str, Any]) -> ModelConfiguration:
         parameters_cfg = config.pop("parameters", {})
-        parameters = ConfigurableModelParameters.from_config(parameters_cfg)
+        param_cls = cls.model_fields["parameters"].annotation
+        if param_cls is None:
+            msg = "Parameters class is not defined"
+            raise ValueError(msg)
+        parameters = param_cls.from_config(parameters_cfg)
         return cls(**config, parameters=parameters)
 
     def set_parameters(self, parameters: ModelParameters) -> None:

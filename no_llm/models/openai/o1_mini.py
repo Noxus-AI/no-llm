@@ -24,7 +24,12 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
-from no_llm.providers import AzureProvider, OpenAIProvider, OpenRouterProvider, Providers
+from no_llm.providers import (
+    AzureProvider,
+    OpenAIProvider,
+    OpenRouterProvider,
+    Providers,
+)
 
 
 class O1MiniConfiguration(ModelConfiguration):
@@ -38,7 +43,11 @@ class O1MiniConfiguration(ModelConfiguration):
         creator="OpenAI",
     )
 
-    providers: Sequence[Providers] = [AzureProvider(), OpenRouterProvider(), OpenAIProvider()]
+    providers: Sequence[Providers] = [
+        AzureProvider(),
+        OpenRouterProvider(),
+        OpenAIProvider(),
+    ]
 
     mode: ModelMode = ModelMode.CHAT
 
@@ -61,7 +70,10 @@ class O1MiniConfiguration(ModelConfiguration):
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
-        pydantic_ai="o1-mini", litellm="o1-mini", langfuse="o1-mini", openrouter="openai/o1-mini"
+        pydantic_ai="o1-mini",
+        litellm="o1-mini",
+        langfuse="o1-mini",
+        openrouter="openai/o1-mini",
     )
 
     class Parameters(ConfigurableModelParameters):
@@ -81,7 +93,9 @@ class O1MiniConfiguration(ModelConfiguration):
             default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.FIXED, value=0.0)
         )
         presence_penalty: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.FIXED, value=0.0)
+            default_factory=lambda: ParameterValue[float | NotGiven](
+                variant=ParameterVariant.UNSUPPORTED, value=NOT_GIVEN
+            )
         )
 
-    parameters: ConfigurableModelParameters = Field(default_factory=Parameters)
+    parameters: Parameters = Field(default_factory=Parameters)  # type: ignore

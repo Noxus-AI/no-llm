@@ -25,7 +25,12 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NotGiven
-from no_llm.providers import AzureProvider, OpenAIProvider, OpenRouterProvider, Providers
+from no_llm.providers import (
+    AzureProvider,
+    OpenAIProvider,
+    OpenRouterProvider,
+    Providers,
+)
 
 
 class GPT4Configuration(ModelConfiguration):
@@ -39,7 +44,11 @@ class GPT4Configuration(ModelConfiguration):
         creator="OpenAI",
     )
 
-    providers: Sequence[Providers] = [AzureProvider(), OpenRouterProvider(), OpenAIProvider()]
+    providers: Sequence[Providers] = [
+        AzureProvider(),
+        OpenRouterProvider(),
+        OpenAIProvider(),
+    ]
 
     mode: ModelMode = ModelMode.CHAT
 
@@ -64,7 +73,10 @@ class GPT4Configuration(ModelConfiguration):
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
-        pydantic_ai="gpt-4o", litellm="gpt-4o", langfuse="gpt-4", openrouter="openai/gpt-4-turbo"
+        pydantic_ai="gpt-4o",
+        litellm="gpt-4o",
+        langfuse="gpt-4",
+        openrouter="openai/gpt-4-turbo",
     )
 
     class Parameters(ConfigurableModelParameters):
@@ -77,4 +89,4 @@ class GPT4Configuration(ModelConfiguration):
             )
         )
 
-    parameters: ConfigurableModelParameters = Field(default_factory=Parameters)
+    parameters: Parameters = Field(default_factory=Parameters)  # type: ignore

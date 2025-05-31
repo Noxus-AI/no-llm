@@ -31,6 +31,7 @@ class SetFilter(Generic[T]):
 class ModelRegistry:
     def __init__(self, config_dir: str | Path | None = None):
         self._models: dict[str, ModelConfiguration] = {}
+        self._builtin_models: dict[str, type[ModelConfiguration]] = {}
         self._config_dir = Path(config_dir) if config_dir else None
 
         logger.debug("Initializing ModelRegistry")
@@ -53,7 +54,7 @@ class ModelRegistry:
                     if hasattr(module, config_class_name):
                         config_class: type[ModelConfiguration] = getattr(module, config_class_name)
                         model_config = config_class()  # type: ignore
-                        self.register_model(model_config)
+                        self.register_model(model_config, builtin=True)
                         logger.debug(f"Registered model configuration: {config_class_name}")
                         break
                 except ImportError as e:
@@ -134,14 +135,23 @@ class ModelRegistry:
                     base_config = base_model.model_dump()
                     base_config["parameters"] = {}
                     merged_config = self._merge_configs(base_config, config)
-                    model = ModelConfiguration.from_config(merged_config)
+                    base_model_class = self._builtin_models.get(normalized_id)
+                    if base_model_class:
+                        model = base_model_class.from_config(merged_config)
+                    else:
+                        model = ModelConfiguration.from_config(merged_config)
                 else:
-                    model = ModelConfiguration.from_config(config)
+                    base_model_class = self._builtin_models.get(model_id)
+                    if base_model_class:
+                        model = base_model_class.from_config(config)
+                    else:
+                        model = ModelConfiguration.from_config(config)
 
                 self.register_model(model)
                 logger.debug(f"Registered model: {model_id} with description: {model.identity.description}")
-            except Exception as e:  # noqa: BLE001
+            except Exception as e:
                 logger.opt(exception=e).error(f"Error loading model {model_id}")
+                raise
 
     def _load_configurations(self) -> None:
         if not self._config_dir:
@@ -155,12 +165,14 @@ class ModelRegistry:
             logger.debug(f"Models directory contents: {list(models_dir.iterdir())}")
         self.register_models_from_directory(models_dir)
 
-    def register_model(self, model: ModelConfiguration) -> None:
+    def register_model(self, model: ModelConfiguration, builtin: bool = False) -> None:
         if model.identity.id in self._models:
             logger.debug(f"Overriding existing model configuration: {model.identity.id}")
 
         self._models[model.identity.id] = model
         logger.debug(f"Registered model: {model.identity.id}")
+        if builtin:
+            self._builtin_models[model.identity.id] = model.__class__
 
     def get_model(self, model_id: str) -> ModelConfiguration:
         if model_id not in self._models:

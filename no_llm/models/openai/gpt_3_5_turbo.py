@@ -25,7 +25,12 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NotGiven
-from no_llm.providers import AzureProvider, OpenAIProvider, OpenRouterProvider, Providers
+from no_llm.providers import (
+    AzureProvider,
+    OpenAIProvider,
+    OpenRouterProvider,
+    Providers,
+)
 
 
 class GPT35TurboConfiguration(ModelConfiguration):
@@ -39,7 +44,11 @@ class GPT35TurboConfiguration(ModelConfiguration):
         creator="OpenAI",
     )
 
-    providers: Sequence[Providers] = [AzureProvider(), OpenRouterProvider(), OpenAIProvider()]
+    providers: Sequence[Providers] = [
+        AzureProvider(),
+        OpenRouterProvider(),
+        OpenAIProvider(),
+    ]
 
     mode: ModelMode = ModelMode.CHAT
 
@@ -79,4 +88,4 @@ class GPT35TurboConfiguration(ModelConfiguration):
             )
         )
 
-    parameters: ConfigurableModelParameters = Field(default_factory=Parameters)
+    parameters: Parameters = Field(default_factory=Parameters)  # type: ignore

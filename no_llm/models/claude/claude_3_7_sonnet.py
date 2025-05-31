@@ -118,4 +118,4 @@ class Claude37SonnetConfiguration(ModelConfiguration):
             )
         )
 
-    parameters: ConfigurableModelParameters = Field(default_factory=Parameters)
+    parameters: Parameters = Field(default_factory=Parameters)  # type: ignore

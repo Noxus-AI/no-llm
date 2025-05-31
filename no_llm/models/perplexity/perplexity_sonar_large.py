@@ -79,8 +79,8 @@ class PerplexitySonarLargeConfiguration(ModelConfiguration):
             default_factory=lambda: ParameterValue[float | NotGiven](
                 variant=ParameterVariant.VARIABLE,
                 value=0.0,
-                validation_rule=RangeValidation(min_value=0.0, max_value=2.0),
+                validation_rule=RangeValidation(min_value=0.0, max_value=1.0),
             )
         )
 
-    parameters: ConfigurableModelParameters = Field(default_factory=Parameters)
+    parameters: Parameters = Field(default_factory=Parameters)  # type: ignore

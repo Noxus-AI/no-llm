@@ -93,4 +93,4 @@ class GPT4OMiniConfiguration(ModelConfiguration):
             )
         )
 
-    parameters: ConfigurableModelParameters = Field(default_factory=Parameters)
+    parameters: Parameters = Field(default_factory=Parameters)  # type: ignore
