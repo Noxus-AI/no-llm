@@ -50,12 +50,18 @@ class ModelRegistry:
 
             for module_info in pkgutil.iter_modules(models.__path__):
                 try:
-                    module = import_module(f".models.{module_info.name}", package="no_llm")
+                    module = import_module(
+                        f".models.{module_info.name}", package="no_llm"
+                    )
                     if hasattr(module, config_class_name):
-                        config_class: type[ModelConfiguration] = getattr(module, config_class_name)
+                        config_class: type[ModelConfiguration] = getattr(
+                            module, config_class_name
+                        )
                         model_config = config_class()  # type: ignore
                         self.register_model(model_config, builtin=True)
-                        logger.debug(f"Registered model configuration: {config_class_name}")
+                        logger.debug(
+                            f"Registered model configuration: {config_class_name}"
+                        )
                         break
                 except ImportError as e:
                     logger.debug(f"Could not import module {module_info.name}: {e}")
@@ -96,12 +102,16 @@ class ModelRegistry:
                 base_config = base_model.model_dump()
                 base_config["parameters"] = {}
                 merged_config = self._merge_configs(base_config, config)
-                logger.debug(f'Merged config description: {merged_config["identity"]["description"]}')
+                logger.debug(
+                    f'Merged config description: {merged_config["identity"]["description"]}'
+                )
                 return ModelConfiguration.from_config(merged_config)
 
             return ModelConfiguration.from_config(config)
         except Exception as e:
-            logger.opt(exception=e).error(f"Error loading config from {model_file}: {e}")
+            logger.opt(exception=e).error(
+                f"Error loading config from {model_file}: {e}"
+            )
             raise ConfigurationLoadError(str(model_file), e) from e
 
     def register_models_from_directory(self, models_dir: Path | str) -> None:
@@ -117,7 +127,9 @@ class ModelRegistry:
         for ext in ["*.yml", "*.yaml"]:
             yaml_files.extend(list(models_dir.glob(ext)))
 
-        logger.debug(f"Found {len(yaml_files)} YAML files: {[f.name for f in yaml_files]}")
+        logger.debug(
+            f"Found {len(yaml_files)} YAML files: {[f.name for f in yaml_files]}"
+        )
 
         for model_file in yaml_files:
             model_id = model_file.stem
@@ -130,7 +142,9 @@ class ModelRegistry:
                 base_config = config["identity"].get("base_config", None)
                 if model_id in self._models or base_config in self._models:
                     normalized_id = base_config or model_id
-                    logger.debug(f"Found existing model {normalized_id}, merging configs")
+                    logger.debug(
+                        f"Found existing model {normalized_id}, merging configs"
+                    )
                     base_model = self._models[normalized_id]
                     base_config = base_model.model_dump()
                     base_config["parameters"] = {}
@@ -148,10 +162,11 @@ class ModelRegistry:
                         model = ModelConfiguration.from_config(config)
 
                 self.register_model(model)
-                logger.debug(f"Registered model: {model_id} with description: {model.identity.description}")
+                logger.debug(
+                    f"Registered model: {model_id} with description: {model.identity.description}"
+                )
             except Exception as e:
                 logger.opt(exception=e).error(f"Error loading model {model_id}")
-                raise
 
     def _load_configurations(self) -> None:
         if not self._config_dir:
@@ -167,7 +182,9 @@ class ModelRegistry:
 
     def register_model(self, model: ModelConfiguration, builtin: bool = False) -> None:
         if model.identity.id in self._models:
-            logger.debug(f"Overriding existing model configuration: {model.identity.id}")
+            logger.debug(
+                f"Overriding existing model configuration: {model.identity.id}"
+            )
 
         self._models[model.identity.id] = model
         logger.debug(f"Registered model: {model.identity.id}")

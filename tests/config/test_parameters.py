@@ -583,3 +583,169 @@ def test_configurable_parameters_validation_modes():
 
     params.temperature = -0.5  # Should be clamped to 0.0
     assert params.temperature.value == 0.0
+
+
+def test_subclassed_model_parameters():
+    """Test parameter validation and dumping with subclassed model parameters"""
+    from no_llm.models.openai.o3_mini import O3MiniConfiguration
+
+    # Create an instance of the O3MiniConfiguration
+    model_config = O3MiniConfiguration()
+
+    # Verify the model has the custom Parameters class
+    assert isinstance(model_config.parameters, O3MiniConfiguration.Parameters)
+
+    # Test that fixed parameters have correct values
+    assert model_config.parameters.temperature.variant == ParameterVariant.FIXED
+    assert model_config.parameters.temperature.value == 1.0
+    assert model_config.parameters.top_p.variant == ParameterVariant.FIXED
+    assert model_config.parameters.top_p.value == 1.0
+    assert model_config.parameters.frequency_penalty.variant == ParameterVariant.FIXED
+    assert model_config.parameters.frequency_penalty.value == 0.0
+
+    # Test that unsupported parameters are marked correctly
+    assert model_config.parameters.top_k.variant == ParameterVariant.UNSUPPORTED
+    assert model_config.parameters.top_k.value == NOT_GIVEN
+    assert (
+        model_config.parameters.presence_penalty.variant == ParameterVariant.UNSUPPORTED
+    )
+    assert model_config.parameters.presence_penalty.value == NOT_GIVEN
+
+    # Test parameter validation - should fail for fixed parameters
+    with pytest.raises(FixedParameterError):
+        model_config.parameters.validate_parameter("temperature", 0.8)
+
+    with pytest.raises(FixedParameterError):
+        model_config.parameters.validate_parameter("top_p", 0.9)
+
+    with pytest.raises(FixedParameterError):
+        model_config.parameters.validate_parameter("frequency_penalty", 0.5)
+
+    # Test parameter dumping - should exclude unsupported parameters
+    dumped_params = model_config.parameters.model_dump()
+
+    # Should include fixed parameters with their values
+    assert "temperature" in dumped_params
+    assert dumped_params["temperature"] == 1.0
+    assert "top_p" in dumped_params
+    assert dumped_params["top_p"] == 1.0
+    assert "frequency_penalty" in dumped_params
+    assert dumped_params["frequency_penalty"] == 0.0
+
+    # Should exclude unsupported parameters
+    assert "top_k" not in dumped_params
+    assert "presence_penalty" not in dumped_params
+
+    # Test conversion to ModelParameters
+    model_params = ModelParameters(**dumped_params)
+    assert model_params.temperature == 1.0
+    assert model_params.top_p == 1.0
+    assert model_params.frequency_penalty == 0.0
+
+    # Test that ModelParameters dump excludes None/unsupported values
+    final_dump = model_params.dump_parameters(with_defaults=False)
+    assert "temperature" in final_dump
+    assert "top_p" in final_dump
+    assert "frequency_penalty" in final_dump
+    assert "top_k" not in final_dump
+    assert "presence_penalty" not in final_dump
+
+
+def test_model_loading_with_base_config_parameters(tmp_path):
+    """Test parameter validation when loading model from config directory with base_config"""
+    from no_llm.registry import ModelRegistry
+
+    # Create config directory structure
+    config_dir = tmp_path / "configs"
+    config_dir.mkdir()
+    models_dir = config_dir / "models"
+    models_dir.mkdir()
+
+    # Create o3-mini-low.yml config file that uses base_config
+    config_content = """
+providers:
+  - type: openai
+    name: OpenAI
+    api_key: $OPENAI_API_KEY
+
+identity:
+  id: o3-mini-low
+  base_config: o3-mini
+  name: O3 Mini Low
+
+parameters:
+  reasoning_effort: low
+
+extra:
+  spotflow_visible: true
+"""
+
+    config_file = models_dir / "o3-mini-low.yml"
+    config_file.write_text(config_content.strip())
+
+    # Create registry and load from config directory
+    registry = ModelRegistry(config_dir)
+
+    # Get the loaded model configuration
+    model_config = registry.get_model("o3-mini-low")
+
+    # Verify it has the correct identity
+    assert model_config.identity.id == "o3-mini-low"
+    assert model_config.identity.name == "O3 Mini Low"
+
+    # Verify it inherits from the base o3-mini configuration
+    assert isinstance(
+        model_config.parameters, type(registry.get_model("o3-mini").parameters)
+    )
+
+    # Test that base config parameters are preserved with correct variants
+    assert model_config.parameters.temperature.variant == ParameterVariant.FIXED
+    assert model_config.parameters.temperature.value == 1.0
+    assert model_config.parameters.top_p.variant == ParameterVariant.FIXED
+    assert model_config.parameters.top_p.value == 1.0
+    assert model_config.parameters.frequency_penalty.variant == ParameterVariant.FIXED
+    assert model_config.parameters.frequency_penalty.value == 0.0
+
+    # Test that unsupported parameters remain unsupported
+    assert model_config.parameters.top_k.variant == ParameterVariant.UNSUPPORTED
+    assert model_config.parameters.top_k.value == NOT_GIVEN
+    assert (
+        model_config.parameters.presence_penalty.variant == ParameterVariant.UNSUPPORTED
+    )
+    assert model_config.parameters.presence_penalty.value == NOT_GIVEN
+
+    # Test parameter validation still works - should fail for fixed parameters
+    with pytest.raises(FixedParameterError):
+        model_config.parameters.validate_parameter("temperature", 0.8)
+
+    with pytest.raises(FixedParameterError):
+        model_config.parameters.validate_parameter("top_p", 0.9)
+
+    with pytest.raises(FixedParameterError):
+        model_config.parameters.validate_parameter("frequency_penalty", 0.5)
+
+    # Test parameter dumping excludes unsupported parameters
+    dumped_params = model_config.parameters.model_dump()
+
+    # Should include fixed parameters
+    assert "temperature" in dumped_params
+    assert dumped_params["temperature"] == 1.0
+    assert "top_p" in dumped_params
+    assert dumped_params["top_p"] == 1.0
+    assert "frequency_penalty" in dumped_params
+    assert dumped_params["frequency_penalty"] == 0.0
+
+    # Should exclude unsupported parameters
+    assert "top_k" not in dumped_params
+    assert "presence_penalty" not in dumped_params
+
+    # Should include the custom parameter from the config
+    if hasattr(model_config.parameters, "reasoning_effort"):
+        assert "reasoning_effort" in dumped_params
+        assert dumped_params["reasoning_effort"] == "low"
+
+    # Test conversion to ModelParameters works correctly
+    model_params = ModelParameters(**dumped_params)
+    assert model_params.temperature == 1.0
+    assert model_params.top_p == 1.0
+    assert model_params.frequency_penalty == 0.0
