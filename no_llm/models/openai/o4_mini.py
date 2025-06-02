@@ -59,16 +59,26 @@ class O4MiniConfiguration(ModelConfiguration):
         ModelCapability.VISION,
     }
 
-    constraints: ModelConstraints = ModelConstraints(max_input_tokens=200000, max_output_tokens=100000)
+    constraints: ModelConstraints = ModelConstraints(
+        max_input_tokens=200000, max_output_tokens=100000
+    )
 
     properties: ModelProperties | None = ModelProperties(
-        speed=SpeedProperties(score=42.0, label="High", description="Average (1-3 seconds)"),
-        quality=QualityProperties(score=82.0, label="Very High", description="Very High Quality"),
+        speed=SpeedProperties(
+            score=42.0, label="High", description="Average (1-3 seconds)"
+        ),
+        quality=QualityProperties(
+            score=82.0, label="Very High", description="Very High Quality"
+        ),
     )
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0011, output_price_per_1k=0.0044)),
+        pricing=ModelPricing(
+            token_prices=TokenPrices(
+                input_price_per_1k=0.0011, output_price_per_1k=0.0044
+            )
+        ),
         release_date=datetime(2024, 9, 12),
         data_cutoff_date=datetime(2023, 10, 1),
     )
@@ -83,10 +93,14 @@ class O4MiniConfiguration(ModelConfiguration):
     class Parameters(ConfigurableModelParameters):
         model_config = ConfigurableModelParameters.model_config
         temperature: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.FIXED, value=1.0)
+            default_factory=lambda: ParameterValue[float | NotGiven](
+                variant=ParameterVariant.FIXED, value=1.0
+            )
         )
         top_p: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.FIXED, value=1.0)
+            default_factory=lambda: ParameterValue[float | NotGiven](
+                variant=ParameterVariant.FIXED, value=1.0
+            )
         )
         top_k: ParameterValue[int | NotGiven] = Field(
             default_factory=lambda: ParameterValue[int | NotGiven](
@@ -94,7 +108,9 @@ class O4MiniConfiguration(ModelConfiguration):
             )
         )
         frequency_penalty: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](variant=ParameterVariant.FIXED, value=0.0)
+            default_factory=lambda: ParameterValue[float | NotGiven](
+                variant=ParameterVariant.FIXED, value=0.0
+            )
         )
         presence_penalty: ParameterValue[float | NotGiven] = Field(
             default_factory=lambda: ParameterValue[float | NotGiven](
@@ -102,4 +118,4 @@ class O4MiniConfiguration(ModelConfiguration):
             )
         )
 
-    parameters: ConfigurableModelParameters = Field(default_factory=Parameters)
+    parameters: Parameters = Field(default_factory=Parameters)  # type: ignore
