@@ -16,15 +16,9 @@ class ModelPreset(BaseModel):
         default=set(), description="Capabilities required for the preset"
     )
     title: str = Field(default="A Model Preset", description="Title of the preset")
-    subtitle: str = Field(
-        default="A model preset", description="Subtitle of the preset"
-    )
-    description: str = Field(
-        default="A model preset", description="Description of the preset"
-    )
-    parameters: ModelParameters | None = Field(
-        default=None, description="Parameters of the preset"
-    )
+    subtitle: str = Field(default="A model preset", description="Subtitle of the preset")
+    description: str = Field(default="A model preset", description="Description of the preset")
+    parameters: ModelParameters | None = Field(default=None, description="Parameters of the preset")
     data_center_fallback: bool = Field(
         default=True,
         description="Whether to use data center fallback, meaning to change regions of the model when available",
@@ -37,13 +31,9 @@ class ModelPreset(BaseModel):
                 try:
                     model_cfg = registry.get_model(model)
                 except ModelNotFoundError as e:
-                    logger.warning(
-                        f"Model {model} not found in registry: {e}. Skipping."
-                    )
+                    logger.warning(f"Model {model} not found in registry: {e}. Skipping.")
                     continue
-                if len(
-                    self.required_capabilities
-                ) > 0 and not model_cfg.check_capabilities(self.required_capabilities):
+                if len(self.required_capabilities) > 0 and not model_cfg.check_capabilities(self.required_capabilities):
                     logger.warning(
                         f"Model {model} does not have the required capabilities: {self.required_capabilities}. Skipping."
                     )
@@ -52,9 +42,7 @@ class ModelPreset(BaseModel):
                     model_cfg.set_parameters(self.parameters)
 
                 for provider in model_cfg.iter():
-                    providers = (
-                        provider.iter() if self.data_center_fallback else [provider]
-                    )
+                    providers = provider.iter() if self.data_center_fallback else [provider]
                     for provider_i in providers:
                         copied_cfg = model_cfg.model_copy(deep=True)
                         copied_cfg.providers = (
