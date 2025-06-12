@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from pydantic import Field
 
@@ -25,6 +26,9 @@ from no_llm.config import (
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
 from no_llm.models.gemini.base import GeminiBaseConfiguration
 from no_llm.providers import OpenRouterProvider, Providers, VertexProvider
+
+if TYPE_CHECKING:
+    from pydantic_ai.settings import ModelSettings
 
 
 class Gemini25ProConfiguration(GeminiBaseConfiguration):
@@ -126,3 +130,8 @@ class Gemini25ProConfiguration(GeminiBaseConfiguration):
         )
 
     parameters: Parameters = Field(default_factory=Parameters)  # type: ignore
+
+    def to_pydantic_settings(self) -> ModelSettings:
+        base = super().to_pydantic_settings()
+        base.pop("gemini_thinking_config")
+        return base
