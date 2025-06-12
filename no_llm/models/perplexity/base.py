@@ -12,8 +12,8 @@ if TYPE_CHECKING:
 
 
 class PerplexityBaseConfiguration(ModelConfiguration):
-    def to_pydantic_model(self) -> "Model":
+    def to_pydantic_model(self) -> Model:
         return super().to_pydantic_model()
 
-    def to_pydantic_settings(self) -> "ModelSettings":
+    def to_pydantic_settings(self) -> ModelSettings:
         return super().to_pydantic_settings()

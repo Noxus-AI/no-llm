@@ -16,10 +16,10 @@ if TYPE_CHECKING:
 
 
 class OpenaiBaseConfiguration(ModelConfiguration):
-    def to_pydantic_model(self) -> "Model":
+    def to_pydantic_model(self) -> Model:
         return super().to_pydantic_model()
 
-    def to_pydantic_settings(self) -> "ModelSettings":
+    def to_pydantic_settings(self) -> ModelSettings:
         base = super().to_pydantic_settings()
         reasoning_effort = base.pop("reasoning_effort", "off")
         if ModelCapability.REASONING in self.capabilities and reasoning_effort not in [

@@ -22,10 +22,10 @@ THINKING_BUDGET = {
 
 
 class GeminiBaseConfiguration(ModelConfiguration):
-    def to_pydantic_model(self) -> "Model":
+    def to_pydantic_model(self) -> Model:
         return super().to_pydantic_model()
 
-    def to_pydantic_settings(self) -> "ModelSettings":
+    def to_pydantic_settings(self) -> ModelSettings:
         base = super().to_pydantic_settings()
         reasoning_effort = base.pop("reasoning_effort", "off")
         if ModelCapability.REASONING not in self.capabilities or reasoning_effort in ["off", NOT_GIVEN]:
