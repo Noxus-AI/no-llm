@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 from collections.abc import Iterator, Sequence
-from typing import Any, Literal
+from typing import TYPE_CHECKING, Any, Literal
 
 from pydantic import BaseModel, Field
-from pydantic_ai.models import Model
 from pydantic_ai.settings import ModelSettings
 
 from no_llm.config.benchmarks import BenchmarkScores
@@ -19,6 +18,9 @@ from no_llm.config.parameters import (
 )
 from no_llm.config.properties import ModelProperties
 from no_llm.providers import Provider, Providers
+
+if TYPE_CHECKING:
+    from pydantic_ai.models import Model
 
 
 class ModelIdentity(BaseModel):
@@ -111,4 +113,5 @@ class ModelConfiguration(BaseModel):
         return ModelSettings(**self.parameters.model_dump())
 
     def to_pydantic_model(self) -> Model:
-        raise NotImplementedError("Not implemented")
+        msg = "Not implemented"
+        raise NotImplementedError(msg)

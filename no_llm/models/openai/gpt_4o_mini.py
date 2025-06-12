@@ -24,14 +24,13 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NotGiven
+from no_llm.models.openai.base import OpenaiBaseConfiguration
 from no_llm.providers import (
     AzureProvider,
     OpenAIProvider,
     OpenRouterProvider,
     Providers,
 )
-
-from .base import OpenaiBaseConfiguration
 
 
 class GPT4OMiniConfiguration(OpenaiBaseConfiguration):

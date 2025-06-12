@@ -24,9 +24,8 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NotGiven
+from no_llm.models.deepseek.base import DeepseekBaseConfiguration
 from no_llm.providers import DeepseekProvider, OpenRouterProvider, Providers
-
-from .base import DeepseekBaseConfiguration
 
 
 class DeepseekChatConfiguration(DeepseekBaseConfiguration):

@@ -23,9 +23,8 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
+from no_llm.models.gemini.base import GeminiBaseConfiguration
 from no_llm.providers import OpenRouterProvider, Providers, VertexProvider
-
-from .base import GeminiBaseConfiguration
 
 
 class Gemini20FlashConfiguration(GeminiBaseConfiguration):

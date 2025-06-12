@@ -1,14 +1,18 @@
 from __future__ import annotations
 
-from pydantic_ai.models import Model
+from typing import TYPE_CHECKING
+
 from pydantic_ai.models.gemini import GeminiModelSettings, ThinkingConfig
-from pydantic_ai.settings import ModelSettings
 
 from no_llm import ModelCapability
 from no_llm.config import (
     ModelConfiguration,
 )
 from no_llm.config.parameters import NOT_GIVEN
+
+if TYPE_CHECKING:
+    from pydantic_ai.models import Model
+    from pydantic_ai.settings import ModelSettings
 
 THINKING_BUDGET = {
     "low": 256,
@@ -18,10 +22,10 @@ THINKING_BUDGET = {
 
 
 class GeminiBaseConfiguration(ModelConfiguration):
-    def to_pydantic_model(self) -> Model:
+    def to_pydantic_model(self) -> "Model":
         return super().to_pydantic_model()
 
-    def to_pydantic_settings(self) -> ModelSettings:
+    def to_pydantic_settings(self) -> "ModelSettings":
         base = super().to_pydantic_settings()
         reasoning_effort = base.pop("reasoning_effort", "off")
         if ModelCapability.REASONING not in self.capabilities or reasoning_effort in ["off", NOT_GIVEN]:

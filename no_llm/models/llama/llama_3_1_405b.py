@@ -24,6 +24,7 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NotGiven
+from no_llm.models.llama.base import LlamaBaseConfiguration
 from no_llm.providers import (
     FireworksProvider,
     GroqProvider,
@@ -31,8 +32,6 @@ from no_llm.providers import (
     Providers,
     TogetherProvider,
 )
-
-from .base import LlamaBaseConfiguration
 
 
 class Llama31405BConfiguration(LlamaBaseConfiguration):

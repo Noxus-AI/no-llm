@@ -24,9 +24,8 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NotGiven
+from no_llm.models.perplexity.base import PerplexityBaseConfiguration
 from no_llm.providers import OpenRouterProvider, PerplexityProvider, Providers
-
-from .base import PerplexityBaseConfiguration
 
 
 class PerplexitySonarLargeConfiguration(PerplexityBaseConfiguration):

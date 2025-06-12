@@ -24,6 +24,7 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
+from no_llm.models.claude.base import ClaudeBaseConfiguration
 from no_llm.providers import (
     AnthropicProvider,
     BedrockProvider,
@@ -31,8 +32,6 @@ from no_llm.providers import (
     Providers,
     VertexProvider,
 )
-
-from .base import ClaudeBaseConfiguration
 
 
 class Claude35SonnetV2Configuration(ClaudeBaseConfiguration):

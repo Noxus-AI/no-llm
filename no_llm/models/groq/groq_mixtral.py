@@ -24,9 +24,8 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NotGiven
+from no_llm.models.groq.base import GroqBaseConfiguration
 from no_llm.providers import GroqProvider, Providers
-
-from .base import GroqBaseConfiguration
 
 
 class GroqMixtralConfiguration(GroqBaseConfiguration):
