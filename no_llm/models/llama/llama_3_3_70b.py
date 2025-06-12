@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -33,8 +32,10 @@ from no_llm.providers import (
     TogetherProvider,
 )
 
+from .base import LlamaBaseConfiguration
 
-class Llama3370BConfiguration(ModelConfiguration):
+
+class Llama3370BConfiguration(LlamaBaseConfiguration):
     """Configuration for LLama 3.3 70B model"""
 
     identity: ModelIdentity = ModelIdentity(

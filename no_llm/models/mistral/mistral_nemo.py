@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -36,8 +35,10 @@ from no_llm.providers import (
     VertexProvider,
 )
 
+from .base import MistralBaseConfiguration
 
-class MistralNemoConfiguration(ModelConfiguration):
+
+class MistralNemoConfiguration(MistralBaseConfiguration):
     """Configuration for Mistral Nemo model"""
 
     identity: ModelIdentity = ModelIdentity(

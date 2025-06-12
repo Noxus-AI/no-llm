@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -31,8 +30,10 @@ from no_llm.providers import (
     Providers,
 )
 
+from .base import OpenaiBaseConfiguration
 
-class O4MiniConfiguration(ModelConfiguration):
+
+class O4MiniConfiguration(OpenaiBaseConfiguration):
     """Configuration for O4 Mini model"""
 
     identity: ModelIdentity = ModelIdentity(

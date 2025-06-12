@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -32,8 +31,10 @@ from no_llm.providers import (
     Providers,
 )
 
+from .base import OpenaiBaseConfiguration
 
-class GPT4OConfiguration(ModelConfiguration):
+
+class GPT4OConfiguration(OpenaiBaseConfiguration):
     """Configuration for GPT-4o model"""
 
     identity: ModelIdentity = ModelIdentity(

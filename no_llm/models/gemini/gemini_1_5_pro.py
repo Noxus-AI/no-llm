@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -26,8 +25,10 @@ from no_llm.config import (
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
 from no_llm.providers import OpenRouterProvider, Providers, VertexProvider
 
+from .base import GeminiBaseConfiguration
 
-class Gemini15ProConfiguration(ModelConfiguration):
+
+class Gemini15ProConfiguration(GeminiBaseConfiguration):
     """Configuration for Gemini 1.5 Pro model"""
 
     identity: ModelIdentity = ModelIdentity(

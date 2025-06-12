@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -32,8 +31,10 @@ from no_llm.providers import (
     Providers,
 )
 
+from .base import OpenaiBaseConfiguration
 
-class GPT41MiniConfiguration(ModelConfiguration):
+
+class GPT41MiniConfiguration(OpenaiBaseConfiguration):
     identity: ModelIdentity = ModelIdentity(
         id="gpt-4.1-mini",
         name="GPT 4.1 Mini",

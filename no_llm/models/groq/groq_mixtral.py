@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -27,8 +26,10 @@ from no_llm.config import (
 from no_llm.config.parameters import NotGiven
 from no_llm.providers import GroqProvider, Providers
 
+from .base import GroqBaseConfiguration
 
-class GroqMixtralConfiguration(ModelConfiguration):
+
+class GroqMixtralConfiguration(GroqBaseConfiguration):
     """Configuration for Groq Mixtral model"""
 
     identity: ModelIdentity = ModelIdentity(

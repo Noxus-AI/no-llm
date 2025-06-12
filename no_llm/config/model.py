@@ -4,6 +4,7 @@ from collections.abc import Iterator, Sequence
 from typing import Any, Literal
 
 from pydantic import BaseModel, Field
+from pydantic_ai.models import Model
 from pydantic_ai.settings import ModelSettings
 
 from no_llm.config.benchmarks import BenchmarkScores
@@ -107,5 +108,7 @@ class ModelConfiguration(BaseModel):
                 # setattr(self.parameters, key, value)
 
     def to_pydantic_settings(self) -> ModelSettings:
-        # TODO: translate to each specific model
         return ModelSettings(**self.parameters.model_dump())
+
+    def to_pydantic_model(self) -> Model:
+        raise NotImplementedError("Not implemented")

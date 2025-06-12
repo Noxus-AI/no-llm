@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -33,8 +32,10 @@ from no_llm.providers import (
     VertexProvider,
 )
 
+from .base import ClaudeBaseConfiguration
 
-class Claude35SonnetConfiguration(ModelConfiguration):
+
+class Claude35SonnetConfiguration(ClaudeBaseConfiguration):
     """Configuration for Claude 3.5 Sonnet model"""
 
     identity: ModelIdentity = ModelIdentity(

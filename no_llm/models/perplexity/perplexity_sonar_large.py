@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -27,8 +26,10 @@ from no_llm.config import (
 from no_llm.config.parameters import NotGiven
 from no_llm.providers import OpenRouterProvider, PerplexityProvider, Providers
 
+from .base import PerplexityBaseConfiguration
 
-class PerplexitySonarLargeConfiguration(ModelConfiguration):
+
+class PerplexitySonarLargeConfiguration(PerplexityBaseConfiguration):
     """Configuration for Perplexity Sonar Large model"""
 
     identity: ModelIdentity = ModelIdentity(

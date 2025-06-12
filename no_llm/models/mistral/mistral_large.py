@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -36,8 +35,10 @@ from no_llm.providers import (
     VertexProvider,
 )
 
+from .base import MistralBaseConfiguration
 
-class MistralLargeConfiguration(ModelConfiguration):
+
+class MistralLargeConfiguration(MistralBaseConfiguration):
     """Configuration for Mistral Large model"""
 
     identity: ModelIdentity = ModelIdentity(

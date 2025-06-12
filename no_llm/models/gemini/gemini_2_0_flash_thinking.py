@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -25,8 +24,10 @@ from no_llm.config import (
 from no_llm.config.parameters import NOT_GIVEN, NotGiven, RangeValidation
 from no_llm.providers import OpenRouterProvider, Providers, VertexProvider
 
+from .base import GeminiBaseConfiguration
 
-class Gemini20FlashThinkingConfiguration(ModelConfiguration):
+
+class Gemini20FlashThinkingConfiguration(GeminiBaseConfiguration):
     """Configuration for Gemini 2.0 Flash Thinking model"""
 
     identity: ModelIdentity = ModelIdentity(

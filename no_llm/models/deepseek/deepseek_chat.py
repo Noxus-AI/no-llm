@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -27,8 +26,10 @@ from no_llm.config import (
 from no_llm.config.parameters import NotGiven
 from no_llm.providers import DeepseekProvider, OpenRouterProvider, Providers
 
+from .base import DeepseekBaseConfiguration
 
-class DeepseekChatConfiguration(ModelConfiguration):
+
+class DeepseekChatConfiguration(DeepseekBaseConfiguration):
     """Configuration for DeepSeek Chat model"""
 
     identity: ModelIdentity = ModelIdentity(

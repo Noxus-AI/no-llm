@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -33,8 +32,10 @@ from no_llm.providers import (
     VertexProvider,
 )
 
+from .base import ClaudeBaseConfiguration
 
-class Claude3HaikuConfiguration(ModelConfiguration):
+
+class Claude3HaikuConfiguration(ClaudeBaseConfiguration):
     """Configuration for Claude 3 Haiku model"""
 
     identity: ModelIdentity = ModelIdentity(
