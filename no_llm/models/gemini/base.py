@@ -15,9 +15,9 @@ if TYPE_CHECKING:
     from pydantic_ai.settings import ModelSettings
 
 THINKING_BUDGET = {
-    "low": 256,
-    "medium": 512,
-    "high": 1024,
+    "low": 512,
+    "medium": 1024,
+    "high": 4096,
 }
 
 
@@ -28,7 +28,9 @@ class GeminiBaseConfiguration(ModelConfiguration):
     def to_pydantic_settings(self) -> ModelSettings:
         base = super().to_pydantic_settings()
         reasoning_effort = base.pop("reasoning_effort", "off")
-        if ModelCapability.REASONING not in self.capabilities or reasoning_effort in ["off", NOT_GIVEN]:
+        if ModelCapability.REASONING not in self.capabilities:
+            return base
+        elif reasoning_effort in ["off", NOT_GIVEN]:
             include_thoughts = False
             thinking_budget = 0
         else:
