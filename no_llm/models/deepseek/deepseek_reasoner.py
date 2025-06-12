@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -25,10 +24,11 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NotGiven
+from no_llm.models.deepseek.base import DeepseekBaseConfiguration
 from no_llm.providers import DeepseekProvider, OpenRouterProvider, Providers
 
 
-class DeepseekReasonerConfiguration(ModelConfiguration):
+class DeepseekReasonerConfiguration(DeepseekBaseConfiguration):
     """Configuration for DeepSeek Reasoner model"""
 
     identity: ModelIdentity = ModelIdentity(

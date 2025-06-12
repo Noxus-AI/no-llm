@@ -270,8 +270,8 @@ class ConfigurableModelParameters(BaseModel):
         ),
         description="Whether to include reasoning steps",
     )
-    reasoning_effort: ParameterValue[Literal["low", "medium", "high"] | NotGiven] = Field(
-        default_factory=lambda: ParameterValue[Literal["low", "medium", "high"] | NotGiven](
+    reasoning_effort: ParameterValue[Literal["off", "low", "medium", "high"] | NotGiven] = Field(
+        default_factory=lambda: ParameterValue[Literal["off", "low", "medium", "high"] | NotGiven](
             variant=ParameterVariant.VARIABLE,
             value=NOT_GIVEN,
             required_capability=ModelCapability.REASONING,
@@ -542,7 +542,7 @@ class ModelParameters(BaseModel):
         default=NOT_GIVEN,
         description="Whether to include reasoning steps",
     )
-    reasoning_effort: Literal["low", "medium", "high"] | NotGiven = Field(
+    reasoning_effort: Literal["off", "low", "medium", "high"] | NotGiven = Field(
         default=NOT_GIVEN,
         description="Reasoning level",
     )

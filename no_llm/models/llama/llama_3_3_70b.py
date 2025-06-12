@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -25,6 +24,7 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NotGiven
+from no_llm.models.llama.base import LlamaBaseConfiguration
 from no_llm.providers import (
     FireworksProvider,
     GroqProvider,
@@ -34,7 +34,7 @@ from no_llm.providers import (
 )
 
 
-class Llama3370BConfiguration(ModelConfiguration):
+class Llama3370BConfiguration(LlamaBaseConfiguration):
     """Configuration for LLama 3.3 70B model"""
 
     identity: ModelIdentity = ModelIdentity(

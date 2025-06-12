@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -24,10 +23,11 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
+from no_llm.models.gemini.base import GeminiBaseConfiguration
 from no_llm.providers import Providers, VertexProvider
 
 
-class Gemini20ProConfiguration(ModelConfiguration):
+class Gemini20ProConfiguration(GeminiBaseConfiguration):
     """Configuration for Gemini 2.0 Pro model"""
 
     identity: ModelIdentity = ModelIdentity(

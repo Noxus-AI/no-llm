@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -25,6 +24,7 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NotGiven
+from no_llm.models.openai.base import OpenaiBaseConfiguration
 from no_llm.providers import (
     AzureProvider,
     OpenAIProvider,
@@ -33,7 +33,7 @@ from no_llm.providers import (
 )
 
 
-class GPT41NanoConfiguration(ModelConfiguration):
+class GPT41NanoConfiguration(OpenaiBaseConfiguration):
     identity: ModelIdentity = ModelIdentity(
         id="gpt-4.1-nano",
         name="GPT 4.1 Nano",

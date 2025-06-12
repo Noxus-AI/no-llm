@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -24,6 +23,7 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
+from no_llm.models.openai.base import OpenaiBaseConfiguration
 from no_llm.providers import (
     AzureProvider,
     OpenAIProvider,
@@ -32,7 +32,7 @@ from no_llm.providers import (
 )
 
 
-class O3Configuration(ModelConfiguration):
+class O3Configuration(OpenaiBaseConfiguration):
     """Configuration for O3 model"""
 
     identity: ModelIdentity = ModelIdentity(
@@ -68,7 +68,7 @@ class O3Configuration(ModelConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.01, output_price_per_1k=0.04)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.002, output_price_per_1k=0.008)),
         release_date=datetime(2024, 9, 12),
         data_cutoff_date=datetime(2023, 10, 1),
     )

@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -25,6 +24,7 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NOT_GIVEN, NotGiven
+from no_llm.models.mistral.base import MistralBaseConfiguration
 from no_llm.providers import (
     BedrockProvider,
     FireworksProvider,
@@ -37,7 +37,7 @@ from no_llm.providers import (
 )
 
 
-class MistralLargeConfiguration(ModelConfiguration):
+class MistralLargeConfiguration(MistralBaseConfiguration):
     """Configuration for Mistral Large model"""
 
     identity: ModelIdentity = ModelIdentity(

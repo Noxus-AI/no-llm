@@ -9,7 +9,6 @@ from no_llm.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
-    ModelConfiguration,
     ModelConstraints,
     ModelIdentity,
     ModelMetadata,
@@ -25,10 +24,11 @@ from no_llm.config import (
     TokenPrices,
 )
 from no_llm.config.parameters import NotGiven
+from no_llm.models.perplexity.base import PerplexityBaseConfiguration
 from no_llm.providers import OpenRouterProvider, PerplexityProvider, Providers
 
 
-class PerplexitySonarSmallConfiguration(ModelConfiguration):
+class PerplexitySonarSmallConfiguration(PerplexityBaseConfiguration):
     """Configuration for Perplexity Sonar Small model"""
 
     identity: ModelIdentity = ModelIdentity(
