@@ -391,7 +391,11 @@ class ConfigurableModelParameters(BaseModel):
         if isinstance(error, FixedParameterError):
             if no_llm_settings.validation_mode == ValidationMode.ERROR:
                 raise error
-            logger.warning(f"Invalid parameter value for {field_name}: {error}")
+            msg = f"Invalid parameter value for {field_name}: {error}"
+            if no_llm_settings.validation_mode == ValidationMode.WARN:
+                logger.warning(msg)
+            else:
+                logger.debug(msg)
             return None
 
         if isinstance(error, InvalidRangeError):
@@ -401,7 +405,7 @@ class ConfigurableModelParameters(BaseModel):
                 logger.warning(f"Invalid parameter value for {field_name}: {error}")
                 return None
             if no_llm_settings.validation_mode == ValidationMode.CLAMP:
-                logger.warning(f"Clamping invalid parameter value for {field_name}: {error}")
+                logger.info(f"Clamping invalid parameter value for {field_name}: {error}")
                 clamped_value = error.valid_range[0] if value < error.valid_range[0] else error.valid_range[1]
                 return ParameterValue(
                     variant=param_value.variant,
@@ -414,7 +418,7 @@ class ConfigurableModelParameters(BaseModel):
         if isinstance(error, InvalidEnumError | UnsupportedParameterError):
             if no_llm_settings.validation_mode == ValidationMode.ERROR:
                 raise error
-            logger.warning(f"Invalid parameter value for {field_name}: {error}")
+            logger.debug(f"Invalid parameter value for {field_name}: {error}")
             return None
 
         raise error  # Re-raise unexpected errors
