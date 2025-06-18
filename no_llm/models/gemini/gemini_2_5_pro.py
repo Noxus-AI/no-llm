@@ -74,11 +74,11 @@ class Gemini25ProConfiguration(GeminiBaseConfiguration):
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
-        pydantic_ai="gemini-2.5-pro-exp-03-25",
-        litellm="gemini-2.5-pro-exp-03-25",
+        pydantic_ai="gemini-2.5-pro",
+        litellm="gemini-2.5-pro",
         langfuse="gemini-2.5-pro",
-        lmarena="gemini-2.5-pro-exp-03-25",
-        openrouter="google/gemini-2.5-pro-preview-03-25:free",
+        lmarena="gemini-2.5-pro",
+        openrouter="google/gemini-2.5-pro:free",
     )
 
     class Parameters(ConfigurableModelParameters):

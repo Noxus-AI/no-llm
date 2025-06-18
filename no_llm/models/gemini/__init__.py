@@ -5,6 +5,7 @@ from no_llm.models.gemini.gemini_2_0_flash_lite import Gemini20FlashLiteConfigur
 from no_llm.models.gemini.gemini_2_0_flash_thinking import Gemini20FlashThinkingConfiguration
 from no_llm.models.gemini.gemini_2_0_pro import Gemini20ProConfiguration
 from no_llm.models.gemini.gemini_2_5_flash import Gemini25FlashConfiguration
+from no_llm.models.gemini.gemini_2_5_flash_lite import Gemini25FlashLiteConfiguration
 from no_llm.models.gemini.gemini_2_5_pro import Gemini25ProConfiguration
 
 __all__ = [
@@ -15,5 +16,6 @@ __all__ = [
     "Gemini20FlashThinkingConfiguration",
     "Gemini20ProConfiguration",
     "Gemini25FlashConfiguration",
+    "Gemini25FlashLiteConfiguration",
     "Gemini25ProConfiguration",
 ]

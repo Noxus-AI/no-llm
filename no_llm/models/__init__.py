@@ -22,6 +22,7 @@ from no_llm.models.gemini import (
     Gemini20FlashThinkingConfiguration,
     Gemini20ProConfiguration,
     Gemini25FlashConfiguration,
+    Gemini25FlashLiteConfiguration,
     Gemini25ProConfiguration,
 )
 from no_llm.models.groq import GroqMixtralConfiguration
@@ -64,8 +65,9 @@ __all__ = [
     "Gemini20FlashConfiguration",
     "Gemini20FlashThinkingConfiguration",
     "Gemini20ProConfiguration",
-    "Gemini25ProConfiguration",
     "Gemini25FlashConfiguration",
+    "Gemini25FlashLiteConfiguration",
+    "Gemini25ProConfiguration",
     "GroqMixtralConfiguration",
     "GPT35TurboConfiguration",
     "GPT4Configuration",

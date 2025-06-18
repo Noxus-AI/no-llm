@@ -27,14 +27,14 @@ from no_llm.models.gemini.base import GeminiBaseConfiguration
 from no_llm.providers import OpenRouterProvider, Providers, VertexProvider
 
 
-class Gemini25FlashConfiguration(GeminiBaseConfiguration):
-    """Configuration for Gemini 2.5 Flash model"""
+class Gemini25FlashLiteConfiguration(GeminiBaseConfiguration):
+    """Configuration for Gemini 2.5 Flash Lite model"""
 
     identity: ModelIdentity = ModelIdentity(
-        id="gemini-2.5-flash",
-        name="Gemini 2.5 Flash",
+        id="gemini-2.5-flash-lite",
+        name="Gemini 2.5 Flash Lite",
         version="2025.04",
-        description="Latest version of Google's fastest foundation model, optimized for rapid responses while maintaining strong performance across multimodal tasks.",
+        description="Lite version of Gemini 2.5 Flash, optimized for rapid responses while maintaining strong performance across multimodal tasks.",
         creator="Google",
     )
 
@@ -55,7 +55,7 @@ class Gemini25FlashConfiguration(GeminiBaseConfiguration):
         ModelCapability.PARALLEL_FUNCTION_CALLING,
     }
 
-    constraints: ModelConstraints = ModelConstraints(max_input_tokens=1048576, max_output_tokens=65535)
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=1048576, max_output_tokens=8192)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=248.6, label="High", description="Average (1-3 seconds)"),
@@ -64,17 +64,17 @@ class Gemini25FlashConfiguration(GeminiBaseConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0003, output_price_per_1k=0.0025)),
-        release_date=datetime(2025, 4, 17),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.000075, output_price_per_1k=0.0003)),
+        release_date=datetime(2025, 6, 17),
         data_cutoff_date=datetime(2025, 1, 1),
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
-        pydantic_ai="gemini-2.5-flash",
-        litellm="gemini-2.5-flash",
-        langfuse="gemini-2.5-flash",
-        lmarena="gemini-2.5-flash",
-        openrouter="google/gemini-2.5-flash:free",
+        pydantic_ai="gemini-2.5-flash-lite-preview-06-17",
+        litellm="gemini/gemini-2.5-flash-lite-preview-06-17",
+        langfuse="gemini-2.5-flash-lite-preview-06-17",
+        lmarena="gemini-2.5-flash-lite-preview-06-17",
+        openrouter="google/gemini-2.5-flash-lite-preview-06-17",
     )
 
     class Parameters(ConfigurableModelParameters):
@@ -84,34 +84,6 @@ class Gemini25FlashConfiguration(GeminiBaseConfiguration):
                 variant=ParameterVariant.VARIABLE,
                 value=1.5,
                 validation_rule=RangeValidation(min_value=0.0, max_value=2.0),
-            )
-        )
-        top_p: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](
-                variant=ParameterVariant.VARIABLE,
-                value=0.8,
-                validation_rule=RangeValidation(min_value=0.0, max_value=1.0),
-            )
-        )
-        top_k: ParameterValue[int | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[int | NotGiven](
-                variant=ParameterVariant.VARIABLE,
-                value=20,
-                validation_rule=RangeValidation(min_value=1, max_value=100),
-            )
-        )
-        frequency_penalty: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](
-                variant=ParameterVariant.VARIABLE,
-                value=0.3,
-                validation_rule=RangeValidation(min_value=0.0, max_value=1.0),
-            )
-        )
-        presence_penalty: ParameterValue[float | NotGiven] = Field(
-            default_factory=lambda: ParameterValue[float | NotGiven](
-                variant=ParameterVariant.VARIABLE,
-                value=0.6,
-                validation_rule=RangeValidation(min_value=0.0, max_value=1.0),
             )
         )
         stop: ParameterValue[list[str] | NotGiven] = Field(
