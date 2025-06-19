@@ -5,7 +5,7 @@ from pydantic_ai.models import (
     Model,
 )
 from pydantic_ai.models.anthropic import AnthropicModel
-from pydantic_ai.models.gemini import GeminiModel
+from pydantic_ai.models.google import GoogleModel
 from pydantic_ai.models.groq import GroqModel
 from pydantic_ai.models.mistral import MistralModel
 from pydantic_ai.models.openai import OpenAIModel
@@ -136,7 +136,7 @@ def _get_pydantic_model(
                         provider=provider.to_pydantic(),  # type: ignore
                     )
                 elif "gemini" in model_cfg.identity.id:
-                    pyd_model = GeminiModel(
+                    pyd_model = GoogleModel(
                         model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
                         provider=provider.to_pydantic(),  # type: ignore
                     )

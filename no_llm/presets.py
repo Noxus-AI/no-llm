@@ -33,11 +33,13 @@ class ModelPreset(BaseModel):
                 except ModelNotFoundError as e:
                     logger.warning(f"Model {model} not found in registry: {e}. Skipping.")
                     continue
+
                 if len(self.required_capabilities) > 0 and not model_cfg.check_capabilities(self.required_capabilities):
                     logger.warning(
                         f"Model {model} does not have the required capabilities: {self.required_capabilities}. Skipping."
                     )
                     continue
+
                 if self.parameters is not None:
                     model_cfg.set_parameters(self.parameters)
 

@@ -9,6 +9,7 @@ from pydantic import Field, PrivateAttr
 from pydantic_ai.providers.anthropic import (
     AnthropicProvider as PydanticAnthropicProvider,
 )
+from pydantic_ai.providers.google import GoogleProvider as PydanticGoogleProvider
 from pydantic_ai.providers.google_vertex import (
     GoogleVertexProvider as PydanticGoogleVertexProvider,
 )
@@ -130,11 +131,15 @@ class VertexProvider(Provider):
 
     def to_pydantic(
         self,
-    ) -> PydanticGoogleVertexProvider | PydanticAnthropicProvider | PydanticMistralProvider:
+    ) -> PydanticGoogleVertexProvider | PydanticAnthropicProvider | PydanticMistralProvider | PydanticGoogleProvider:
         if self.model_family == "gemini":
-            return PydanticGoogleVertexProvider(
-                project_id=str(self.project_id),
-                region=cast(VertexAiRegion, self.current),
+            # return PydanticGoogleVertexProvider(
+            #     project_id=str(self.project_id),
+            #     region=cast(VertexAiRegion, self.current),
+            # )
+            return PydanticGoogleProvider(
+                project=str(self.project_id),
+                location=cast(VertexAiRegion, self.current),
             )
         elif self.model_family == "claude":
             return PydanticAnthropicProvider(

@@ -28,7 +28,7 @@ from no_llm.models.gemini.base import GeminiBaseConfiguration
 from no_llm.providers import OpenRouterProvider, Providers, VertexProvider
 
 if TYPE_CHECKING:
-    from pydantic_ai.settings import ModelSettings
+    from pydantic_ai.models.google import GoogleModelSettings
 
 
 class Gemini25ProConfiguration(GeminiBaseConfiguration):
@@ -131,7 +131,8 @@ class Gemini25ProConfiguration(GeminiBaseConfiguration):
 
     parameters: Parameters = Field(default_factory=Parameters)  # type: ignore
 
-    def to_pydantic_settings(self) -> ModelSettings:
+    def to_pydantic_settings(self) -> GoogleModelSettings:
         base = super().to_pydantic_settings()
-        base.pop("gemini_thinking_config")
+        if "google_thinking_config" in base:
+            base["google_thinking_config"].pop("thinking_budget")
         return base

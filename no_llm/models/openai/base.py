@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, cast
 
 from pydantic_ai.models.openai import OpenAIModelSettings
 
@@ -21,14 +21,15 @@ class OpenaiBaseConfiguration(ModelConfiguration):
 
     def to_pydantic_settings(self) -> ModelSettings:
         base = super().to_pydantic_settings()
-        reasoning_effort = base.pop("reasoning_effort", "off")
+        reasoning_effort = cast(str, base.pop("reasoning_effort", "off"))
+        nbase = cast(dict, {f"openai_{k}": v for k, v in base.items()})
         if ModelCapability.REASONING in self.capabilities and reasoning_effort not in [
             None,
             "off",
             NOT_GIVEN,
         ]:
             return OpenAIModelSettings(
-                **base,
+                **nbase,
                 openai_reasoning_effort=reasoning_effort,  # type: ignore
             )  # type: ignore
         return base
