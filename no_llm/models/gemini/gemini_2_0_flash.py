@@ -53,6 +53,9 @@ class Gemini20FlashConfiguration(GeminiBaseConfiguration):
         ModelCapability.SYSTEM_PROMPT,
         ModelCapability.VISION,
         ModelCapability.PARALLEL_FUNCTION_CALLING,
+        ModelCapability.AUDIO_TRANSCRIPTION,
+        ModelCapability.AUDIO_SPEECH,
+        ModelCapability.VIDEO_TRANSCRIPTION,
     }
 
     constraints: ModelConstraints = ModelConstraints(max_input_tokens=1048576, max_output_tokens=8192)
@@ -64,14 +67,14 @@ class Gemini20FlashConfiguration(GeminiBaseConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.00015, output_price_per_1k=0.0006)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0001, output_price_per_1k=0.0004)),
         release_date=datetime(2024, 6, 15),
         data_cutoff_date=datetime(2024, 1, 1),
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
         pydantic_ai="gemini-2.0-flash",
-        litellm="gemini-2.0-flash-001",
+        litellm="gemini-2.0-flash",
         langfuse="gemini-2.0-flash",
         lmarena="gemini-2.0-flash-001",
         openrouter="google/gemini-2.0-flash-001:free",

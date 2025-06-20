@@ -21,3 +21,7 @@ class ModelCapability(str, Enum):
     STRUCTURED_OUTPUT = "structured_output"
     REASONING = "reasoning"
     WEB_SEARCH = "web_search"
+    AUDIO_TRANSCRIPTION = "audio_in"
+    AUDIO_SPEECH = "audio_out"
+    VIDEO_TRANSCRIPTION = "video_in"
+    VIDEO_GENERATION = "video_out"

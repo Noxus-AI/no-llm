@@ -74,8 +74,8 @@ class O3Configuration(OpenaiBaseConfiguration):
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
-        pydantic_ai="o3",
-        litellm="o3",
+        pydantic_ai="o3-2025-04-16",
+        litellm="o3-2025-04-16",
         langfuse="o3",
         openrouter="openai/o3",
     )

@@ -53,6 +53,9 @@ class Gemini25FlashConfiguration(GeminiBaseConfiguration):
         ModelCapability.SYSTEM_PROMPT,
         ModelCapability.VISION,
         ModelCapability.PARALLEL_FUNCTION_CALLING,
+        ModelCapability.REASONING,
+        ModelCapability.AUDIO_TRANSCRIPTION,
+        ModelCapability.VIDEO_TRANSCRIPTION,
     }
 
     constraints: ModelConstraints = ModelConstraints(max_input_tokens=1048576, max_output_tokens=65535)

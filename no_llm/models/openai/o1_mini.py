@@ -52,6 +52,7 @@ class O1MiniConfiguration(OpenaiBaseConfiguration):
     mode: ModelMode = ModelMode.CHAT
 
     capabilities: set[ModelCapability] = {
+        ModelCapability.STREAMING,
         ModelCapability.REASONING,
     }
 
@@ -64,14 +65,14 @@ class O1MiniConfiguration(OpenaiBaseConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0011, output_price_per_1k=0.0044)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.003, output_price_per_1k=0.012)),
         release_date=datetime(2024, 9, 12),
         data_cutoff_date=datetime(2023, 10, 1),
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
-        pydantic_ai="o1-mini",
-        litellm="o1-mini",
+        pydantic_ai="o1-mini-2024-09-12",
+        litellm="o1-mini-2024-09-12",
         langfuse="o1-mini",
         openrouter="openai/o1-mini",
     )

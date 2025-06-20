@@ -8,7 +8,7 @@ from pydantic_ai.models.anthropic import AnthropicModel
 from pydantic_ai.models.google import GoogleModel
 from pydantic_ai.models.groq import GroqModel
 from pydantic_ai.models.mistral import MistralModel
-from pydantic_ai.models.openai import OpenAIModel
+from pydantic_ai.models.openai import OpenAIModel, OpenAIResponsesModel
 
 from no_llm.config.enums import ModelMode
 from no_llm.config.model import ModelConfiguration
@@ -163,7 +163,6 @@ def _get_pydantic_model(
             elif isinstance(
                 provider,
                 AzureProvider
-                | OpenAIProvider
                 | DeepseekProvider
                 | PerplexityProvider
                 | FireworksProvider
@@ -171,6 +170,11 @@ def _get_pydantic_model(
                 | GrokProvider,
             ):
                 pyd_model = OpenAIModel(
+                    model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
+                    provider=provider.to_pydantic(),
+                )
+            elif isinstance(provider, OpenAIProvider):
+                pyd_model = OpenAIResponsesModel(
                     model_name=model_cfg.integration_aliases.pydantic_ai or model_cfg.identity.id,
                     provider=provider.to_pydantic(),
                 )

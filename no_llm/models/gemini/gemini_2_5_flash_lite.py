@@ -53,9 +53,12 @@ class Gemini25FlashLiteConfiguration(GeminiBaseConfiguration):
         ModelCapability.SYSTEM_PROMPT,
         ModelCapability.VISION,
         ModelCapability.PARALLEL_FUNCTION_CALLING,
+        ModelCapability.AUDIO_TRANSCRIPTION,
+        ModelCapability.VIDEO_TRANSCRIPTION,
+        ModelCapability.REASONING,
     }
 
-    constraints: ModelConstraints = ModelConstraints(max_input_tokens=1048576, max_output_tokens=8192)
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=1048576, max_output_tokens=65535)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=248.6, label="High", description="Average (1-3 seconds)"),
@@ -64,7 +67,7 @@ class Gemini25FlashLiteConfiguration(GeminiBaseConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.000075, output_price_per_1k=0.0003)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0001, output_price_per_1k=0.0004)),
         release_date=datetime(2025, 6, 17),
         data_cutoff_date=datetime(2025, 1, 1),
     )

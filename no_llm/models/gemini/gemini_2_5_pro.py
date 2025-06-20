@@ -57,6 +57,9 @@ class Gemini25ProConfiguration(GeminiBaseConfiguration):
         ModelCapability.SYSTEM_PROMPT,
         ModelCapability.VISION,
         ModelCapability.REASONING,
+        ModelCapability.AUDIO_TRANSCRIPTION,
+        ModelCapability.VIDEO_TRANSCRIPTION,
+        ModelCapability.PARALLEL_FUNCTION_CALLING,
     }
 
     constraints: ModelConstraints = ModelConstraints(max_input_tokens=1048576, max_output_tokens=65535)
@@ -75,7 +78,7 @@ class Gemini25ProConfiguration(GeminiBaseConfiguration):
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
         pydantic_ai="gemini-2.5-pro",
-        litellm="gemini-2.5-pro",
+        litellm="gemini-2.5-pro-preview-06-05",
         langfuse="gemini-2.5-pro",
         lmarena="gemini-2.5-pro",
         openrouter="google/gemini-2.5-pro:free",

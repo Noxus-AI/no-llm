@@ -51,6 +51,7 @@ class Gemini15ProConfiguration(GeminiBaseConfiguration):
         ModelCapability.JSON_MODE,
         ModelCapability.SYSTEM_PROMPT,
         ModelCapability.VISION,
+        ModelCapability.PARALLEL_FUNCTION_CALLING,
     }
 
     constraints: ModelConstraints = ModelConstraints(max_input_tokens=2097152, max_output_tokens=8192)

@@ -59,6 +59,7 @@ class Claude4OpusConfiguration(ClaudeBaseConfiguration):
         ModelCapability.SYSTEM_PROMPT,
         ModelCapability.VISION,
         ModelCapability.PARALLEL_FUNCTION_CALLING,
+        ModelCapability.REASONING,
     }
 
     constraints: ModelConstraints = ModelConstraints(max_input_tokens=200000, max_output_tokens=32000)

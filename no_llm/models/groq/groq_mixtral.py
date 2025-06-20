@@ -48,7 +48,6 @@ class GroqMixtralConfiguration(GroqBaseConfiguration):
         ModelCapability.FUNCTION_CALLING,
         ModelCapability.JSON_MODE,
         ModelCapability.SYSTEM_PROMPT,
-        ModelCapability.PARALLEL_FUNCTION_CALLING,
     }
 
     constraints: ModelConstraints = ModelConstraints(max_input_tokens=32768, max_output_tokens=32768)

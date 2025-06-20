@@ -2,18 +2,16 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from no_llm.config import (
-    ModelConfiguration,
-)
+from no_llm.models.openai.base import OpenaiBaseConfiguration
 
 if TYPE_CHECKING:
     from pydantic_ai.models import Model
-    from pydantic_ai.settings import ModelSettings
+    from pydantic_ai.models.openai import OpenAIModelSettings
 
 
-class DeepseekBaseConfiguration(ModelConfiguration):
+class DeepseekBaseConfiguration(OpenaiBaseConfiguration):
     def to_pydantic_model(self) -> Model:
         return super().to_pydantic_model()
 
-    def to_pydantic_settings(self) -> ModelSettings:
+    def to_pydantic_settings(self) -> OpenAIModelSettings:
         return super().to_pydantic_settings()

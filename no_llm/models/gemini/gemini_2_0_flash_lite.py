@@ -52,7 +52,8 @@ class Gemini20FlashLiteConfiguration(GeminiBaseConfiguration):
         ModelCapability.JSON_MODE,
         ModelCapability.SYSTEM_PROMPT,
         ModelCapability.VISION,
-        ModelCapability.PARALLEL_FUNCTION_CALLING,
+        ModelCapability.AUDIO_TRANSCRIPTION,
+        ModelCapability.VIDEO_TRANSCRIPTION,
     }
 
     constraints: ModelConstraints = ModelConstraints(max_input_tokens=1048576, max_output_tokens=8192)

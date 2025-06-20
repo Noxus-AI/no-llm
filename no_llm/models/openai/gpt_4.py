@@ -56,9 +56,10 @@ class GPT4Configuration(OpenaiBaseConfiguration):
         ModelCapability.STREAMING,
         ModelCapability.FUNCTION_CALLING,
         ModelCapability.SYSTEM_PROMPT,
+        ModelCapability.PARALLEL_FUNCTION_CALLING,
     }
 
-    constraints: ModelConstraints = ModelConstraints(max_input_tokens=128000, max_output_tokens=16384)
+    constraints: ModelConstraints = ModelConstraints(max_input_tokens=128000, max_output_tokens=4096)
 
     properties: ModelProperties | None = ModelProperties(
         speed=SpeedProperties(score=75.5, label="Medium", description="Average (1-3 seconds)"),
@@ -67,15 +68,15 @@ class GPT4Configuration(OpenaiBaseConfiguration):
 
     metadata: ModelMetadata = ModelMetadata(
         privacy_level=[PrivacyLevel.BASIC],
-        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.0025, output_price_per_1k=0.01)),
+        pricing=ModelPricing(token_prices=TokenPrices(input_price_per_1k=0.01, output_price_per_1k=0.03)),
         release_date=datetime(2024, 1, 25),
         data_cutoff_date=datetime(2023, 12, 31),
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
-        pydantic_ai="gpt-4o",
-        litellm="gpt-4o",
-        langfuse="gpt-4",
+        pydantic_ai="gpt-4-turbo",
+        litellm="gpt-4-turbo",
+        langfuse="gpt-4-turbo",
         openrouter="openai/gpt-4-turbo",
     )
 
