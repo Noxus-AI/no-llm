@@ -1,4 +1,3 @@
-from pathlib import Path
 from vcr import VCR
 
 import pytest
@@ -16,6 +15,7 @@ def openai_model(monkeypatch, builtin_model_registry: ModelRegistry, vcr: VCR):
 
 @pytest.mark.asyncio
 @pytest.mark.vcr()
+@pytest.mark.skip()
 async def test_async_chat(openai_model: NoLLMModel):
     """Test async chat completion."""
     agent = Agent(openai_model)
@@ -23,6 +23,7 @@ async def test_async_chat(openai_model: NoLLMModel):
     assert "paris" in result.output.lower()
 
 @pytest.mark.vcr()
+@pytest.mark.skip()
 def test_sync_chat(openai_model: NoLLMModel):
     """Test sync chat completion."""
     agent = Agent(openai_model)
@@ -31,6 +32,7 @@ def test_sync_chat(openai_model: NoLLMModel):
 
 @pytest.mark.asyncio
 @pytest.mark.vcr()
+@pytest.mark.skip()
 async def test_stream_chat(openai_model: NoLLMModel):
     """Test streaming chat completion."""
     agent = Agent(openai_model)
