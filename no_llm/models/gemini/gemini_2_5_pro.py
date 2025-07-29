@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from pydantic import Field
 
-from no_llm.config import (
+from no_llm.models.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
@@ -23,7 +23,7 @@ from no_llm.config import (
     SpeedProperties,
     TokenPrices,
 )
-from no_llm.config.parameters import NOT_GIVEN, NotGiven
+from no_llm.models.config.parameters import NOT_GIVEN, NotGiven
 from no_llm.models.gemini.base import GeminiBaseConfiguration
 from no_llm.providers import OpenRouterProvider, Providers, VertexProvider
 

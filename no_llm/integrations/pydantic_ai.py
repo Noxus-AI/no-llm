@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
-from no_llm.config.parameters import ModelParameters
+from no_llm.models.config.parameters import ModelParameters
 
 try:
     from pydantic_ai.models import (
@@ -21,7 +21,7 @@ except ImportError as _import_error:
 
 from loguru import logger
 
-from no_llm.config.model import ModelConfiguration
+from no_llm.models.config.model import ModelConfiguration
 from no_llm.integrations._utils import _get_pydantic_model
 
 if TYPE_CHECKING:
@@ -69,7 +69,7 @@ class NoLLMModel(Model):
         self,
         model_cfgs: list[ModelConfiguration],
     ) -> list[tuple[Model, ModelConfiguration]]:
-        """Get the appropriate pydantic-ai model based on no_llm configuration."""
+        """Get the appropriate pydantic-ai model based on no_llm.models.configuration."""
         models: list[tuple[Model, ModelConfiguration]] = []
 
         for model_cfg in model_cfgs:
@@ -84,7 +84,7 @@ class NoLLMModel(Model):
         model: ModelConfiguration,
         user_settings: PydanticModelSettings | None = None,
     ) -> PydanticModelSettings:
-        """Get merged model settings from no_llm config and user settings."""
+        """Get merged model settings from no_llm.models.config and user settings."""
         new_model = model.model_copy(deep=True)
         if user_settings is not None:
             new_model.set_parameters(ModelParameters.from_pydantic(user_settings))

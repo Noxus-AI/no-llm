@@ -8,11 +8,11 @@ from anthropic.types.beta import (
 )
 from pydantic_ai.models.anthropic import AnthropicModelSettings
 
-from no_llm.config import (
+from no_llm.models.config import (
     ModelCapability,
     ModelConfiguration,
 )
-from no_llm.config.parameters import NOT_GIVEN
+from no_llm.models.config.parameters import NOT_GIVEN
 
 if TYPE_CHECKING:
     from pydantic_ai.models import Model

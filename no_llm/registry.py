@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING, Generic, Literal, TypeVar
 import yaml
 from loguru import logger
 
-from no_llm.config import ModelCapability, ModelConfiguration, ModelMode, PrivacyLevel
+from no_llm.models.config import ModelCapability, ModelConfiguration, ModelMode, PrivacyLevel
 from no_llm.errors import (
     ConfigurationLoadError,
     ModelNotFoundError,

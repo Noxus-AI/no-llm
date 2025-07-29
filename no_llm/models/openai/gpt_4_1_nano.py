@@ -5,7 +5,7 @@ from datetime import datetime
 
 from pydantic import Field
 
-from no_llm.config import (
+from no_llm.models.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
     ModelCapability,
@@ -23,7 +23,7 @@ from no_llm.config import (
     SpeedProperties,
     TokenPrices,
 )
-from no_llm.config.parameters import NotGiven
+from no_llm.models.config.parameters import NotGiven
 from no_llm.models.openai.base import OpenaiBaseConfiguration
 from no_llm.providers import (
     AzureProvider,

@@ -6,8 +6,8 @@ from typing import TYPE_CHECKING, Any, Generic, Literal, TypeVar
 from loguru import logger
 from pydantic import BaseModel, ConfigDict, Field, model_serializer, model_validator
 
-from no_llm.config.enums import ModelCapability
-from no_llm.config.errors import (
+from no_llm.models.config.enums import ModelCapability
+from no_llm.models.config.errors import (
     FixedParameterError,
     InvalidEnumError,
     InvalidRangeError,

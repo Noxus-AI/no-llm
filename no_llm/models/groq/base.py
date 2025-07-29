@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from no_llm.config import (
+from no_llm.models.config import (
     ModelConfiguration,
 )
 

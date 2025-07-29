@@ -6,17 +6,17 @@ from typing import TYPE_CHECKING, Any, Literal
 from pydantic import BaseModel, Field
 from pydantic_ai.settings import ModelSettings
 
-from no_llm.config.benchmarks import BenchmarkScores
-from no_llm.config.enums import ModelCapability, ModelMode
-from no_llm.config.errors import MissingCapabilitiesError
-from no_llm.config.integrations import IntegrationAliases
-from no_llm.config.metadata import ModelMetadata
-from no_llm.config.parameters import (
+from no_llm.models.config.benchmarks import BenchmarkScores
+from no_llm.models.config.enums import ModelCapability, ModelMode
+from no_llm.models.config.errors import MissingCapabilitiesError
+from no_llm.models.config.integrations import IntegrationAliases
+from no_llm.models.config.metadata import ModelMetadata
+from no_llm.models.config.parameters import (
     NOT_GIVEN,
     ConfigurableModelParameters,
     ModelParameters,
 )
-from no_llm.config.properties import ModelProperties
+from no_llm.models.config.properties import ModelProperties
 from no_llm.providers import Provider, Providers
 
 if TYPE_CHECKING:

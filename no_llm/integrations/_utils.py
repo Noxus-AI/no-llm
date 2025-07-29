@@ -10,8 +10,8 @@ from pydantic_ai.models.groq import GroqModel
 from pydantic_ai.models.mistral import MistralModel
 from pydantic_ai.models.openai import OpenAIModel, OpenAIResponsesModel
 
-from no_llm.config.enums import ModelMode
-from no_llm.config.model import ModelConfiguration
+from no_llm.models.config.enums import ModelMode
+from no_llm.models.config.model import ModelConfiguration
 from no_llm.providers import (
     AnthropicProvider,
     AzureProvider,
@@ -108,7 +108,7 @@ def pydantic_mistral_gcp_patch():
 def _get_pydantic_model(
     model_cfg: ModelConfiguration,
 ) -> list[tuple[Model, ModelConfiguration]]:
-    """Get the appropriate pydantic-ai model based on no_llm configuration."""
+    """Get the appropriate pydantic-ai model based on no_llm.models.configuration."""
     models: list[tuple[Model, ModelConfiguration]] = []
 
     if model_cfg.integration_aliases is None:
