@@ -186,6 +186,8 @@ class ModelRegistry:
         capabilities: set[ModelCapability] | SetFilter[ModelCapability] | None = None,
         privacy_levels: set[PrivacyLevel] | SetFilter[PrivacyLevel] | None = None,
         mode: ModelMode | None = None,
+        only_valid: bool = True,
+        only_active: bool = True,
     ) -> Iterator[ModelConfiguration]:
         if isinstance(capabilities, set):
             capabilities = SetFilter(capabilities)
@@ -194,10 +196,20 @@ class ModelRegistry:
 
         logger.debug(
             f"Listing models with filters: provider={provider}, capabilities={capabilities}, "
-            f"mode={mode}, privacy_levels={privacy_levels}"
+            f"mode={mode}, privacy_levels={privacy_levels}, only_valid={only_valid}, only_active={only_active}"
         )
 
         for model in self._models.values():
+            # Filter by active status
+            if only_active and not model.is_active:
+                logger.debug(f"Skipping model {model.identity.id} - inactive")
+                continue
+
+            # Filter by valid status
+            if only_valid and not model.is_valid:
+                logger.debug(f"Skipping model {model.identity.id} - invalid")
+                continue
+
             if provider and not any(p.type == provider for p in model.providers):
                 continue
 
@@ -221,6 +233,15 @@ class ModelRegistry:
                 continue
 
             yield model
+
+    def set_model_active(self, model_id: str, is_active: bool) -> None:
+        """Set the active status of a model"""
+        if model_id not in self._models:
+            logger.error(f"Cannot set active status: model {model_id} not found")
+            raise ModelNotFoundError(model_id)
+
+        self._models[model_id].is_active = is_active
+        logger.debug(f"Set model {model_id} active status to: {is_active}")
 
     def remove_model(self, model_id: str) -> None:
         if model_id not in self._models:

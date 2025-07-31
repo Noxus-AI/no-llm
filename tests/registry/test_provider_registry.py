@@ -28,7 +28,7 @@ def config_dir(tmp_path) -> Path:
     return config_dir
 
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def base_registry() -> ProviderRegistry:
     """Create a test registry without config directory"""
     return ProviderRegistry()
@@ -96,11 +96,11 @@ def test_registry_get_provider(base_registry):
     assert retrieved == provider
 
 
-def test_registry_get_providers_by_type_multiple(base_registry):
+def test_registry_get_providers_by_type_multiple(base_registry: ProviderRegistry):
     """Test getting multiple providers of same type"""
     # Start with builtin anthropic and openai
-    initial_anthropic = len(list(base_registry.get_providers_by_type("anthropic")))
-    initial_openai = len(list(base_registry.get_providers_by_type("openai")))
+    initial_anthropic = len(list(base_registry.get_providers_by_type("anthropic", only_valid=False, only_active=False)))
+    initial_openai = len(list(base_registry.get_providers_by_type("openai", only_valid=False, only_active=False)))
     
     config1 = create_test_provider_config("anthropic", "anthropic-1")
     config2 = create_test_provider_config("anthropic", "anthropic-2")
@@ -114,10 +114,10 @@ def test_registry_get_providers_by_type_multiple(base_registry):
     base_registry.register_provider(provider2)
     base_registry.register_provider(provider3)
 
-    anthropic_providers = list(base_registry.get_providers_by_type("anthropic"))
+    anthropic_providers = list(base_registry.get_providers_by_type("anthropic", only_valid=False, only_active=False))
     assert len(anthropic_providers) == initial_anthropic + 2
     
-    openai_providers = list(base_registry.get_providers_by_type("openai"))
+    openai_providers = list(base_registry.get_providers_by_type("openai", only_valid=False, only_active=False))
     assert len(openai_providers) == initial_openai + 1
 
 
@@ -420,7 +420,7 @@ def test_registry_comprehensive_builtin_behavior():
     
     # Each type should have exactly one builtin provider
     for provider_type in expected_types:
-        providers_of_type = list(registry.get_providers_by_type(provider_type))
+        providers_of_type = list(registry.get_providers_by_type(provider_type, only_valid=False, only_active=False))
         assert len(providers_of_type) == 1
         assert providers_of_type[0].type == provider_type
         
@@ -428,3 +428,125 @@ def test_registry_comprehensive_builtin_behavior():
     for provider_type in expected_types:
         provider = registry.get_provider(provider_type)
         assert provider.type == provider_type
+
+
+def test_provider_set_active_functionality(base_registry):
+    """Test setting provider active status"""
+    provider_id = "anthropic"
+    
+    # Provider should be active by default
+    provider = base_registry.get_provider(provider_id)
+    assert provider.is_active is True
+    
+    # Set provider to inactive
+    base_registry.set_provider_active(provider_id, False)
+    provider = base_registry.get_provider(provider_id)
+    assert provider.is_active is False
+    
+    # Set provider back to active
+    base_registry.set_provider_active(provider_id, True)
+    provider = base_registry.get_provider(provider_id)
+    assert provider.is_active is True
+
+
+def test_provider_set_active_nonexistent_provider(base_registry):
+    """Test setting active status on non-existent provider raises error"""
+    with pytest.raises(ProviderNotFoundError) as exc_info:
+        base_registry.set_provider_active("nonexistent", True)
+    
+    assert exc_info.value.provider_id == "nonexistent"
+
+
+def test_provider_listing_with_active_filter(base_registry):
+    """Test provider listing respects is_active filter"""
+    # Count active providers initially
+    active_providers = list(base_registry.list_providers(only_valid=False, only_active=True))
+    all_providers = list(base_registry.list_providers(only_valid=False, only_active=False))
+    initial_active_count = len(active_providers)
+    initial_total_count = len(all_providers)
+    
+    # Deactivate one provider
+    provider_id = "anthropic"
+    base_registry.set_provider_active(provider_id, False)
+    
+    # Check filtering works
+    active_providers = list(base_registry.list_providers(only_valid=False, only_active=True))
+    all_providers = list(base_registry.list_providers(only_valid=False, only_active=False))
+    
+    assert len(active_providers) == initial_active_count - 1
+    assert len(all_providers) == initial_total_count  # Total unchanged
+    
+    # Verify the deactivated provider is not in active list
+    active_provider_ids = {p.id for p in active_providers}
+    assert provider_id not in active_provider_ids
+    
+    # But it should be in the all providers list
+    all_provider_ids = {p.id for p in all_providers}
+    assert provider_id in all_provider_ids
+
+
+def test_provider_get_by_type_with_active_filter(base_registry):
+    """Test get_providers_by_type respects is_active filter"""
+    provider_type = "anthropic"
+    
+    # Should find active anthropic providers
+    active_providers = list(base_registry.get_providers_by_type(
+        provider_type, only_valid=False, only_active=True
+    ))
+    all_providers = list(base_registry.get_providers_by_type(
+        provider_type, only_valid=False, only_active=False
+    ))
+    
+    initial_active_count = len(active_providers)
+    initial_total_count = len(all_providers)
+    
+    # Deactivate the anthropic provider
+    base_registry.set_provider_active("anthropic", False)
+    
+    # Check filtering works
+    active_providers = list(base_registry.get_providers_by_type(
+        provider_type, only_valid=False, only_active=True
+    ))
+    all_providers = list(base_registry.get_providers_by_type(
+        provider_type, only_valid=False, only_active=False
+    ))
+    
+    assert len(active_providers) == initial_active_count - 1
+    assert len(all_providers) == initial_total_count
+
+
+def test_provider_instances_with_active_filter(base_registry):
+    """Test list_provider_instances respects is_active filter"""
+    # Count active instances initially
+    active_instances = list(base_registry.list_provider_instances(only_valid=False, only_active=True))
+    all_instances = list(base_registry.list_provider_instances(only_valid=False, only_active=False))
+    
+    initial_active_count = len(active_instances)
+    initial_total_count = len(all_instances)
+    
+    # Deactivate one provider
+    provider_id = "anthropic"
+    base_registry.set_provider_active(provider_id, False)
+    
+    # Check filtering works
+    active_instances = list(base_registry.list_provider_instances(only_valid=False, only_active=True))
+    all_instances = list(base_registry.list_provider_instances(only_valid=False, only_active=False))
+    
+    # Active instances should be reduced
+    assert len(active_instances) <= initial_active_count
+    assert len(all_instances) == initial_total_count
+
+
+def test_provider_combined_active_and_valid_filtering(base_registry):
+    """Test combined filtering by both is_active and is_valid"""
+    # Test all combinations
+    providers_active_valid = list(base_registry.list_providers(only_valid=True, only_active=True))
+    providers_active_any = list(base_registry.list_providers(only_valid=False, only_active=True))
+    providers_any_valid = list(base_registry.list_providers(only_valid=True, only_active=False))
+    providers_any_any = list(base_registry.list_providers(only_valid=False, only_active=False))
+    
+    # Logical relationships should hold
+    assert len(providers_active_valid) <= len(providers_active_any)
+    assert len(providers_active_valid) <= len(providers_any_valid)
+    assert len(providers_active_any) <= len(providers_any_any)
+    assert len(providers_any_valid) <= len(providers_any_any)

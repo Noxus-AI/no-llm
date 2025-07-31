@@ -120,42 +120,76 @@ class ProviderRegistry:
             raise ProviderNotFoundError(provider_id)
         return self._providers[provider_id]
 
-    def get_providers_by_type(self, provider_type: str) -> Iterator[ProviderConfiguration]:
-        """Get all providers of a specific type"""
-        logger.debug(f"Getting providers by type: {provider_type}")
-        for provider in self._providers.values():
-            if provider.type == provider_type:
-                yield provider
-
-    def list_providers(self, *, only_valid: bool = True) -> Iterator[ProviderConfiguration]:
-        """List all registered providers
+    def get_providers_by_type(
+        self, provider_type: str, *, only_valid: bool = True, only_active: bool = True
+    ) -> Iterator[ProviderConfiguration]:
+        """Get all providers of a specific type
 
         Args:
+            provider_type: The type of provider to filter by
             only_valid: If True, only return providers with valid environment setup
+            only_active: If True, only return providers that are active
         """
-        logger.debug(f"Listing providers (only_valid={only_valid})")
-
+        logger.debug(f"Getting providers by type: {provider_type} (only_valid={only_valid}, only_active={only_active})")
         for provider in self._providers.values():
-            if only_valid and not provider.has_valid_env():
+            if provider.type != provider_type:
+                continue
+            if only_active and not provider.is_active:
+                logger.debug(f"Skipping provider {provider.id} - inactive")
+                continue
+            if only_valid and not provider.is_valid:
                 logger.debug(f"Skipping provider {provider.id} - invalid environment")
                 continue
             yield provider
 
-    def list_provider_instances(self, *, only_valid: bool = True) -> Iterator[ProviderConfiguration]:
+    def list_providers(self, *, only_valid: bool = True, only_active: bool = True) -> Iterator[ProviderConfiguration]:
+        """List all registered providers
+
+        Args:
+            only_valid: If True, only return providers with valid environment setup
+            only_active: If True, only return providers that are active
+        """
+        logger.debug(f"Listing providers (only_valid={only_valid}, only_active={only_active})")
+
+        for provider in self._providers.values():
+            if only_active and not provider.is_active:
+                logger.debug(f"Skipping provider {provider.id} - inactive")
+                continue
+            if only_valid and not provider.is_valid:
+                logger.debug(f"Skipping provider {provider.id} - invalid environment")
+                continue
+            yield provider
+
+    def list_provider_instances(
+        self, *, only_valid: bool = True, only_active: bool = True
+    ) -> Iterator[ProviderConfiguration]:
         """List all provider instances including variants (e.g., multi-location providers)
 
         Args:
             only_valid: If True, only return providers with valid environment setup
+            only_active: If True, only return providers that are active
         """
-        logger.debug(f"Listing provider instances (only_valid={only_valid})")
+        logger.debug(f"Listing provider instances (only_valid={only_valid}, only_active={only_active})")
 
         for provider in self._providers.values():
-            if only_valid and not provider.has_valid_env():
+            if only_active and not provider.is_active:
+                logger.debug(f"Skipping provider {provider.id} - inactive")
+                continue
+            if only_valid and not provider.is_valid:
                 logger.debug(f"Skipping provider {provider.id} - invalid environment")
                 continue
 
             # Use provider's iter() method to get all variants
             yield from provider.iter()
+
+    def set_provider_active(self, provider_id: str, is_active: bool) -> None:
+        """Set the active status of a provider"""
+        if provider_id not in self._providers:
+            logger.error(f"Cannot set active status: provider {provider_id} not found")
+            raise ProviderNotFoundError(provider_id)
+
+        self._providers[provider_id].is_active = is_active
+        logger.debug(f"Set provider {provider_id} active status to: {is_active}")
 
     def remove_provider(self, provider_id: str) -> None:
         """Remove a provider by ID"""

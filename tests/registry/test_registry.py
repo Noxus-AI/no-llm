@@ -457,3 +457,131 @@ metadata:
     custom_model = registry.get_model("test-model")
     assert custom_model.identity.name == "Updated Model"
     assert len(list(registry.list_models())) == initial_models + 1
+
+
+def test_model_set_active_functionality():
+    """Test setting model active status"""
+    registry = ModelRegistry()
+    model = create_test_model("test-model")
+    registry.register_model(model)
+    
+    # Model should be active by default
+    assert model.is_active is True
+    
+    # Set model to inactive
+    registry.set_model_active("test-model", False)
+    retrieved_model = registry.get_model("test-model")
+    assert retrieved_model.is_active is False
+    
+    # Set model back to active
+    registry.set_model_active("test-model", True)
+    retrieved_model = registry.get_model("test-model")
+    assert retrieved_model.is_active is True
+
+
+def test_model_set_active_nonexistent_model():
+    """Test setting active status on non-existent model raises error"""
+    registry = ModelRegistry()
+    
+    with pytest.raises(ModelNotFoundError) as exc_info:
+        registry.set_model_active("nonexistent", True)
+    
+    assert exc_info.value.model_id == "nonexistent"
+
+
+def test_model_listing_with_active_filter():
+    """Test model listing respects is_active filter"""
+    registry = ModelRegistry()
+    
+    # Add multiple models
+    model1 = create_test_model("model1")
+    model2 = create_test_model("model2")
+    registry.register_model(model1)
+    registry.register_model(model2)
+    
+    # Count active models initially
+    active_models = list(registry.list_models(only_valid=False, only_active=True))
+    all_models = list(registry.list_models(only_valid=False, only_active=False))
+    initial_active_count = len(active_models)
+    initial_total_count = len(all_models)
+    
+    # Deactivate one model
+    registry.set_model_active("model1", False)
+    
+    # Check filtering works
+    active_models = list(registry.list_models(only_valid=False, only_active=True))
+    all_models = list(registry.list_models(only_valid=False, only_active=False))
+    
+    assert len(active_models) == initial_active_count - 1
+    assert len(all_models) == initial_total_count  # Total unchanged
+    
+    # Verify the deactivated model is not in active list
+    active_model_ids = {m.identity.id for m in active_models}
+    assert "model1" not in active_model_ids
+    
+    # But it should be in the all models list
+    all_model_ids = {m.identity.id for m in all_models}
+    assert "model1" in all_model_ids
+
+
+def test_model_combined_active_and_valid_filtering():
+    """Test combined filtering by both is_active and is_valid"""
+    registry = ModelRegistry()
+    
+    # Add a test model
+    model = create_test_model("test-model")
+    registry.register_model(model)
+    
+    # Test all combinations
+    models_active_valid = list(registry.list_models(only_valid=True, only_active=True))
+    models_active_any = list(registry.list_models(only_valid=False, only_active=True))
+    models_any_valid = list(registry.list_models(only_valid=True, only_active=False))
+    models_any_any = list(registry.list_models(only_valid=False, only_active=False))
+    
+    # Logical relationships should hold
+    assert len(models_active_valid) <= len(models_active_any)
+    assert len(models_active_valid) <= len(models_any_valid)
+    assert len(models_active_any) <= len(models_any_any)
+    assert len(models_any_valid) <= len(models_any_any)
+
+
+def test_model_filtering_with_other_criteria():
+    """Test that is_active and is_valid work with existing filtering criteria"""
+    registry = ModelRegistry()
+    registry._models.clear()
+    
+    # Create models with different capabilities
+    model1 = create_test_model("model1")
+    model1.capabilities = {ModelCapability.STREAMING}
+    
+    model2 = create_test_model("model2")  
+    model2.capabilities = {ModelCapability.STRUCTURED_OUTPUT}
+    
+    registry.register_model(model1)
+    registry.register_model(model2)
+    
+    # Test filtering by capabilities with active filter
+    streaming_models = list(registry.list_models(
+        capabilities={ModelCapability.STREAMING},
+        only_active=True,
+        only_valid=False
+    ))
+    assert len(streaming_models) == 1
+    assert streaming_models[0].identity.id == "model1"
+    
+    # Deactivate model1 and test again
+    registry.set_model_active("model1", False)
+    
+    streaming_models_active = list(registry.list_models(
+        capabilities={ModelCapability.STREAMING},
+        only_active=True,
+        only_valid=False
+    ))
+    assert len(streaming_models_active) == 0
+    
+    streaming_models_all = list(registry.list_models(
+        capabilities={ModelCapability.STREAMING},
+        only_active=False,
+        only_valid=False
+    ))
+    assert len(streaming_models_all) == 1
