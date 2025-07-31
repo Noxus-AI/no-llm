@@ -97,9 +97,9 @@ def test_model_provider_iteration(monkeypatch):
     model = create_test_model()
     monkeypatch.setenv("TEST_KEY", "test-value")
 
-    provider1 = MockProvider(type="test", name="Provider 1")
-    provider2 = MockProvider(type="test", name="Provider 2")
-    provider3 = MockProvider(type="test", name="Provider 3")
+    provider1 = MockProvider(id="test", name="Provider 1")
+    provider2 = MockProvider(id="test", name="Provider 2")
+    provider3 = MockProvider(id="test", name="Provider 3")
 
     # Cast list to Sequence[Providers] to satisfy type checker
     model.providers = [provider1, provider2, provider3]  # type: ignore
@@ -222,13 +222,13 @@ def test_model_provider_iteration_with_env_vars(monkeypatch):
     model = create_test_model()
 
     provider1 = MockProvider(
-        type="test", name="Provider 1", api_key=EnvVar[str]("$TEST_KEY_1")
+        id="test", name="Provider 1", api_key=EnvVar[str]("$TEST_KEY_1")
     )
     provider2 = MockProvider(
-        type="test", name="Provider 2", api_key=EnvVar[str]("$TEST_KEY_2")
+        id="test", name="Provider 2", api_key=EnvVar[str]("$TEST_KEY_2")
     )
     provider3 = MockProvider(
-        type="test", name="Provider 3", api_key=EnvVar[str]("$TEST_KEY_3")
+        id="test", name="Provider 3", api_key=EnvVar[str]("$TEST_KEY_3")
     )
 
     # Cast list to Sequence[Providers] to satisfy type checker

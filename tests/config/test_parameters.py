@@ -587,7 +587,7 @@ def test_configurable_parameters_validation_modes():
 
 def test_subclassed_model_parameters():
     """Test parameter validation and dumping with subclassed model parameters"""
-    from no_llm.models.openai.o3_mini import O3MiniConfiguration
+    from no_llm.models.model_configs.openai.o3_mini import O3MiniConfiguration
 
     # Create an instance of the O3MiniConfiguration
     model_config = O3MiniConfiguration()

@@ -1,6 +1,7 @@
-from no_llm.providers.config import ProviderConfiguration
-from no_llm.providers.env_var import EnvVar
-from no_llm.providers.provider_configs import AnyProvider
+from typing import Annotated
+
+import pydantic
+
 from no_llm.providers.provider_configs.anthropic import AnthropicProvider
 from no_llm.providers.provider_configs.azure import AzureProvider
 from no_llm.providers.provider_configs.bedrock import BedrockProvider
@@ -15,24 +16,19 @@ from no_llm.providers.provider_configs.perplexity import PerplexityProvider
 from no_llm.providers.provider_configs.together import TogetherProvider
 from no_llm.providers.provider_configs.vertex import VertexProvider
 
-__all__ = [
-    "EnvVar",
-    "AnyProvider",
-    "OpenAIProvider",
-    "AnthropicProvider",
-    "VertexProvider",
-    "MistralProvider",
-    "GroqProvider",
-    "PerplexityProvider",
-    "DeepseekProvider",
-    "AzureProvider",
-    "BedrockProvider",
-    "TogetherProvider",
-    "OpenRouterProvider",
-    "GrokProvider",
-    "FireworksProvider",
-    "ProviderConfiguration",
+AnyProvider = Annotated[
+    OpenAIProvider
+    | AnthropicProvider
+    | VertexProvider
+    | AzureProvider
+    | MistralProvider
+    | GroqProvider
+    | PerplexityProvider
+    | DeepseekProvider
+    | TogetherProvider
+    | OpenRouterProvider
+    | GrokProvider
+    | FireworksProvider
+    | BedrockProvider,
+    pydantic.Discriminator("type"),
 ]
-
-Provider = ProviderConfiguration
-Providers = AnyProvider

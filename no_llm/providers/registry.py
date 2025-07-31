@@ -8,8 +8,8 @@ from loguru import logger
 from pydantic import TypeAdapter, ValidationError
 
 from no_llm.errors import ProviderNotFoundError
-from no_llm.providers import Providers
-from no_llm.providers.base import Provider
+from no_llm.providers import AnyProvider
+from no_llm.providers.config import ProviderConfiguration
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 class ProviderRegistry:
     def __init__(self, config_dir: str | Path | None = None):
-        self._providers: dict[str, Provider] = {}
+        self._providers: dict[str, ProviderConfiguration] = {}
         self._config_dir = Path(config_dir) if config_dir else None
 
         logger.debug("Initializing ProviderRegistry")
@@ -33,10 +33,10 @@ class ProviderRegistry:
                 return path
         return base_path / f"{name}.yml"
 
-    def _create_provider_from_config(self, config: dict) -> Provider:
+    def _create_provider_from_config(self, config: dict) -> ProviderConfiguration:
         """Create a provider instance from YAML configuration"""
         try:
-            adapter = TypeAdapter(Providers)
+            adapter = TypeAdapter(AnyProvider)
             return adapter.validate_python(config)
         except ValidationError as e:
             logger.error(f"Failed to create provider from config: {e}")
@@ -67,8 +67,7 @@ class ProviderRegistry:
 
                 provider = self._create_provider_from_config(config)
                 self.register_provider(provider)
-                provider_type = getattr(provider, "type", "unknown")
-                logger.debug(f"Registered provider: {provider_id} ({provider_type})")
+                logger.debug(f"Registered provider from file: {provider_id} -> {provider.id} ({provider.type})")
             except Exception as e:  # noqa: BLE001
                 logger.opt(exception=e).error(f"Error loading provider {provider_id}")
 
@@ -84,23 +83,29 @@ class ProviderRegistry:
             logger.debug(f"Providers directory contents: {list(providers_dir.iterdir())}")
         self.register_providers_from_directory(providers_dir)
 
-    def register_provider(self, provider: Provider) -> None:
+    def register_provider(self, provider: ProviderConfiguration) -> None:
         """Register a provider instance"""
-        provider_type = getattr(provider, "type", "unknown")
-        if provider_type in self._providers:
-            logger.debug(f"Overriding existing provider: {provider_type}")
+        if provider.id in self._providers:
+            logger.debug(f"Overriding existing provider: {provider.id}")
 
-        self._providers[provider_type] = provider
-        logger.debug(f"Registered provider: {provider_type} ({provider.name})")
+        self._providers[provider.id] = provider
+        logger.debug(f"Registered provider: {provider.id} ({provider.name}) type={provider.type}")
 
-    def get_provider(self, provider_type: str) -> Provider:
-        """Get a provider by type"""
-        if provider_type not in self._providers:
-            logger.error(f"Provider {provider_type} not found")
-            raise ProviderNotFoundError(provider_type)
-        return self._providers[provider_type]
+    def get_provider(self, provider_id: str) -> ProviderConfiguration:
+        """Get a provider by ID"""
+        if provider_id not in self._providers:
+            logger.error(f"Provider {provider_id} not found")
+            raise ProviderNotFoundError(provider_id)
+        return self._providers[provider_id]
 
-    def list_providers(self, *, only_valid: bool = True) -> Iterator[Provider]:
+    def get_providers_by_type(self, provider_type: str) -> Iterator[ProviderConfiguration]:
+        """Get all providers of a specific type"""
+        logger.debug(f"Getting providers by type: {provider_type}")
+        for provider in self._providers.values():
+            if provider.type == provider_type:
+                yield provider
+
+    def list_providers(self, *, only_valid: bool = True) -> Iterator[ProviderConfiguration]:
         """List all registered providers
 
         Args:
@@ -110,12 +115,11 @@ class ProviderRegistry:
 
         for provider in self._providers.values():
             if only_valid and not provider.has_valid_env():
-                provider_type = getattr(provider, "type", "unknown")
-                logger.debug(f"Skipping provider {provider_type} - invalid environment")
+                logger.debug(f"Skipping provider {provider.id} - invalid environment")
                 continue
             yield provider
 
-    def list_provider_instances(self, *, only_valid: bool = True) -> Iterator[Provider]:
+    def list_provider_instances(self, *, only_valid: bool = True) -> Iterator[ProviderConfiguration]:
         """List all provider instances including variants (e.g., multi-location providers)
 
         Args:
@@ -125,19 +129,19 @@ class ProviderRegistry:
 
         for provider in self._providers.values():
             if only_valid and not provider.has_valid_env():
-                logger.debug(f"Skipping provider {provider.type} - invalid environment")
+                logger.debug(f"Skipping provider {provider.id} - invalid environment")
                 continue
 
             # Use provider's iter() method to get all variants
             yield from provider.iter()
 
-    def remove_provider(self, provider_type: str) -> None:
-        """Remove a provider by type"""
-        if provider_type not in self._providers:
-            logger.error(f"Cannot remove: provider {provider_type} not found")
-            raise ProviderNotFoundError(provider_type)
-        del self._providers[provider_type]
-        logger.debug(f"Removed provider: {provider_type}")
+    def remove_provider(self, provider_id: str) -> None:
+        """Remove a provider by ID"""
+        if provider_id not in self._providers:
+            logger.error(f"Cannot remove: provider {provider_id} not found")
+            raise ProviderNotFoundError(provider_id)
+        del self._providers[provider_id]
+        logger.debug(f"Removed provider: {provider_id}")
 
     def reload_configurations(self) -> None:
         """Reload all provider configurations"""

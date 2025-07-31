@@ -4,13 +4,14 @@ from pydantic_ai.providers.openai import OpenAIProvider
 from typing import Literal
 
 from no_llm.providers import EnvVar
-from no_llm.providers.base import Provider
+from no_llm.providers.config import ProviderConfiguration
 
 
-class TestProvider(Provider):
+class TestProvider(ProviderConfiguration):
     """Test provider for unit tests"""
 
     type: Literal["test"] = "test"  # type: ignore
+    id: str = "test"
     name: str = "Test Provider"
     api_key: EnvVar[str] = EnvVar[str]("$TEST_API_KEY")
     _iterator_index: int = 0
