@@ -14,13 +14,6 @@ class ModelNotFoundError(Exception):
         super().__init__(message)
 
 
-class ProviderNotFoundError(Exception):
-    def __init__(self, provider_id: str):
-        self.provider_id = provider_id
-        message = f"Provider '{provider_id}' not found"
-        super().__init__(message)
-
-
 class ModelRegistrationError(Exception):
     """Base class for model registration errors"""
 
@@ -47,4 +40,11 @@ class ConfigurationLoadError(ConfigurationError):
 class InvalidPricingConfigError(ConfigurationError):
     def __init__(self):
         message = "Either token_prices or character_prices must be set"
+        super().__init__(message)
+
+
+class ProviderNotFoundError(Exception):
+    def __init__(self, provider_id: str):
+        self.provider_id = provider_id
+        message = f"Provider '{provider_id}' not found"
         super().__init__(message)

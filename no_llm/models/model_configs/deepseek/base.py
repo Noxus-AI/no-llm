@@ -13,5 +13,5 @@ class DeepseekBaseConfiguration(OpenaiBaseConfiguration):
     def to_pydantic_model(self) -> Model:
         return super().to_pydantic_model()
 
-    def to_pydantic_settings(self) -> OpenAIModelSettings:
+    def to_pydantic_settings(self) -> OpenAIModelSettings:  # type: ignore
         return super().to_pydantic_settings()

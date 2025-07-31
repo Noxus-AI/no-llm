@@ -45,7 +45,7 @@ def test_registry_initialization_no_config():
     registry = ProviderRegistry()
     
     assert registry._config_dir is None
-    assert len(registry._providers) == 0
+    assert len(registry._providers) > 0  # Should have builtin providers
 
 
 def test_registry_initialization_with_config(config_dir):
@@ -53,7 +53,7 @@ def test_registry_initialization_with_config(config_dir):
     registry = ProviderRegistry(config_dir)
     
     assert registry._config_dir == config_dir
-    assert len(registry._providers) == 0
+    assert len(registry._providers) > 0  # Should have builtin providers
 
 
 def test_registry_provider_registration(base_registry):
@@ -68,6 +68,8 @@ def test_registry_provider_registration(base_registry):
 
 def test_registry_provider_override(base_registry):
     """Test provider override behavior"""
+    initial_count = len(base_registry._providers)
+    
     config1 = create_test_provider_config("anthropic", "test-provider")
     config1["name"] = "First Provider"
     provider1 = base_registry._create_provider_from_config(config1)
@@ -79,7 +81,8 @@ def test_registry_provider_override(base_registry):
     base_registry.register_provider(provider1)
     base_registry.register_provider(provider2)
 
-    assert len(base_registry._providers) == 1
+    # Should have same count since we're overriding
+    assert len(base_registry._providers) == initial_count + 1
     assert base_registry._providers["test-provider"].name == "Second Provider"
 
 
@@ -95,6 +98,10 @@ def test_registry_get_provider(base_registry):
 
 def test_registry_get_providers_by_type_multiple(base_registry):
     """Test getting multiple providers of same type"""
+    # Start with builtin anthropic and openai
+    initial_anthropic = len(list(base_registry.get_providers_by_type("anthropic")))
+    initial_openai = len(list(base_registry.get_providers_by_type("openai")))
+    
     config1 = create_test_provider_config("anthropic", "anthropic-1")
     config2 = create_test_provider_config("anthropic", "anthropic-2")
     config3 = create_test_provider_config("openai", "openai-1")
@@ -108,10 +115,10 @@ def test_registry_get_providers_by_type_multiple(base_registry):
     base_registry.register_provider(provider3)
 
     anthropic_providers = list(base_registry.get_providers_by_type("anthropic"))
-    assert len(anthropic_providers) == 2
+    assert len(anthropic_providers) == initial_anthropic + 2
     
     openai_providers = list(base_registry.get_providers_by_type("openai"))
-    assert len(openai_providers) == 1
+    assert len(openai_providers) == initial_openai + 1
 
 
 def test_registry_get_providers_by_type_empty(base_registry):
@@ -148,21 +155,28 @@ def test_registry_remove_nonexistent_provider(base_registry):
     assert exc_info.value.provider_id == "nonexistent"
 
 
-def test_registry_list_providers_empty(base_registry):
-    """Test listing providers when registry is empty"""
-    providers = list(base_registry.list_providers())
-    assert len(providers) == 0
+def test_registry_list_providers_with_builtins_only(base_registry):
+    """Test listing providers when registry only has builtins"""
+    providers = list(base_registry.list_providers(only_valid=False))
+    assert len(providers) >= 13  # Should have all builtin providers
+    
+    # Check that we have expected builtin types (all from AnyProvider union)
+    provider_types = {p.type for p in providers}
+    expected_types = {"anthropic", "openai", "vertex", "groq", "mistral", "azure", "perplexity", "deepseek", "together", "openrouter", "grok", "fireworks", "bedrock"}
+    assert expected_types.issubset(provider_types)
 
 
 def test_registry_list_providers_all(base_registry):
     """Test listing all providers regardless of environment validity"""
+    initial_count = len(list(base_registry.list_providers(only_valid=False)))
+    
     config = create_test_provider_config("anthropic", "test-anthropic")
     provider = base_registry._create_provider_from_config(config)
     base_registry.register_provider(provider)
     
     providers = list(base_registry.list_providers(only_valid=False))
-    assert len(providers) == 1
-    assert providers[0] == provider
+    assert len(providers) == initial_count + 1
+    assert provider in providers
 
 
 def test_registry_list_provider_instances_all(base_registry):
@@ -251,7 +265,7 @@ def test_load_provider_invalid_yaml(tmp_path):
     registry = ProviderRegistry(config_dir)
     
     providers = list(registry.list_providers())
-    assert len(providers) == 0
+    assert len(providers) > 0  # Should have builtin providers
 
 
 def test_load_provider_invalid_config(tmp_path):
@@ -273,7 +287,7 @@ def test_load_provider_invalid_config(tmp_path):
     registry = ProviderRegistry(config_dir)
     
     providers = list(registry.list_providers())
-    assert len(providers) == 0
+    assert len(providers) > 0  # Should have builtin providers
 
 
 def test_load_multiple_providers(tmp_path):
@@ -310,7 +324,7 @@ def test_load_multiple_providers(tmp_path):
     registry = ProviderRegistry(config_dir)
     
     providers = list(registry.list_providers(only_valid=False))
-    assert len(providers) == 2
+    assert len(providers) >= 13  # Should have all builtin providers
     
     provider_types = {provider.type for provider in providers}
     assert "anthropic" in provider_types
@@ -326,7 +340,7 @@ def test_reload_configurations(tmp_path):
 
     registry = ProviderRegistry(config_dir)
     
-    assert len(list(registry.list_providers(only_valid=False))) == 0
+    assert len(list(registry.list_providers(only_valid=True))) == 0
 
     provider_file = providers_dir / "anthropic.yml"
     provider_config = {
@@ -341,9 +355,12 @@ def test_reload_configurations(tmp_path):
     registry.reload_configurations()
     
     providers = list(registry.list_providers(only_valid=False))
-    assert len(providers) == 1
-    assert providers[0].type == "anthropic"
-    assert providers[0].name == "Anthropic Test"
+    assert len(providers) >= 13  # Should have all builtin providers
+    
+    # Find the anthropic provider and verify it was overridden
+    anthropic_provider = registry.get_provider("anthropic")
+    assert anthropic_provider.type == "anthropic"
+    assert anthropic_provider.name == "Anthropic Test"
 
 
 def test_create_provider_from_config():
@@ -369,7 +386,7 @@ def test_registry_providers_directory_not_exists(tmp_path):
     registry = ProviderRegistry(config_dir)
     
     providers = list(registry.list_providers())
-    assert len(providers) == 0
+    assert len(providers) > 0  # Should have builtin providers
 
 
 def test_registry_providers_directory_empty(tmp_path):
@@ -381,5 +398,33 @@ def test_registry_providers_directory_empty(tmp_path):
 
     registry = ProviderRegistry(config_dir)
     
-    providers = list(registry.list_providers())
-    assert len(providers) == 0
+    providers = list(registry.list_providers(only_valid=False))
+    assert len(providers) >= 13  # Should have all builtin providers
+
+
+def test_registry_comprehensive_builtin_behavior():
+    """Test the complete builtin provider behavior"""
+    registry = ProviderRegistry()
+    
+    # Should have all providers from AnyProvider union
+    all_providers = list(registry.list_providers(only_valid=False))
+    provider_types = {p.type for p in all_providers}
+    
+    # All expected types from AnyProvider should be present
+    expected_types = {
+        "anthropic", "openai", "vertex", "groq", "mistral", 
+        "azure", "perplexity", "deepseek", "together", 
+        "openrouter", "grok", "fireworks", "bedrock"
+    }
+    assert expected_types.issubset(provider_types)
+    
+    # Each type should have exactly one builtin provider
+    for provider_type in expected_types:
+        providers_of_type = list(registry.get_providers_by_type(provider_type))
+        assert len(providers_of_type) == 1
+        assert providers_of_type[0].type == provider_type
+        
+    # Verify we can access all by ID (same as type for builtins)
+    for provider_type in expected_types:
+        provider = registry.get_provider(provider_type)
+        assert provider.type == provider_type

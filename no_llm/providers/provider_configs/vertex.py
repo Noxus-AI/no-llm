@@ -110,6 +110,7 @@ class VertexProvider(ProviderConfiguration):
     locations: list[str] = Field(default=["us-central1", "europe-west1"])
     # HACK: gah
     model_family: Literal["gemini", "claude", "mistral", "llama"] = Field(
+        default="gemini",
         description="The family of models to use",
     )
     _value: str | None = PrivateAttr(default=None)

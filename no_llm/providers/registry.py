@@ -7,6 +7,7 @@ import yaml
 from loguru import logger
 from pydantic import TypeAdapter, ValidationError
 
+from no_llm._utils import _get_annotated_union_members
 from no_llm.errors import ProviderNotFoundError
 from no_llm.providers import AnyProvider
 from no_llm.providers.config import ProviderConfiguration
@@ -22,9 +23,30 @@ class ProviderRegistry:
 
         logger.debug("Initializing ProviderRegistry")
 
+        # Register builtin providers with default configurations
+        self._register_builtin_providers()
+
         if config_dir:
             logger.debug(f"Using config directory: {config_dir}")
             self._load_configurations()
+
+    def _register_builtin_providers(self) -> None:
+        """Register builtin providers with default configurations"""
+        logger.debug("Registering builtin providers")
+
+        # Get all provider classes from the AnyProvider union
+        # AnyProvider is Annotated[Union[...], Discriminator(...)]
+        provider_classes: list[type[AnyProvider]] = _get_annotated_union_members(AnyProvider)
+
+        for provider_class in provider_classes:
+            try:
+                provider = provider_class()
+
+                self.register_provider(provider)
+                logger.debug(f"Registered builtin provider: {provider.id} ({provider.type})")
+            except Exception as e:
+                logger.warning(f"Could not register builtin provider {provider_class.__name__}: {e}")
+                continue
 
     def _find_yaml_file(self, base_path: Path, name: str) -> Path:
         for ext in [".yml", ".yaml"]:
@@ -147,4 +169,5 @@ class ProviderRegistry:
         """Reload all provider configurations"""
         logger.debug("Reloading all configurations")
         self._providers.clear()
+        self._register_builtin_providers()
         self._load_configurations()
