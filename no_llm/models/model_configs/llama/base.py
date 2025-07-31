@@ -2,9 +2,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from pydantic import PrivateAttr
+
 from no_llm.models.config import (
     ModelConfiguration,
 )
+from no_llm.providers import AnyProvider, FireworksProvider, GroqProvider, OpenRouterProvider, TogetherProvider
 
 if TYPE_CHECKING:
     from pydantic_ai.models import Model
@@ -12,6 +15,10 @@ if TYPE_CHECKING:
 
 
 class LlamaBaseConfiguration(ModelConfiguration):
+    _compatible_providers: set[type[AnyProvider]] = PrivateAttr(
+        default={OpenRouterProvider, TogetherProvider, FireworksProvider, GroqProvider}
+    )
+
     def to_pydantic_model(self) -> Model:
         return super().to_pydantic_model()
 

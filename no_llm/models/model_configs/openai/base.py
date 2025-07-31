@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, cast
 
+from pydantic import PrivateAttr
 from pydantic_ai.models.openai import OpenAIResponsesModelSettings
 
 from no_llm.models.config import (
@@ -9,12 +10,15 @@ from no_llm.models.config import (
     ModelConfiguration,
 )
 from no_llm.models.config.parameters import NOT_GIVEN
+from no_llm.providers import AnyProvider, OpenAIProvider, OpenRouterProvider
 
 if TYPE_CHECKING:
     from pydantic_ai.models import Model
 
 
 class OpenaiBaseConfiguration(ModelConfiguration):
+    _compatible_providers: set[type[AnyProvider]] = PrivateAttr(default={OpenRouterProvider, OpenAIProvider})
+
     def to_pydantic_model(self) -> Model:
         return super().to_pydantic_model()
 

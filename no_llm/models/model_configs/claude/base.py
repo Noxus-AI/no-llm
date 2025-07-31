@@ -6,6 +6,7 @@ from anthropic.types.beta import (
     BetaThinkingConfigDisabledParam,
     BetaThinkingConfigEnabledParam,
 )
+from pydantic import PrivateAttr
 from pydantic_ai.models.anthropic import AnthropicModelSettings
 
 from no_llm.models.config import (
@@ -13,6 +14,7 @@ from no_llm.models.config import (
     ModelConfiguration,
 )
 from no_llm.models.config.parameters import NOT_GIVEN
+from no_llm.providers import AnthropicProvider, AnyProvider, BedrockProvider, OpenRouterProvider, VertexProvider
 
 if TYPE_CHECKING:
     from pydantic_ai.models import Model
@@ -25,6 +27,10 @@ THINKING_BUDGET = {
 
 
 class ClaudeBaseConfiguration(ModelConfiguration):
+    _compatible_providers: set[type[AnyProvider]] = PrivateAttr(
+        default={AnthropicProvider, BedrockProvider, OpenRouterProvider, VertexProvider}
+    )
+
     def to_pydantic_model(self) -> Model:
         return super().to_pydantic_model()
 
