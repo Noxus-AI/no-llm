@@ -2,7 +2,7 @@ import pytest
 from pathlib import Path
 from vcr import VCR
 from typing import Any
-from no_llm.registry import ModelRegistry
+from no_llm.models.registry import ModelRegistry
 from no_llm.settings import ValidationMode, settings
 
 @pytest.fixture(scope='module')

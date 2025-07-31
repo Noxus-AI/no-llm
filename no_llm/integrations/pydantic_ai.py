@@ -21,8 +21,8 @@ except ImportError as _import_error:
 
 from loguru import logger
 
-from no_llm.models.config.model import ModelConfiguration
 from no_llm.integrations._utils import _get_pydantic_model
+from no_llm.models.config.model import ModelConfiguration
 
 if TYPE_CHECKING:
     from collections.abc import AsyncIterator

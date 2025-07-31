@@ -11,7 +11,8 @@ from no_llm.models.config.metadata import (
 )
 from no_llm.models.config.model import ModelConfiguration
 from no_llm.models.config.parameters import ModelParameters, ValidationMode
-from no_llm.registry import ModelRegistry
+from no_llm.models.registry import ModelRegistry
+from no_llm.providers.registry import ProviderRegistry
 
 __all__ = [
     "ModelRegistry",
@@ -24,4 +25,6 @@ __all__ = [
     "ModelConfiguration",
     "ValidationMode",
     "ModelParameters",
+    "ModelRegistry",
+    "ProviderRegistry",
 ]

@@ -4,7 +4,7 @@ import pytest
 from pydantic_ai import Agent
 
 from no_llm.integrations.pydantic_ai import NoLLMModel
-from no_llm.registry import ModelRegistry
+from no_llm.models.registry import ModelRegistry
 
 @pytest.fixture
 def openai_model(monkeypatch, builtin_model_registry: ModelRegistry, vcr: VCR):

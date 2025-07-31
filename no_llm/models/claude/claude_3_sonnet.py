@@ -5,6 +5,7 @@ from datetime import datetime
 
 from pydantic import Field
 
+from no_llm.models.claude.base import ClaudeBaseConfiguration
 from no_llm.models.config import (
     ConfigurableModelParameters,
     IntegrationAliases,
@@ -24,7 +25,6 @@ from no_llm.models.config import (
     TokenPrices,
 )
 from no_llm.models.config.parameters import NOT_GIVEN, NotGiven
-from no_llm.models.claude.base import ClaudeBaseConfiguration
 from no_llm.providers import (
     AnthropicProvider,
     BedrockProvider,

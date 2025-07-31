@@ -1,13 +1,13 @@
 import pytest
 
-from no_llm.config.enums import ModelCapability
-from no_llm.config.errors import (
+from no_llm.models.config.enums import ModelCapability
+from no_llm.models.config.errors import (
     FixedParameterError,
     InvalidEnumError,
     InvalidRangeError,
     UnsupportedParameterError,
 )
-from no_llm.config.parameters import (
+from no_llm.models.config.parameters import (
     NOT_GIVEN,
     ConfigurableModelParameters,
     EnumValidation,
@@ -202,7 +202,7 @@ def test_parameter_validation_rules():
 
 def test_model_parameters_direct_yaml():
     """Test that parameters can be loaded directly through model configuration"""
-    from no_llm.config.model import ModelConfiguration
+    from no_llm.models.config.model import ModelConfiguration
 
     config = {
         "identity": {
@@ -293,7 +293,7 @@ def test_model_parameters_direct_yaml():
 
 def test_model_parameters_validation():
     """Test parameter validation through model configuration"""
-    from no_llm.config.model import ModelConfiguration
+    from no_llm.models.config.model import ModelConfiguration
 
     config = {
         "identity": {
@@ -653,7 +653,7 @@ def test_subclassed_model_parameters():
 
 def test_model_loading_with_base_config_parameters(tmp_path):
     """Test parameter validation when loading model from config directory with base_config"""
-    from no_llm.registry import ModelRegistry
+    from no_llm.models.registry import ModelRegistry
 
     # Create config directory structure
     config_dir = tmp_path / "configs"

@@ -9,12 +9,12 @@ from typing import TYPE_CHECKING, Generic, Literal, TypeVar
 import yaml
 from loguru import logger
 
-from no_llm.models.config import ModelCapability, ModelConfiguration, ModelMode, PrivacyLevel
 from no_llm.errors import (
     ConfigurationLoadError,
     ModelNotFoundError,
 )
 from no_llm.models import __all__ as model_configs
+from no_llm.models.config import ModelCapability, ModelConfiguration, ModelMode, PrivacyLevel
 
 if TYPE_CHECKING:
     from collections.abc import Iterator

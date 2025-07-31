@@ -4,8 +4,8 @@ from typing import TYPE_CHECKING, cast
 
 from pydantic_ai.models.openai import OpenAIResponsesModelSettings
 
-from no_llm.models.config import ModelCapability
 from no_llm.models.config import (
+    ModelCapability,
     ModelConfiguration,
 )
 from no_llm.models.config.parameters import NOT_GIVEN

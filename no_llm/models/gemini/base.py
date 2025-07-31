@@ -5,8 +5,8 @@ from typing import TYPE_CHECKING, cast
 from google.genai.types import ThinkingConfigDict
 from pydantic_ai.models.google import GoogleModelSettings
 
-from no_llm.models.config import ModelCapability
 from no_llm.models.config import (
+    ModelCapability,
     ModelConfiguration,
 )
 from no_llm.models.config.parameters import NOT_GIVEN

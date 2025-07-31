@@ -5,7 +5,7 @@ from datetime import datetime
 import pytest
 from pydantic import ValidationError
 
-from no_llm.config.metadata import (
+from no_llm.models.config.metadata import (
     CharacterPrices,
     ModelMetadata,
     ModelPricing,

@@ -1,0 +1,146 @@
+from __future__ import annotations
+
+from pathlib import Path
+from typing import TYPE_CHECKING
+
+import yaml
+from loguru import logger
+from pydantic import TypeAdapter, ValidationError
+
+from no_llm.errors import ProviderNotFoundError
+from no_llm.providers import Providers
+from no_llm.providers.base import Provider
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
+
+
+class ProviderRegistry:
+    def __init__(self, config_dir: str | Path | None = None):
+        self._providers: dict[str, Provider] = {}
+        self._config_dir = Path(config_dir) if config_dir else None
+
+        logger.debug("Initializing ProviderRegistry")
+
+        if config_dir:
+            logger.debug(f"Using config directory: {config_dir}")
+            self._load_configurations()
+
+    def _find_yaml_file(self, base_path: Path, name: str) -> Path:
+        for ext in [".yml", ".yaml"]:
+            path = base_path / f"{name}{ext}"
+            if path.exists():
+                return path
+        return base_path / f"{name}.yml"
+
+    def _create_provider_from_config(self, config: dict) -> Provider:
+        """Create a provider instance from YAML configuration"""
+        try:
+            adapter = TypeAdapter(Providers)
+            return adapter.validate_python(config)
+        except ValidationError as e:
+            logger.error(f"Failed to create provider from config: {e}")
+            raise
+
+    def register_providers_from_directory(self, providers_dir: Path | str) -> None:
+        providers_dir = Path(providers_dir)
+        if not providers_dir.exists():
+            logger.warning(f"Providers directory not found: {providers_dir}")
+            return
+
+        logger.debug(f"Loading providers from {providers_dir}")
+        logger.debug(f"Providers directory contents: {list(providers_dir.iterdir())}")
+
+        yaml_files = []
+        for ext in ["*.yml", "*.yaml"]:
+            yaml_files.extend(list(providers_dir.glob(ext)))
+
+        logger.debug(f"Found {len(yaml_files)} YAML files: {[f.name for f in yaml_files]}")
+
+        for provider_file in yaml_files:
+            provider_id = provider_file.stem
+            try:
+                logger.debug(f"Loading provider config from file: {provider_file}")
+                with open(provider_file) as f:
+                    config = yaml.safe_load(f)
+                logger.debug(f"Loaded YAML config: {config}")
+
+                provider = self._create_provider_from_config(config)
+                self.register_provider(provider)
+                provider_type = getattr(provider, "type", "unknown")
+                logger.debug(f"Registered provider: {provider_id} ({provider_type})")
+            except Exception as e:  # noqa: BLE001
+                logger.opt(exception=e).error(f"Error loading provider {provider_id}")
+
+    def _load_configurations(self) -> None:
+        if not self._config_dir:
+            logger.warning("No config directory set")
+            return
+
+        providers_dir = self._config_dir / "providers"
+        logger.debug(f"Providers directory path: {providers_dir}")
+        logger.debug(f"Providers directory exists: {providers_dir.exists()}")
+        if providers_dir.exists():
+            logger.debug(f"Providers directory contents: {list(providers_dir.iterdir())}")
+        self.register_providers_from_directory(providers_dir)
+
+    def register_provider(self, provider: Provider) -> None:
+        """Register a provider instance"""
+        provider_type = getattr(provider, "type", "unknown")
+        if provider_type in self._providers:
+            logger.debug(f"Overriding existing provider: {provider_type}")
+
+        self._providers[provider_type] = provider
+        logger.debug(f"Registered provider: {provider_type} ({provider.name})")
+
+    def get_provider(self, provider_type: str) -> Provider:
+        """Get a provider by type"""
+        if provider_type not in self._providers:
+            logger.error(f"Provider {provider_type} not found")
+            raise ProviderNotFoundError(provider_type)
+        return self._providers[provider_type]
+
+    def list_providers(self, *, only_valid: bool = True) -> Iterator[Provider]:
+        """List all registered providers
+
+        Args:
+            only_valid: If True, only return providers with valid environment setup
+        """
+        logger.debug(f"Listing providers (only_valid={only_valid})")
+
+        for provider in self._providers.values():
+            if only_valid and not provider.has_valid_env():
+                provider_type = getattr(provider, "type", "unknown")
+                logger.debug(f"Skipping provider {provider_type} - invalid environment")
+                continue
+            yield provider
+
+    def list_provider_instances(self, *, only_valid: bool = True) -> Iterator[Provider]:
+        """List all provider instances including variants (e.g., multi-location providers)
+
+        Args:
+            only_valid: If True, only return providers with valid environment setup
+        """
+        logger.debug(f"Listing provider instances (only_valid={only_valid})")
+
+        for provider in self._providers.values():
+            if only_valid and not provider.has_valid_env():
+                logger.debug(f"Skipping provider {provider.type} - invalid environment")
+                continue
+
+            # Use provider's iter() method to get all variants
+            yield from provider.iter()
+
+    def remove_provider(self, provider_type: str) -> None:
+        """Remove a provider by type"""
+        if provider_type not in self._providers:
+            logger.error(f"Cannot remove: provider {provider_type} not found")
+            raise ProviderNotFoundError(provider_type)
+        del self._providers[provider_type]
+        logger.debug(f"Removed provider: {provider_type}")
+
+    def reload_configurations(self) -> None:
+        """Reload all provider configurations"""
+        logger.debug("Reloading all configurations")
+        self._providers.clear()
+        self._load_configurations()

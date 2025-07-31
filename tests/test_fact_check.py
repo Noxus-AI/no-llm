@@ -1,7 +1,7 @@
 import pytest
 import warnings
-from no_llm.config import ModelCapability
-from no_llm.registry import ModelRegistry
+from no_llm.models.config import ModelCapability
+from no_llm.models.registry import ModelRegistry
 
 
 @pytest.fixture

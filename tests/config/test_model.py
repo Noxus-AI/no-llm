@@ -1,21 +1,22 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from typing import Literal
 
 import pytest
 from pydantic import Field
 from pydantic_ai.providers.openai import OpenAIProvider
 
-from no_llm.config.enums import ModelCapability, ModelMode
-from no_llm.config.errors import MissingCapabilitiesError
-from no_llm.config.model import ModelConfiguration
-from no_llm.config.parameters import ConfigurableModelParameters, ModelParameters
+from no_llm.models.config.enums import ModelCapability, ModelMode
+from no_llm.models.config.errors import MissingCapabilitiesError
+from no_llm.models.config.model import ModelConfiguration
+from no_llm.models.config.parameters import ConfigurableModelParameters, ModelParameters
 from no_llm.errors import InvalidPricingConfigError
 from no_llm.providers import EnvVar, Provider
 
 
 class MockProvider(Provider):
-    type: str = "test"
+    type: Literal["test"] = "test"  # type: ignore
     name: str = "Test Provider"
     api_key: EnvVar[str] = Field(default_factory=lambda: EnvVar[str]("$TEST_KEY"))
     _iterator_index: int = 0

@@ -14,6 +14,13 @@ class ModelNotFoundError(Exception):
         super().__init__(message)
 
 
+class ProviderNotFoundError(Exception):
+    def __init__(self, provider_id: str):
+        self.provider_id = provider_id
+        message = f"Provider '{provider_id}' not found"
+        super().__init__(message)
+
+
 class ModelRegistrationError(Exception):
     """Base class for model registration errors"""
 

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import TYPE_CHECKING, Any, get_args
+from typing import TYPE_CHECKING, Any, Literal, get_args
 
 from pydantic import BaseModel, Field, model_serializer, model_validator
 
@@ -13,19 +13,11 @@ if TYPE_CHECKING:
     from pydantic_ai.providers import Provider as PydanticProvider
 
 
-class ParameterMapping(BaseModel):
-    name: str | None = Field(None, description="Provider-specific parameter name")
-    supported: bool = Field(default=True, description="Whether parameter is supported by provider")
-
-
 class Provider(BaseModel):
     """Base provider configuration"""
 
+    type: Literal["provider"] = "provider"
     name: str = Field(description="Provider name for display")
-    parameter_mappings: dict[str, ParameterMapping] = Field(
-        default_factory=dict,
-        description="Mapping of standard parameters to provider-specific parameters",
-    )
 
     def iter(self) -> Iterator[Provider]:
         """Default implementation yields just the provider itself"""
@@ -44,8 +36,6 @@ class Provider(BaseModel):
         result = {}
         for field_name in self.__class__.model_fields:
             value = getattr(self, field_name)
-            if field_name == "parameter_mappings":
-                continue
             if isinstance(value, EnvVar):
                 result[field_name] = value.__get__(None, None)
             else:

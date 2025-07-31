@@ -3,22 +3,23 @@ from pathlib import Path
 
 import pytest
 
-from no_llm.config.enums import ModelCapability, ModelMode
-from no_llm.config.metadata import (
+from no_llm.models.config.enums import ModelCapability, ModelMode
+from no_llm.models.config.metadata import (
     ModelMetadata,
     ModelPricing,
     PrivacyLevel,
     TokenPrices,
 )
-from no_llm.config.model import ModelConfiguration, ModelConstraints, ModelIdentity
-from no_llm.config.parameters import ConfigurableModelParameters
-from no_llm.config.properties import ModelProperties, QualityProperties, SpeedProperties
+from no_llm.models.config.model import ModelConfiguration, ModelConstraints, ModelIdentity
+from no_llm.models.config.parameters import ConfigurableModelParameters
+from no_llm.models.config.properties import ModelProperties, QualityProperties, SpeedProperties
 from no_llm.errors import (
     ConfigurationLoadError,
     ModelNotFoundError,
 )
 from no_llm.providers import OpenAIProvider, Provider
-from no_llm.registry import ModelRegistry, SetFilter
+from no_llm.models.registry import ModelRegistry
+from no_llm.models.registry import SetFilter
 
 
 def create_test_model(model_id: str = "test-model") -> ModelConfiguration:

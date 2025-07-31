@@ -6,7 +6,7 @@ import pydantic
 
 from no_llm.providers.anthropic import AnthropicProvider
 from no_llm.providers.azure import AzureProvider
-from no_llm.providers.base import ParameterMapping, Provider
+from no_llm.providers.base import Provider
 from no_llm.providers.bedrock import BedrockProvider
 from no_llm.providers.deepseek import DeepseekProvider
 from no_llm.providers.env_var import EnvVar
@@ -41,7 +41,6 @@ __all__ = [
     "EnvVar",
     "Provider",
     "Providers",
-    "ParameterMapping",
     "OpenAIProvider",
     "AnthropicProvider",
     "VertexProvider",
