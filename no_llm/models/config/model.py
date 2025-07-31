@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any, Literal
 from pydantic import BaseModel, Field, PrivateAttr
 from pydantic_ai.settings import ModelSettings
 
+from no_llm._base import BaseResource
 from no_llm.models.config.benchmarks import BenchmarkScores
 from no_llm.models.config.enums import ModelCapability, ModelMode
 from no_llm.models.config.errors import MissingCapabilitiesError
@@ -43,7 +44,7 @@ class ModelConstraints(BaseModel):
         return estimated_tokens > self.max_input_tokens
 
 
-class ModelConfiguration(BaseModel):
+class ModelConfiguration(BaseResource):
     _compatible_providers: set[type[AnyProvider]] = PrivateAttr(default_factory=set)
     identity: ModelIdentity
     providers: Sequence[Providers] = Field(default_factory=list, description="Provider configuration", min_length=1)
@@ -60,6 +61,10 @@ class ModelConfiguration(BaseModel):
     integration_aliases: IntegrationAliases | None = Field(default=None, description="Integration aliases")
     extra: dict[str, Any] = Field(default_factory=dict, description="Extra model configuration")
     model_config = {"json_encoders": {set[ModelCapability]: lambda x: sorted(x, key=lambda c: c.value)}}
+
+    @property
+    def is_valid(self) -> bool:
+        return True
 
     def iter(self) -> Iterator[Provider]:
         for provider in self.providers:

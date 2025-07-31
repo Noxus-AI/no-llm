@@ -3,8 +3,9 @@ from __future__ import annotations
 from abc import abstractmethod
 from typing import TYPE_CHECKING, Any, Literal, get_args
 
-from pydantic import BaseModel, Field, model_serializer, model_validator
+from pydantic import Field, model_serializer, model_validator
 
+from no_llm._base import BaseResource
 from no_llm.providers.env_var import EnvVar
 
 if TYPE_CHECKING:
@@ -13,12 +14,16 @@ if TYPE_CHECKING:
     from pydantic_ai.providers import Provider as PydanticProvider
 
 
-class ProviderConfiguration(BaseModel):
+class ProviderConfiguration(BaseResource):
     """Base provider configuration"""
 
     type: Literal["provider"] = "provider"
     id: str = Field(description="Provider ID")
     name: str = Field(description="Provider name for display")
+
+    @property
+    def is_valid(self) -> bool:
+        return self.has_valid_env()
 
     def iter(self) -> Iterator[ProviderConfiguration]:
         """Default implementation yields just the provider itself"""
