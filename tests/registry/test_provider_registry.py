@@ -179,33 +179,6 @@ def test_registry_list_providers_all(base_registry):
     assert provider in providers
 
 
-def test_registry_list_provider_instances_all(base_registry):
-    """Test listing provider instances method works correctly"""
-    config = create_test_provider_config("anthropic", "test-anthropic")
-    provider = base_registry._create_provider_from_config(config)
-    base_registry.register_provider(provider)
-    
-    instances = list(base_registry.list_provider_instances(only_valid=False))
-    assert isinstance(instances, list)
-
-
-def test_registry_environment_validation_behavior(base_registry):
-    """Test that environment validation works at both registry and provider level"""
-    config = create_test_provider_config("anthropic", "test-anthropic")
-    provider = base_registry._create_provider_from_config(config)
-    base_registry.register_provider(provider)
-    
-    all_providers = list(base_registry.list_providers(only_valid=False))
-    valid_providers = list(base_registry.list_providers(only_valid=True))
-    
-    assert len(all_providers) >= len(valid_providers)
-    
-    all_instances = list(base_registry.list_provider_instances(only_valid=False))
-    valid_instances = list(base_registry.list_provider_instances(only_valid=True))
-    
-    assert len(all_instances) == len(valid_instances)
-
-
 def test_find_yaml_file(tmp_path):
     """Test YAML file extension handling"""
     registry = ProviderRegistry()
@@ -514,27 +487,6 @@ def test_provider_get_by_type_with_active_filter(base_registry):
     assert len(active_providers) == initial_active_count - 1
     assert len(all_providers) == initial_total_count
 
-
-def test_provider_instances_with_active_filter(base_registry):
-    """Test list_provider_instances respects is_active filter"""
-    # Count active instances initially
-    active_instances = list(base_registry.list_provider_instances(only_valid=False, only_active=True))
-    all_instances = list(base_registry.list_provider_instances(only_valid=False, only_active=False))
-    
-    initial_active_count = len(active_instances)
-    initial_total_count = len(all_instances)
-    
-    # Deactivate one provider
-    provider_id = "anthropic"
-    base_registry.set_provider_active(provider_id, False)
-    
-    # Check filtering works
-    active_instances = list(base_registry.list_provider_instances(only_valid=False, only_active=True))
-    all_instances = list(base_registry.list_provider_instances(only_valid=False, only_active=False))
-    
-    # Active instances should be reduced
-    assert len(active_instances) <= initial_active_count
-    assert len(all_instances) == initial_total_count
 
 
 def test_provider_combined_active_and_valid_filtering(base_registry):

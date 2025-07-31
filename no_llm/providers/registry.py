@@ -160,28 +160,6 @@ class ProviderRegistry:
                 continue
             yield provider
 
-    def list_provider_instances(
-        self, *, only_valid: bool = True, only_active: bool = True
-    ) -> Iterator[ProviderConfiguration]:
-        """List all provider instances including variants (e.g., multi-location providers)
-
-        Args:
-            only_valid: If True, only return providers with valid environment setup
-            only_active: If True, only return providers that are active
-        """
-        logger.debug(f"Listing provider instances (only_valid={only_valid}, only_active={only_active})")
-
-        for provider in self._providers.values():
-            if only_active and not provider.is_active:
-                logger.debug(f"Skipping provider {provider.id} - inactive")
-                continue
-            if only_valid and not provider.is_valid:
-                logger.debug(f"Skipping provider {provider.id} - invalid environment")
-                continue
-
-            # Use provider's iter() method to get all variants
-            yield from provider.iter()
-
     def set_provider_active(self, provider_id: str, is_active: bool) -> None:
         """Set the active status of a provider"""
         if provider_id not in self._providers:
