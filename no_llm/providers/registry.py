@@ -44,7 +44,7 @@ class ProviderRegistry:
 
                 self.register_provider(provider)
                 logger.debug(f"Registered builtin provider: {provider.id} ({provider.type})")
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001
                 logger.warning(f"Could not register builtin provider {provider_class.__name__}: {e}")
                 continue
 

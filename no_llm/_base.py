@@ -6,4 +6,5 @@ class BaseResource(BaseModel):
 
     @property
     def is_valid(self) -> bool:
-        raise NotImplementedError("Subclasses must implement this method")
+        msg = "Subclasses must implement this method"
+        raise NotImplementedError(msg)
