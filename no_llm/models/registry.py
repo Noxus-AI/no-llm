@@ -15,6 +15,7 @@ from no_llm.errors import (
 )
 from no_llm.models import __all__ as model_configs
 from no_llm.models.config import ModelCapability, ModelConfiguration, ModelMode, PrivacyLevel
+from no_llm._utils import find_yaml_file, merge_configs
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
@@ -61,28 +62,13 @@ class ModelRegistry:
                     logger.debug(f"Could not import module {module_info.name}: {e}")
                     continue
 
-    def _find_yaml_file(self, base_path: Path, name: str) -> Path:
-        for ext in [".yml", ".yaml"]:
-            path = base_path / f"{name}{ext}"
-            if path.exists():
-                return path
-        return base_path / f"{name}.yml"
-
-    def _merge_configs(self, base: dict, override: dict) -> dict:
-        merged = base.copy()
-        for key, value in override.items():
-            if isinstance(value, dict) and key in base and isinstance(base[key], dict):
-                merged[key] = self._merge_configs(base[key], value)
-            else:
-                merged[key] = value
-        return merged
 
     def _load_model_config(self, model_id: str) -> ModelConfiguration:
         if not self._config_dir:
             msg = "No config directory set"
             raise NotADirectoryError(msg)
 
-        model_file = self._find_yaml_file(self._config_dir / "models", model_id)
+        model_file = find_yaml_file(self._config_dir / "models", model_id)
         logger.debug(f"Loading model config from: {model_file}")
 
         try:
@@ -95,7 +81,7 @@ class ModelRegistry:
                 base_model = self._models[model_id]
                 base_config = base_model.model_dump()
                 base_config["parameters"] = {}
-                merged_config = self._merge_configs(base_config, config)
+                merged_config = merge_configs(base_config, config)
                 logger.debug(f'Merged config description: {merged_config["identity"]["description"]}')
                 return ModelConfiguration.from_config(merged_config)
 
@@ -134,7 +120,7 @@ class ModelRegistry:
                     base_model = self._models[normalized_id]
                     base_config = base_model.model_dump()
                     base_config["parameters"] = {}
-                    merged_config = self._merge_configs(base_config, config)
+                    merged_config = merge_configs(base_config, config)
                     base_model_class = self._builtin_models.get(normalized_id)
                     if base_model_class:
                         model = base_model_class.from_config(merged_config)
