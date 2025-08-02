@@ -70,7 +70,7 @@ class ProviderConfiguration(BaseResource):
         return data
 
     @abstractmethod
-    def to_pydantic(self) -> PydanticProvider:
+    def to_pydantic(self, *args, **kwargs) -> PydanticProvider:
         """Convert provider to Pydantic provider"""
 
 

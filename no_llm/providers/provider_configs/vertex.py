@@ -133,9 +133,9 @@ class VertexProvider(ProviderConfiguration):
         self._value = None
 
     def to_pydantic(
-        self,
+        self, model_family: Literal["gemini", "claude", "mistral", "llama"]
     ) -> PydanticGoogleVertexProvider | PydanticAnthropicProvider | PydanticMistralProvider | PydanticGoogleProvider:
-        if self.model_family == "gemini":
+        if model_family == "gemini":
             # return PydanticGoogleVertexProvider(
             #     project_id=str(self.project_id),
             #     region=cast(VertexAiRegion, self.current),
@@ -144,14 +144,14 @@ class VertexProvider(ProviderConfiguration):
                 project=str(self.project_id),
                 location=cast(VertexAiRegion, self.current),
             )
-        elif self.model_family == "claude":
+        elif model_family == "claude":
             return PydanticAnthropicProvider(
                 anthropic_client=AsyncAnthropicVertex(  # type: ignore
                     project_id=str(self.project_id),
                     region=cast(VertexAiRegion, self.current),
                 ),
             )
-        elif self.model_family == "mistral":
+        elif model_family == "mistral":
             pydantic_mistral_gcp_patch()
             return PydanticMistralProvider(
                 mistral_client=MistralGoogleCloud(  # type: ignore
@@ -159,7 +159,7 @@ class VertexProvider(ProviderConfiguration):
                     region=cast(VertexAiRegion, self.current),
                 ),
             )
-        elif self.model_family == "llama":
+        elif model_family == "llama":
             msg = "LLama is not supported in Vertex AI"
             raise NotImplementedError(msg)
         else:
