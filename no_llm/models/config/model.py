@@ -64,7 +64,9 @@ class ModelConfiguration(BaseResource):
 
     @property
     def is_valid(self) -> bool:
-        return True
+        if len(self.providers) == 0:
+            return False
+        return any(provider.is_valid for provider in self.providers)
 
     def iter(self) -> Iterator[Provider]:
         for provider in self.providers:
