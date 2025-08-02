@@ -9,13 +9,13 @@ from typing import TYPE_CHECKING, Generic, Literal, TypeVar
 import yaml
 from loguru import logger
 
+from no_llm._utils import find_yaml_file, merge_configs
 from no_llm.errors import (
     ConfigurationLoadError,
     ModelNotFoundError,
 )
 from no_llm.models import __all__ as model_configs
 from no_llm.models.config import ModelCapability, ModelConfiguration, ModelMode, PrivacyLevel
-from no_llm._utils import find_yaml_file, merge_configs
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
@@ -55,13 +55,12 @@ class ModelRegistry:
                     if hasattr(module, config_class_name):
                         config_class: type[ModelConfiguration] = getattr(module, config_class_name)
                         model_config = config_class()  # type: ignore
-                        self.register_model(model_config, builtin=True)
+                        self.register(model_config, builtin=True)
                         logger.debug(f"Registered model configuration: {config_class_name}")
                         break
                 except ImportError as e:
                     logger.debug(f"Could not import module {module_info.name}: {e}")
                     continue
-
 
     def _load_model_config(self, model_id: str) -> ModelConfiguration:
         if not self._config_dir:
@@ -133,7 +132,7 @@ class ModelRegistry:
                     else:
                         model = ModelConfiguration.from_config(config)
 
-                self.register_model(model)
+                self.register(model)
                 logger.debug(f"Registered model: {model_id} with description: {model.identity.description}")
             except Exception as e:  # noqa: BLE001
                 logger.opt(exception=e).error(f"Error loading model {model_id}")
@@ -150,7 +149,7 @@ class ModelRegistry:
             logger.debug(f"Models directory contents: {list(models_dir.iterdir())}")
         self.register_models_from_directory(models_dir)
 
-    def register_model(self, model: ModelConfiguration, builtin: bool = False) -> None:
+    def register(self, model: ModelConfiguration, builtin: bool = False) -> None:
         if model.identity.id in self._models:
             logger.debug(f"Overriding existing model configuration: {model.identity.id}")
 
@@ -159,13 +158,13 @@ class ModelRegistry:
         if builtin:
             self._builtin_models[model.identity.id] = model.__class__
 
-    def get_model(self, model_id: str) -> ModelConfiguration:
+    def get(self, model_id: str) -> ModelConfiguration:
         if model_id not in self._models:
             logger.error(f"Model {model_id} not found")
             raise ModelNotFoundError(model_id)
         return self._models[model_id]
 
-    def list_models(
+    def list(
         self,
         *,
         provider: str | None = None,
@@ -220,7 +219,7 @@ class ModelRegistry:
 
             yield model
 
-    def set_model_active(self, model_id: str, is_active: bool) -> None:
+    def set_active(self, model_id: str, is_active: bool) -> None:
         """Set the active status of a model"""
         if model_id not in self._models:
             logger.error(f"Cannot set active status: model {model_id} not found")
@@ -229,14 +228,14 @@ class ModelRegistry:
         self._models[model_id].is_active = is_active
         logger.debug(f"Set model {model_id} active status to: {is_active}")
 
-    def remove_model(self, model_id: str) -> None:
+    def remove(self, model_id: str) -> None:
         if model_id not in self._models:
             logger.error(f"Cannot remove: model {model_id} not found")
             raise ModelNotFoundError(model_id)
         del self._models[model_id]
         logger.debug(f"Removed model: {model_id}")
 
-    def reload_configurations(self) -> None:
+    def reload(self) -> None:
         logger.debug("Reloading all configurations")
         self._models.clear()
         self._register_builtin_models()

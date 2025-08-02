@@ -1,5 +1,5 @@
-from typing import Annotated, Any, TypeVar, get_args
 from pathlib import Path
+from typing import Annotated, Any, TypeVar, get_args
 
 T = TypeVar("T")
 
@@ -14,12 +14,14 @@ def _get_annotated_union_members(annotated_type: Annotated[Any, ...]) -> list[An
     else:
         return []
 
+
 def find_yaml_file(base_path: Path, name: str) -> Path:
     for ext in [".yml", ".yaml"]:
         path = base_path / f"{name}{ext}"
         if path.exists():
             return path
     return base_path / f"{name}.yml"
+
 
 def merge_configs(base: dict, override: dict) -> dict:
     merged = base.copy()

@@ -687,7 +687,7 @@ extra:
     registry = ModelRegistry(config_dir)
 
     # Get the loaded model configuration
-    model_config = registry.get_model("o3-mini-low")
+    model_config = registry.get("o3-mini-low")
 
     # Verify it has the correct identity
     assert model_config.identity.id == "o3-mini-low"
@@ -695,7 +695,7 @@ extra:
 
     # Verify it inherits from the base o3-mini configuration
     assert isinstance(
-        model_config.parameters, type(registry.get_model("o3-mini").parameters)
+        model_config.parameters, type(registry.get("o3-mini").parameters)
     )
 
     # Test that base config parameters are preserved with correct variants

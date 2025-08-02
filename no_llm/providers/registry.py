@@ -42,18 +42,11 @@ class ProviderRegistry:
             try:
                 provider = provider_class()
 
-                self.register_provider(provider)
+                self.register(provider)
                 logger.debug(f"Registered builtin provider: {provider.id} ({provider.type})")
             except Exception as e:  # noqa: BLE001
                 logger.warning(f"Could not register builtin provider {provider_class.__name__}: {e}")
                 continue
-
-    def _find_yaml_file(self, base_path: Path, name: str) -> Path:
-        for ext in [".yml", ".yaml"]:
-            path = base_path / f"{name}{ext}"
-            if path.exists():
-                return path
-        return base_path / f"{name}.yml"
 
     def _create_provider_from_config(self, config: dict) -> ProviderConfiguration:
         """Create a provider instance from YAML configuration"""
@@ -88,7 +81,7 @@ class ProviderRegistry:
                 logger.debug(f"Loaded YAML config: {config}")
 
                 provider = self._create_provider_from_config(config)
-                self.register_provider(provider)
+                self.register(provider)
                 logger.debug(f"Registered provider from file: {provider_id} -> {provider.id} ({provider.type})")
             except Exception as e:  # noqa: BLE001
                 logger.opt(exception=e).error(f"Error loading provider {provider_id}")
@@ -105,7 +98,7 @@ class ProviderRegistry:
             logger.debug(f"Providers directory contents: {list(providers_dir.iterdir())}")
         self.register_providers_from_directory(providers_dir)
 
-    def register_provider(self, provider: ProviderConfiguration) -> None:
+    def register(self, provider: ProviderConfiguration) -> None:
         """Register a provider instance"""
         if provider.id in self._providers:
             logger.debug(f"Overriding existing provider: {provider.id}")
@@ -113,14 +106,14 @@ class ProviderRegistry:
         self._providers[provider.id] = provider
         logger.debug(f"Registered provider: {provider.id} ({provider.name}) type={provider.type}")
 
-    def get_provider(self, provider_id: str) -> ProviderConfiguration:
+    def get(self, provider_id: str) -> ProviderConfiguration:
         """Get a provider by ID"""
         if provider_id not in self._providers:
             logger.error(f"Provider {provider_id} not found")
             raise ProviderNotFoundError(provider_id)
         return self._providers[provider_id]
 
-    def get_providers_by_type(
+    def list_by_type(
         self, provider_type: str, *, only_valid: bool = True, only_active: bool = True
     ) -> Iterator[ProviderConfiguration]:
         """Get all providers of a specific type
@@ -142,7 +135,7 @@ class ProviderRegistry:
                 continue
             yield provider
 
-    def list_providers(self, *, only_valid: bool = True, only_active: bool = True) -> Iterator[ProviderConfiguration]:
+    def list(self, *, only_valid: bool = True, only_active: bool = True) -> Iterator[ProviderConfiguration]:
         """List all registered providers
 
         Args:
@@ -160,7 +153,7 @@ class ProviderRegistry:
                 continue
             yield provider
 
-    def set_provider_active(self, provider_id: str, is_active: bool) -> None:
+    def set_active(self, provider_id: str, is_active: bool) -> None:
         """Set the active status of a provider"""
         if provider_id not in self._providers:
             logger.error(f"Cannot set active status: provider {provider_id} not found")
@@ -169,7 +162,7 @@ class ProviderRegistry:
         self._providers[provider_id].is_active = is_active
         logger.debug(f"Set provider {provider_id} active status to: {is_active}")
 
-    def remove_provider(self, provider_id: str) -> None:
+    def remove(self, provider_id: str) -> None:
         """Remove a provider by ID"""
         if provider_id not in self._providers:
             logger.error(f"Cannot remove: provider {provider_id} not found")
@@ -177,7 +170,7 @@ class ProviderRegistry:
         del self._providers[provider_id]
         logger.debug(f"Removed provider: {provider_id}")
 
-    def reload_configurations(self) -> None:
+    def reload(self) -> None:
         """Reload all provider configurations"""
         logger.debug("Reloading all configurations")
         self._providers.clear()
