@@ -25,6 +25,19 @@ class ModelPreset(BaseModel):
     )
     _current_model: ModelConfiguration | None = None
 
+    def model_names(self) -> list[str]:
+        """Get list of model names from a preset for logging."""
+        models = []
+        for model in self.models:
+            if isinstance(model, str):
+                models.append(model)
+            elif isinstance(model, ModelPreset):
+                models.extend(model.model_names())
+            else:
+                # This would be an error in the original code too
+                models.append(str(model))
+        return list(set(models))
+
     def iter(self, registry: ModelRegistry) -> Iterator[ModelConfiguration]:
         for model in self.models:
             if isinstance(model, str):
