@@ -1,0 +1,44 @@
+interactions:
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate, br, zstd
+      connection:
+      - keep-alive
+      host:
+      - api.perplexity.ai
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://api.perplexity.ai/async/chat/completions
+  response:
+    body:
+      string: '{"next_token":null,"requests":[]}'
+    headers:
+      CF-RAY:
+      - 969f1f6a4dd8066c-IAD
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '33'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 04 Aug 2025 15:35:06 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - __cf_bm=GzkqomqrPBnBCdNkKwUUpwS8lCJcAx_VgiOgaW45imA-1754321706-1.0.1.1-Cr30s2GC29GkfJZvRjsXGMRKejEVeAnuXBViDkpL_NmYxNT1AthlKsEgTwL4oeoX80De8cZOTTV.V0viIpKGW.IMJfacya7UJBdNB_Dpvx4;
+        path=/; expires=Mon, 04-Aug-25 16:05:06 GMT; domain=.perplexity.ai; HttpOnly;
+        Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      cf-cache-status:
+      - DYNAMIC
+    status:
+      code: 200
+      message: OK
+version: 1

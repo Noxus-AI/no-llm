@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 from typing import Literal
+from urllib.parse import urljoin
 
 import httpx
 from pydantic import Field
 from pydantic_ai.providers.openai import OpenAIProvider as PydanticOpenAIProvider
+from loguru import logger
 
 from no_llm.providers.config import ProviderConfiguration
 from no_llm.providers.env_var import EnvVar
@@ -26,11 +28,12 @@ class OpenAIProvider(ProviderConfiguration):
         try:
             with httpx.Client() as client:
                 response = client.get(
-                    "https://api.openai.com/v1/models",
-                    headers={"Authorization": f"Bearer {self.api_key}"}
+                    urljoin(str(self.base_url), "models"),
+                    headers={"Authorization": f"Bearer {str(self.api_key)}"}
                 )
                 return response.status_code == 200
-        except Exception:
+        except Exception as e:
+            logger.opt(exception=e).error(f"Failed to test connectivity to {self.__class__.__name__}")
             return False
 
     def to_pydantic(self) -> PydanticOpenAIProvider:

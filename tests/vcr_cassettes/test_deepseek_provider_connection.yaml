@@ -1,0 +1,54 @@
+interactions:
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate, br, zstd
+      connection:
+      - keep-alive
+      host:
+      - api.deepseek.com
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://api.deepseek.com/models
+  response:
+    body:
+      string: '{"object":"list","data":[{"id":"deepseek-chat","object":"model","owned_by":"deepseek"},{"id":"deepseek-reasoner","object":"model","owned_by":"deepseek"}]}'
+    headers:
+      CF-RAY:
+      - 969f18a27d085774-IAD
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 04 Aug 2025 15:30:29 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - __cf_bm=1._xe0Z2lxtuw6JXtNHOxg2Pq.PkIMOhN0v1SMzYxUI-1754321429-1.0.1.1-lpdc_Bjcklrmgxlm1izG4kL7gUTC5QVhFOQvv7OZYTSX8Ti7u5zL98.YeKxu5UuN1zNK89gIyKEOMem_IMoupBHNlXQyYFayigE_KeEvvyo;
+        path=/; expires=Mon, 04-Aug-25 16:00:29 GMT; domain=.deepseek.com; HttpOnly;
+        Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Transfer-Encoding:
+      - chunked
+      X-Content-Type-Options:
+      - nosniff
+      access-control-allow-credentials:
+      - 'true'
+      cf-cache-status:
+      - DYNAMIC
+      content-length:
+      - '154'
+      vary:
+      - origin, access-control-request-method, access-control-request-headers
+      x-ds-trace-id:
+      - ed510487728052982ea89b01fcf0cc1f
+    status:
+      code: 200
+      message: OK
+version: 1
