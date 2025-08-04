@@ -36,4 +36,3 @@ class GroqProvider(ProviderConfiguration):
         return PydanticGroqProvider(
             api_key=str(self.api_key),
         )
-
