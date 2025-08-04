@@ -171,8 +171,8 @@ class ModelRegistry:
         capabilities: set[ModelCapability] | SetFilter[ModelCapability] | None = None,
         privacy_levels: set[PrivacyLevel] | SetFilter[PrivacyLevel] | None = None,
         mode: ModelMode | None = None,
-        only_valid: bool = True,
-        only_active: bool = True,
+        only_valid: bool = False,
+        only_active: bool = False,
     ) -> Iterator[ModelConfiguration]:
         if isinstance(capabilities, set):
             capabilities = SetFilter(capabilities)

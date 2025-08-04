@@ -113,7 +113,7 @@ class ProviderRegistry:
         return self._providers[provider_id]
 
     def list_by_type(
-        self, provider_type: str, *, only_valid: bool = True, only_active: bool = True
+        self, provider_type: str, *, only_valid: bool = False, only_active: bool = False
     ) -> Iterator[ProviderConfiguration]:
         """Get all providers of a specific type
 
@@ -134,7 +134,7 @@ class ProviderRegistry:
                 continue
             yield provider
 
-    def list(self, *, only_valid: bool = True, only_active: bool = True) -> Iterator[ProviderConfiguration]:
+    def list(self, *, only_valid: bool = False, only_active: bool = False) -> Iterator[ProviderConfiguration]:
         """List all registered providers
 
         Args:

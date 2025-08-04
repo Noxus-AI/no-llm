@@ -74,11 +74,22 @@ def config_dir(tmp_path) -> Path:
 
     return config_dir
 
+@pytest.fixture
+def builtin_registry() -> ModelRegistry:
+    """Create a test registry with basic setup"""
+    registry = ModelRegistry()
+    registry._models.clear()
+    registry._builtin_models.clear()
+    return registry
+
 
 @pytest.fixture
 def base_registry() -> ModelRegistry:
     """Create a test registry with basic setup"""
-    return ModelRegistry()
+    registry = ModelRegistry()
+    registry._models.clear()
+    registry._builtin_models.clear()
+    return registry
     # Register test provider type
     # registry.register_provider_type('test', MockProvider)
     # Create and register provider instance
@@ -121,18 +132,18 @@ def test_registry_model_listing(base_registry: ModelRegistry):
     base_registry.register(model2)
 
     # Test listing all models
-    models = list(base_registry.list())
+    models = list(base_registry.list(only_valid=False, only_active=False))
     assert len(models) == 2
 
     # Test filtering by capability
     vision_models = list(
-        base_registry.list(capabilities={ModelCapability.VISION})
+        base_registry.list(capabilities={ModelCapability.VISION}, only_valid=False, only_active=False)
     )
     assert len(vision_models) == 1
     assert vision_models[0].identity.id == "model2"
 
     # Test filtering by provider
-    provider_models = list(base_registry.list(provider="openai"))
+    provider_models = list(base_registry.list(provider="openai", only_valid=False, only_active=False))
     assert len(provider_models) == 2
 
 
@@ -397,9 +408,6 @@ def test_registry_configuration_reloading(tmp_path):
     # Create registry without built-in models
     registry = ModelRegistry(config_dir)
 
-    # Store initial number of built-in models
-    initial_models = len(list(registry.list()))
-
     # Add a model configuration
     model_file = models_dir / "test.yml"
     model_file.write_text("""
@@ -425,7 +433,7 @@ metadata:
 
     # Test explicit reload
     registry.reload()
-    assert len(list(registry.list())) == initial_models + 1
+    assert len(list(registry.list())) == 2
 
     # Get the custom model
     custom_model = registry.get("test-model")
@@ -457,7 +465,7 @@ metadata:
     registry.reload()
     custom_model = registry.get("test-model")
     assert custom_model.identity.name == "Updated Model"
-    assert len(list(registry.list())) == initial_models + 1
+    assert len(list(registry.list())) == 2
 
 
 def test_model_set_active_functionality():
@@ -490,21 +498,15 @@ def test_model_set_active_nonexistent_model():
     assert exc_info.value.model_id == "nonexistent"
 
 
-def test_model_listing_with_active_filter():
+def test_model_listing_with_active_filter(base_registry: ModelRegistry):
     """Test model listing respects is_active filter"""
-    registry = ModelRegistry()
+    registry = base_registry
     
     # Add multiple models
     model1 = create_test_model("model1")
     model2 = create_test_model("model2")
     registry.register(model1)
     registry.register(model2)
-    
-    # Count active models initially
-    active_models = list(registry.list(only_valid=False, only_active=True))
-    all_models = list(registry.list(only_valid=False, only_active=False))
-    initial_active_count = len(active_models)
-    initial_total_count = len(all_models)
     
     # Deactivate one model
     registry.set_active("model1", False)
@@ -513,8 +515,8 @@ def test_model_listing_with_active_filter():
     active_models = list(registry.list(only_valid=False, only_active=True))
     all_models = list(registry.list(only_valid=False, only_active=False))
     
-    assert len(active_models) == initial_active_count - 1
-    assert len(all_models) == initial_total_count  # Total unchanged
+    assert len(active_models) == 1
+    assert len(all_models) == 2  # Total unchanged
     
     # Verify the deactivated model is not in active list
     active_model_ids = {m.identity.id for m in active_models}
