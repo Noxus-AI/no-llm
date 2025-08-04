@@ -42,7 +42,7 @@ class ModelPreset(BaseModel):
         for model in self.models:
             if isinstance(model, str):
                 try:
-                    model_cfg = registry.get_model(model)
+                    model_cfg = registry.get(model)
                 except ModelNotFoundError as e:
                     logger.warning(f"Model {model} not found in registry: {e}. Skipping.")
                     continue

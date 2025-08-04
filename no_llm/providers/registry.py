@@ -51,8 +51,7 @@ class ProviderRegistry:
     def _create_provider_from_config(self, config: dict) -> ProviderConfiguration:
         """Create a provider instance from YAML configuration"""
         try:
-            adapter = TypeAdapter(AnyProvider)
-            return adapter.validate_python(config)
+            return TypeAdapter(AnyProvider).validate_python(config)
         except ValidationError as e:
             logger.error(f"Failed to create provider from config: {e}")
             raise
