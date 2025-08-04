@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Literal
 
+import httpx
 from pydantic import Field
 from pydantic_ai.providers.openai import OpenAIProvider as PydanticOpenAIProvider
 
@@ -20,6 +21,17 @@ class OpenAIProvider(ProviderConfiguration):
         description="Name of environment variable containing API key",
     )
     base_url: str | None = Field(default="https://api.openai.com/v1/", description="Optional base URL override")
+
+    def test(self) -> bool:
+        try:
+            with httpx.Client() as client:
+                response = client.get(
+                    "https://api.openai.com/v1/models",
+                    headers={"Authorization": f"Bearer {self.api_key}"}
+                )
+                return response.status_code == 200
+        except Exception:
+            return False
 
     def to_pydantic(self) -> PydanticOpenAIProvider:
         return PydanticOpenAIProvider(

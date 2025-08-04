@@ -25,6 +25,9 @@ class ProviderConfiguration(BaseResource):
     def is_valid(self) -> bool:
         return self.has_valid_env()
 
+    def test(self) -> bool:
+        raise NotImplementedError("Test method not implemented")
+
     def iter(self) -> Iterator[ProviderConfiguration]:
         """Default implementation yields just the provider itself"""
         if self.has_valid_env():
