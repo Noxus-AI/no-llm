@@ -4,9 +4,9 @@ from typing import Literal
 from urllib.parse import urljoin
 
 import httpx
+from loguru import logger
 from pydantic import Field
 from pydantic_ai.providers.openai import OpenAIProvider as PydanticOpenAIProvider
-from loguru import logger
 
 from no_llm.providers.env_var import EnvVar
 from no_llm.providers.provider_configs.openai import OpenAIProvider
@@ -29,7 +29,7 @@ class PerplexityProvider(OpenAIProvider):
             with httpx.Client() as client:
                 response = client.get(
                     urljoin(str(self.base_url), "async/chat/completions"),
-                    headers={"Authorization": f"Bearer {str(self.api_key)}"}
+                    headers={"Authorization": f"Bearer {self.api_key!s}"}
                 )
                 return response.status_code == 200
         except Exception as e:
