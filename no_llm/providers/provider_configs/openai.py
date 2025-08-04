@@ -28,8 +28,7 @@ class OpenAIProvider(ProviderConfiguration):
         try:
             with httpx.Client() as client:
                 response = client.get(
-                    urljoin(str(self.base_url), "models"),
-                    headers={"Authorization": f"Bearer {self.api_key!s}"}
+                    urljoin(str(self.base_url), "models"), headers={"Authorization": f"Bearer {self.api_key!s}"}
                 )
                 return response.status_code == 200
         except Exception as e:

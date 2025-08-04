@@ -1,0 +1,590 @@
+interactions:
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate, br, zstd
+      connection:
+      - keep-alive
+      host:
+      - openrouter.ai
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://openrouter.ai/api/models
+  response:
+    body:
+      string: "<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta
+        name=\"viewport\" content=\"width=device-width, initial-scale=1, minimum-scale=1\"/><link
+        rel=\"stylesheet\" href=\"/_next/static/css/5b576904c612405e.css\" data-precedence=\"next\"/><link
+        rel=\"stylesheet\" href=\"/_next/static/css/8c7b0f31f4fbaca7.css\" data-precedence=\"next\"/><link
+        rel=\"stylesheet\" href=\"/_next/static/css/febd397730d0dc0b.css\" data-precedence=\"next\"/><link
+        rel=\"stylesheet\" href=\"/_next/static/css/acdaad1d23646914.css\" data-precedence=\"next\"/><link
+        rel=\"preload\" as=\"script\" fetchPriority=\"low\" href=\"/_next/static/chunks/webpack-b6d83152210855d7.js\"/><script
+        src=\"/_next/static/chunks/72c7efa3-7812485cc34b56ac.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/04a931bf-cb38dda576d1f716.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/93624-be38be35235b1de6.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/main-app-1dd93971c303f072.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/a152fabb-67d78d5f3ce6afaa.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/13090-a79c480fd633a095.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/20713-2068acb7c5048066.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/83109-760316842d59b4cc.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/79146-324c820d6ceb154e.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/35018-d8968acd0af5611e.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/67776-e1bc160590fc8e8d.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/12751-57233e7fc2cdc911.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/52773-3733e0ec6cb320cc.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/85180-358bd40209e33e1d.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/29541-e7fc6cc9bb8fc029.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/61316-d805e7e2a97f0e67.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/15010-ef806079e3b55f98.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/48967-edc53bc1e957a193.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/99447-9b64ed98467f2df2.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/49370-f21c65a94f6cbb31.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/54421-8290922d79ac9388.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/74937-1f9355c1cddd657a.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/60532-cf875fc137e52b66.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/61299-3f622a24ac1e199b.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/88900-f8f69977a632b684.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/5983-92e04047bd943484.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/app/layout-757aab1e11f32ce5.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/83732-f774e5e3b300d006.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/3063-ecdce169dd235584.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/74656-6a28f0c23c61b00e.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/26921-16e0e8537849eae7.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/88250-af40405a368eae8a.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/67852-455dcf278ccd606c.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/91797-158a537f7e2402d5.js\" async=\"\"></script><script
+        src=\"/_next/static/chunks/app/(marketplace)/%5Bmaker-id%5D/page-60a3062e66a9e5b3.js\"
+        async=\"\"></script><script src=\"/_next/static/chunks/53f5d41f-6a3943f9a733fd72.js\"
+        async=\"\"></script><script src=\"/_next/static/chunks/64443-72fde7905772ef9a.js\"
+        async=\"\"></script><script src=\"/_next/static/chunks/75322-dd4e9add6a9ad0e0.js\"
+        async=\"\"></script><script src=\"/_next/static/chunks/74361-68b8cf4371e4ce40.js\"
+        async=\"\"></script><script src=\"/_next/static/chunks/62416-06cc632ea7a83e7c.js\"
+        async=\"\"></script><script src=\"/_next/static/chunks/app/(marketplace)/%5Bmaker-id%5D/%5Bslug%5D/layout-cc79c2c7cc579811.js\"
+        async=\"\"></script><script src=\"/_next/static/chunks/app/(user)/layout-1575977d08d8644a.js\"
+        async=\"\"></script><script src=\"/_next/static/chunks/app/global-error-140668f4f9b9b7b9.js\"
+        async=\"\"></script><script src=\"/_next/static/chunks/21680-31cac4ea147ab2ad.js\"
+        async=\"\"></script><script src=\"/_next/static/chunks/50373-e705843869fa9bcb.js\"
+        async=\"\"></script><script src=\"/_next/static/chunks/96939-0c60af28b6b10bcc.js\"
+        async=\"\"></script><script src=\"/_next/static/chunks/78421-7e4f66cdb3ddaedb.js\"
+        async=\"\"></script><script src=\"/_next/static/chunks/41213-23a9d7559b584f03.js\"
+        async=\"\"></script><script src=\"/_next/static/chunks/79322-2a86d791477f869b.js\"
+        async=\"\"></script><script src=\"/_next/static/chunks/41931-69e61352227c80de.js\"
+        async=\"\"></script><script src=\"/_next/static/chunks/43559-76e914a3cf737fda.js\"
+        async=\"\"></script><script src=\"/_next/static/chunks/app/(marketplace)/%5Bmaker-id%5D/%5Bslug%5D/page-2513510547d90c3e.js\"
+        async=\"\"></script><script src=\"https://clerk.openrouter.ai/npm/@clerk/clerk-js@5/dist/clerk.browser.js\"
+        data-clerk-js-script=\"true\" async=\"\" crossorigin=\"anonymous\" data-clerk-publishable-key=\"pk_live_Y2xlcmsub3BlbnJvdXRlci5haSQ\"></script><link
+        rel=\"preload\" href=\"https://www.googletagmanager.com/gtag/js?id=G-R8YZRJS2XN\"
+        as=\"script\"/><meta name=\"next-size-adjust\" content=\"\"/><meta name=\"theme-color\"
+        media=\"(prefers-color-scheme: light)\" content=\"rgb(255, 255, 255)\"/><meta
+        name=\"theme-color\" media=\"(prefers-color-scheme: dark)\" content=\"rgb(9,
+        10, 11)\"/><meta name=\"sentry-trace\" content=\"5c9c0485da762cb1c51290870aa4c82b-42a3f18a88964d02\"/><meta
+        name=\"baggage\" content=\"sentry-environment=vercel-production,sentry-release=6960c75637f462480b81c84ae13820071d506469,sentry-public_key=pub476b8f2df7e59e34c19dbfefb8c80323,sentry-trace_id=5c9c0485da762cb1c51290870aa4c82b\"/><script
+        src=\"/_next/static/chunks/polyfills-42372ed130431b0a.js\" noModule=\"\"></script></head><body
+        class=\"__variable_e8ce0c __variable_f910ec font-sans\"><div hidden=\"\"><!--$?--><template
+        id=\"B:0\"></template><!--/$--></div><style>\n:root {\n  --bprogress-color:
+        hsl(var(--primary));\n  --bprogress-height: 2px;\n  --bprogress-spinner-size:
+        18px;\n  --bprogress-spinner-animation-duration: 400ms;\n  --bprogress-spinner-border-size:
+        2px;\n  --bprogress-box-shadow: 0 0 10px hsl(var(--primary)), 0 0 5px hsl(var(--primary));\n
+        \ --bprogress-z-index: 99999;\n  --bprogress-spinner-top: 15px;\n  --bprogress-spinner-bottom:
+        auto;\n  --bprogress-spinner-right: 15px;\n  --bprogress-spinner-left: auto;\n}\n\n.bprogress
+        {\n  width: 0;\n  height: 0;\n  pointer-events: none;\n  z-index: var(--bprogress-z-index);\n}\n\n.bprogress
+        .bar {\n  background: var(--bprogress-color);\n  position: fixed;\n  z-index:
+        var(--bprogress-z-index);\n  top: 0;\n  left: 0;\n  width: 100%;\n  height:
+        var(--bprogress-height);\n}\n\n/* Fancy blur effect */\n.bprogress .peg {\n
+        \ display: block;\n  position: absolute;\n  right: 0;\n  width: 100px;\n  height:
+        100%;\n  box-shadow: var(--bprogress-box-shadow);\n  opacity: 1.0;\n  transform:
+        rotate(3deg) translate(0px, -4px);\n}\n\n/* Remove these to get rid of the
+        spinner */\n.bprogress .spinner {\n  display: block;\n  position: fixed;\n
+        \ z-index: var(--bprogress-z-index);\n  top: var(--bprogress-spinner-top);\n
+        \ bottom: var(--bprogress-spinner-bottom);\n  right: var(--bprogress-spinner-right);\n
+        \ left: var(--bprogress-spinner-left);\n}\n\n.bprogress .spinner-icon {\n
+        \ width: var(--bprogress-spinner-size);\n  height: var(--bprogress-spinner-size);\n
+        \ box-sizing: border-box;\n  border: solid var(--bprogress-spinner-border-size)
+        transparent;\n  border-top-color: var(--bprogress-color);\n  border-left-color:
+        var(--bprogress-color);\n  border-radius: 50%;\n  -webkit-animation: bprogress-spinner
+        var(--bprogress-spinner-animation-duration) linear infinite;\n  animation:
+        bprogress-spinner var(--bprogress-spinner-animation-duration) linear infinite;\n}\n\n.bprogress-custom-parent
+        {\n  overflow: hidden;\n  position: relative;\n}\n\n.bprogress-custom-parent
+        .bprogress .spinner,\n.bprogress-custom-parent .bprogress .bar {\n  position:
+        absolute;\n}\n\n.bprogress .indeterminate {\n  position: fixed;\n  top: 0;\n
+        \ left: 0;\n  width: 100%;\n  height: var(--bprogress-height);\n  overflow:
+        hidden;\n}\n\n.bprogress .indeterminate .inc,\n.bprogress .indeterminate .dec
+        {\n  position: absolute;\n  top: 0;\n  height: 100%;\n  background-color:
+        var(--bprogress-color);\n}\n\n.bprogress .indeterminate .inc {\n  animation:
+        bprogress-indeterminate-increase 2s infinite;\n}\n\n.bprogress .indeterminate
+        .dec {\n  animation: bprogress-indeterminate-decrease 2s 0.5s infinite;\n}\n\n@-webkit-keyframes
+        bprogress-spinner {\n  0%   { -webkit-transform: rotate(0deg); transform:
+        rotate(0deg); }\n  100% { -webkit-transform: rotate(360deg); transform: rotate(360deg);
+        }\n}\n\n@keyframes bprogress-spinner {\n  0%   { transform: rotate(0deg);
+        }\n  100% { transform: rotate(360deg); }\n}\n\n@keyframes bprogress-indeterminate-increase
+        {\n  from { left: -5%; width: 5%; }\n  to { left: 130%; width: 100%; }\n}\n\n@keyframes
+        bprogress-indeterminate-decrease {\n  from { left: -80%; width: 80%; }\n  to
+        { left: 110%; width: 10%; }\n}\n</style><!--$--><!--/$--><script>((a,b,c,d,e,f,g,h)=>{let
+        i=document.documentElement,j=[\"light\",\"dark\"];function k(b){var c;(Array.isArray(a)?a:[a]).forEach(a=>{let
+        c=\"class\"===a,d=c&&f?e.map(a=>f[a]||a):e;c?(i.classList.remove(...d),i.classList.add(f&&f[b]?f[b]:b)):i.setAttribute(a,b)}),c=b,h&&j.includes(c)&&(i.style.colorScheme=c)}if(d)k(d);else
+        try{let a=localStorage.getItem(b)||c,d=g&&\"system\"===a?window.matchMedia(\"(prefers-color-scheme:
+        dark)\").matches?\"dark\":\"light\":a;k(d)}catch(a){}})(\"class\",\"theme\",\"light\",null,[\"light\",\"dark\"],null,true,true)</script><main
+        class=\"tabular-nums\"><nav id=\"main-nav\" class=\"sticky top-0 z-40 transition-all
+        duration-150 bg-background mx-auto max-w-screen-4xl px-6 py-3.5 lg:py-6\"><span
+        style=\"position:absolute;border:0;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,
+        0, 0, 0);white-space:nowrap;word-wrap:normal\"><a href=\"#skip\" class=\"sr-only
+        absolute left-0 top-0 bg-background text-primary focus:not-sr-only\">Skip
+        to content</a></span><div class=\"align-center relative flex flex-row justify-between
+        text-sm md:text-base\"><div class=\"flex flex-1 items-center gap-4\"><a class=\"text-muted-foreground\"
+        href=\"/\"><button class=\"inline-flex items-center whitespace-nowrap font-medium
+        transition-colors focus-visible:outline-none disabled:pointer-events-none
+        disabled:opacity-50 focus-visible:ring-1 focus-visible:ring-ring gap-2 leading-6
+        hover:bg-accent hover:text-accent-foreground border border-transparent h-9
+        rounded-md px-3 w-auto justify-center text-muted-foreground\"><span data-state=\"closed\"
+        style=\"-webkit-touch-callout:none\"><span class=\"flex items-center gap-2
+        text-base transform cursor-pointer font-medium duration-100 ease-in-out fill-current
+        stroke-current\"><svg width=\"100%\" height=\"100%\" viewBox=\"0 0 512 512\"
+        xmlns=\"http://www.w3.org/2000/svg\" class=\"size-4\" fill=\"currentColor\"
+        stroke=\"currentColor\" aria-label=\"Logo\"><g clip-path=\"url(#clip0_205_3)\"><path
+        d=\"M3 248.945C18 248.945 76 236 106 219C136 202 136 202 198 158C276.497 102.293
+        332 120.945 423 120.945\" stroke-width=\"90\"></path><path d=\"M511 121.5L357.25
+        210.268L357.25 32.7324L511 121.5Z\"></path><path d=\"M0 249C15 249 73 261.945
+        103 278.945C133 295.945 133 295.945 195 339.945C273.497 395.652 329 377 420
+        377\" stroke-width=\"90\"></path><path d=\"M508 376.445L354.25 287.678L354.25
+        465.213L508 376.445Z\"></path></g><title style=\"display:none\">OpenRouter</title><defs><clipPath
+        id=\"clip0_205_3\"><rect width=\"512\" height=\"512\" fill=\"white\"></rect></clipPath></defs></svg>OpenRouter</span></span></button></a><div
+        class=\"animate-pulse rounded-md bg-muted h-9 w-0 ring-ring md:w-80\"></div></div><!--$--><div
+        class=\"flex flex-1 justify-end\"><button class=\"inline-flex items-center
+        justify-center whitespace-nowrap rounded-md font-medium transition-colors
+        focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50
+        focus-visible:ring-1 focus-visible:ring-ring gap-2 leading-6 text-muted-foreground
+        hover:bg-accent hover:text-accent-foreground border border-transparent aspect-square
+        size-9 p-0\" role=\"combobox\" aria-expanded=\"false\" type=\"button\" aria-haspopup=\"dialog\"
+        aria-controls=\"radix-_R_rbqjb_\" data-state=\"closed\" data-slot=\"dialog-trigger\"><svg
+        xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\"
+        aria-hidden=\"true\" data-slot=\"icon\" class=\"size-4 text-muted-foreground\"><path
+        fill-rule=\"evenodd\" d=\"M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0
+        0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06
+        1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z\" clip-rule=\"evenodd\"></path></svg></button><div
+        class=\"flex w-24\"><nav aria-label=\"Main\" data-orientation=\"horizontal\"
+        dir=\"ltr\" class=\"relative z-10 flex max-w-max flex-1 items-center justify-center\"><div
+        style=\"position:relative\"><ul data-orientation=\"horizontal\" class=\"group
+        flex flex-1 list-none items-center justify-center space-x-1\" dir=\"ltr\"><li></li></ul></div><div
+        class=\"absolute right-0 top-full flex justify-center\"></div></nav><div class=\"animate-pulse
+        bg-muted flex h-full w-full rounded-full\"></div></div></div><!--/$--></div></nav><!--$--><!--/$--><!--$?--><template
+        id=\"B:1\"></template><div class=\"flex flex-col items-center min-h-[calc(100vh-80px)]
+        w-full md:min-h-screen\"></div><!--/$--></main><div role=\"region\" aria-label=\"Notifications
+        (F8)\" tabindex=\"-1\" style=\"pointer-events:none\"><ol tabindex=\"-1\" class=\"fixed
+        top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0
+        sm:top-auto sm:flex-col md:max-w-[420px] gap-2\"></ol></div><script>requestAnimationFrame(function(){$RT=performance.now()});</script><script
+        src=\"/_next/static/chunks/webpack-b6d83152210855d7.js\" id=\"_R_\" async=\"\"></script><div
+        hidden id=\"S:1\"><!--$--><div class=\"main-content-container flex min-h-[calc(100vh-5rem)]
+        flex-col md:w-[calc(100%-10rem)] items-center justify-center gap-8\"><h1 class=\"text-center\"><span
+        data-br=\"_R_pfiupfrqjb_\" data-brr=\"1\" style=\"display:inline-block;vertical-align:top;text-decoration:inherit;text-wrap:balance\">The
+        model &quot;<!-- -->api/models<!-- -->&quot; is not available</span><script>self.__wrap_n=self.__wrap_n||(self.CSS&&CSS.supports(\"text-wrap\",\"balance\")?1:2);self.__wrap_b=(a,b,c)=>{let
+        d=null==(c=c||document.querySelector(`[data-br=\"${a}\"]`))?void 0:c.parentElement;if(!d)return;let
+        e=a=>c.style.maxWidth=a+\"px\";c.style.maxWidth=\"\";let f=d.clientWidth,g=d.clientHeight,h=f/2-.25,i=f+.5,j;if(f){for(e(h),h=Math.max(c.scrollWidth,h);h+1<i;)e(j=Math.round((h+i)/2)),d.clientHeight===g?i=j:h=j;e(i*b+f*(1-b))}c.__wrap_o||\"undefined\"!=typeof
+        ResizeObserver&&(c.__wrap_o=new ResizeObserver(()=>{self.__wrap_b(0,+c.dataset.brr,c)})).observe(d)};self.__wrap_n!=1&&self.__wrap_b(\"_R_pfiupfrqjb_\",1)</script></h1><p>To
+        request the model, visit our Discord:<!-- --> <a target=\"_blank\" rel=\"noreferrer
+        noopener\" href=\"https://discord.gg/fVyRaUDgxW\">https://discord.gg/fVyRaUDgxW</a></p><div
+        class=\"flex flex-col gap-8 md:flex-row\"><a class=\"self-end\" href=\"/models\"><button
+        class=\"items-center justify-center whitespace-nowrap font-medium transition-colors
+        focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50
+        focus-visible:ring-1 focus-visible:ring-ring bg-primary text-primary-foreground
+        shadow hover:bg-primary/90 h-8 rounded-md px-3 text-xs group flex gap-2\"><svg
+        xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\"
+        stroke=\"currentColor\" aria-hidden=\"true\" data-slot=\"icon\" class=\"size-4
+        transition-transform group-hover:-translate-x-1\"><path stroke-linecap=\"round\"
+        stroke-linejoin=\"round\" d=\"M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18\"></path></svg>Browse
+        Models</button></a></div></div><!--/$--><footer><div class=\"flex flex-col
+        flex-wrap items-center justify-between gap-4 p-4 border-t bg-background font-medium
+        md:flex-row-reverse\"><menu class=\"flex flex-1 flex-wrap text-center md:justify-end\"><li
+        class=\"basis-1/2 shrink md:basis-auto\"><a class=\"text-muted-foreground\"
+        href=\"https://status.openrouter.ai\"><button class=\"inline-flex items-center
+        whitespace-nowrap font-medium transition-colors focus-visible:outline-none
+        disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-1 focus-visible:ring-ring
+        gap-2 leading-6 hover:bg-accent hover:text-accent-foreground border border-transparent
+        h-9 rounded-md px-3 w-auto justify-center text-muted-foreground\">Status</button></a></li><li
+        class=\"basis-1/2 shrink md:basis-auto\"><a class=\"text-muted-foreground\"
+        href=\"/announcements\"><button class=\"inline-flex items-center whitespace-nowrap
+        font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none
+        disabled:opacity-50 focus-visible:ring-1 focus-visible:ring-ring gap-2 leading-6
+        hover:bg-accent hover:text-accent-foreground border border-transparent h-9
+        rounded-md px-3 w-auto justify-center text-muted-foreground\">Announcements</button></a></li><li
+        class=\"basis-1/2 shrink md:basis-auto\"><a href=\"https://openrouter.ai/docs\"
+        class=\"text-muted-foreground\"><button class=\"inline-flex items-center whitespace-nowrap
+        font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none
+        disabled:opacity-50 focus-visible:ring-1 focus-visible:ring-ring gap-2 leading-6
+        hover:bg-accent hover:text-accent-foreground border border-transparent h-9
+        rounded-md px-3 w-auto justify-center text-muted-foreground\">Docs</button></a></li><li
+        class=\"basis-1/2 shrink md:basis-auto\"><a class=\"text-muted-foreground\"
+        href=\"/about\"><button class=\"inline-flex items-center whitespace-nowrap
+        font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none
+        disabled:opacity-50 focus-visible:ring-1 focus-visible:ring-ring gap-2 leading-6
+        hover:bg-accent hover:text-accent-foreground border border-transparent h-9
+        rounded-md px-3 w-auto justify-center text-muted-foreground\">About</button></a></li><li
+        class=\"basis-1/2 shrink md:basis-auto\"><a class=\"text-muted-foreground\"
+        href=\"/partners\"><button class=\"inline-flex items-center whitespace-nowrap
+        font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none
+        disabled:opacity-50 focus-visible:ring-1 focus-visible:ring-ring gap-2 leading-6
+        hover:bg-accent hover:text-accent-foreground border border-transparent h-9
+        rounded-md px-3 w-auto justify-center text-muted-foreground\">Partners</button></a></li><li
+        class=\"basis-1/2 shrink md:basis-auto\"><a class=\"text-muted-foreground\"
+        href=\"/enterprise\"><button class=\"inline-flex items-center whitespace-nowrap
+        font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none
+        disabled:opacity-50 focus-visible:ring-1 focus-visible:ring-ring gap-2 leading-6
+        hover:bg-accent hover:text-accent-foreground border border-transparent h-9
+        rounded-md px-3 w-auto justify-center text-muted-foreground\">Enterprise</button></a></li><li
+        class=\"basis-1/2 shrink md:basis-auto\"><a class=\"text-muted-foreground\"
+        href=\"/careers\"><button class=\"inline-flex items-center whitespace-nowrap
+        font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none
+        disabled:opacity-50 focus-visible:ring-1 focus-visible:ring-ring gap-2 leading-6
+        hover:bg-accent hover:text-accent-foreground border border-transparent h-9
+        rounded-md px-3 w-auto justify-center text-muted-foreground\">Careers</button></a></li><li
+        class=\"basis-1/2 shrink md:basis-auto\"><a class=\"text-muted-foreground\"
+        href=\"/models\"><button class=\"inline-flex items-center whitespace-nowrap
+        font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none
+        disabled:opacity-50 focus-visible:ring-1 focus-visible:ring-ring gap-2 leading-6
+        hover:bg-accent hover:text-accent-foreground border border-transparent h-9
+        rounded-md px-3 w-auto justify-center text-muted-foreground\">Pricing</button></a></li><li
+        class=\"basis-1/2 shrink md:basis-auto\"><a class=\"text-muted-foreground\"
+        href=\"/privacy\"><button class=\"inline-flex items-center whitespace-nowrap
+        font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none
+        disabled:opacity-50 focus-visible:ring-1 focus-visible:ring-ring gap-2 leading-6
+        hover:bg-accent hover:text-accent-foreground border border-transparent h-9
+        rounded-md px-3 w-auto justify-center text-muted-foreground\">Privacy</button></a></li><li
+        class=\"basis-1/2 shrink md:basis-auto\"><a class=\"text-muted-foreground\"
+        href=\"/terms\"><button class=\"inline-flex items-center whitespace-nowrap
+        font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none
+        disabled:opacity-50 focus-visible:ring-1 focus-visible:ring-ring gap-2 leading-6
+        hover:bg-accent hover:text-accent-foreground border border-transparent h-9
+        rounded-md px-3 w-auto justify-center text-muted-foreground\">Terms</button></a></li><li
+        class=\"basis-1/2 shrink md:basis-auto\" aria-hidden=\"true\">\_</li></menu><div
+        class=\"flex flex-col items-center gap-4 m-auto md:flex-row md:gap-8 lg:m-0\"><div
+        class=\"text-center text-muted-foreground\">\xA9 2023 \u2013 2025 OpenRouter,
+        Inc</div><div class=\"md:mr-auto\"><div class=\"flex items-center justify-center
+        gap-2\"><a target=\"_blank\" class=\"text-muted-foreground\" href=\"https://discord.gg/fVyRaUDgxW\"><button
+        class=\"inline-flex items-center whitespace-nowrap font-medium transition-colors
+        focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50
+        focus-visible:ring-1 focus-visible:ring-ring gap-2 leading-6 border border-transparent
+        rounded-md justify-center text-muted-foreground aspect-square size-6 p-0 hover:bg-transparent
+        hover:text-foreground dark:hover:text-white\"><svg xmlns=\"http://www.w3.org/2000/svg\"
+        viewBox=\"0 0 640 512\" class=\"size-4\"><title>Discord</title><path d=\"M524.5
+        69.8a1.5 1.5 0 0 0 -.8-.7A485.1 485.1 0 0 0 404.1 32a1.8 1.8 0 0 0 -1.9 .9
+        337.5 337.5 0 0 0 -14.9 30.6 447.8 447.8 0 0 0 -134.4 0 309.5 309.5 0 0 0
+        -15.1-30.6 1.9 1.9 0 0 0 -1.9-.9A483.7 483.7 0 0 0 116.1 69.1a1.7 1.7 0 0
+        0 -.8 .7C39.1 183.7 18.2 294.7 28.4 404.4a2 2 0 0 0 .8 1.4A487.7 487.7 0 0
+        0 176 479.9a1.9 1.9 0 0 0 2.1-.7A348.2 348.2 0 0 0 208.1 430.4a1.9 1.9 0 0
+        0 -1-2.6 321.2 321.2 0 0 1 -45.9-21.9 1.9 1.9 0 0 1 -.2-3.1c3.1-2.3 6.2-4.7
+        9.1-7.1a1.8 1.8 0 0 1 1.9-.3c96.2 43.9 200.4 43.9 295.5 0a1.8 1.8 0 0 1 1.9
+        .2c2.9 2.4 6 4.9 9.1 7.2a1.9 1.9 0 0 1 -.2 3.1 301.4 301.4 0 0 1 -45.9 21.8
+        1.9 1.9 0 0 0 -1 2.6 391.1 391.1 0 0 0 30 48.8 1.9 1.9 0 0 0 2.1 .7A486 486
+        0 0 0 610.7 405.7a1.9 1.9 0 0 0 .8-1.4C623.7 277.6 590.9 167.5 524.5 69.8zM222.5
+        337.6c-29 0-52.8-26.6-52.8-59.2S193.1 219.1 222.5 219.1c29.7 0 53.3 26.8 52.8
+        59.2C275.3 311 251.9 337.6 222.5 337.6zm195.4 0c-29 0-52.8-26.6-52.8-59.2S388.4
+        219.1 417.9 219.1c29.7 0 53.3 26.8 52.8 59.2C470.7 311 447.5 337.6 417.9 337.6z\"
+        fill=\"currentColor\"></path></svg></button></a><a target=\"_blank\" class=\"text-muted-foreground\"
+        href=\"https://github.com/OpenRouterTeam\"><button class=\"inline-flex items-center
+        whitespace-nowrap font-medium transition-colors focus-visible:outline-none
+        disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-1 focus-visible:ring-ring
+        gap-2 leading-6 border border-transparent rounded-md justify-center text-muted-foreground
+        aspect-square size-6 p-0 hover:bg-transparent hover:text-foreground dark:hover:text-white\"><svg
+        xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 496 512\" class=\"size-4\"><title>GitHub</title><path
+        d=\"M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6
+        3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5
+        .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6
+        4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8
+        169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8
+        0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6
+        58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5
+        0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27
+        20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2
+        61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2
+        7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2
+        457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3
+        .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7
+        1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3
+        .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6
+        1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z\"
+        fill=\"currentColor\"></path></svg></button></a><a target=\"_blank\" class=\"text-muted-foreground\"
+        href=\"https://www.linkedin.com/company/104068329\"><button class=\"inline-flex
+        items-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none
+        disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-1 focus-visible:ring-ring
+        gap-2 leading-6 border border-transparent rounded-md justify-center text-muted-foreground
+        aspect-square size-6 p-0 hover:bg-transparent hover:text-foreground dark:hover:text-white\"><svg
+        xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" class=\"size-4\"><title>LinkedIn</title><path
+        d=\"M100.3 480H7.4V180.9h92.9V480zM53.8 140.1C24.1 140.1 0 115.5 0 85.8 0
+        56.1 24.1 32 53.8 32c29.7 0 53.8 24.1 53.8 53.8 0 29.7-24.1 54.3-53.8 54.3zM448
+        480h-92.7V334.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V480h-92.8V180.9h89.1v40.8h1.3c12.4-23.5
+        42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V480z\" fill=\"currentColor\"></path></svg></button></a><a
+        target=\"_blank\" class=\"text-muted-foreground\" href=\"https://twitter.com/openrouterai\"><button
+        class=\"inline-flex items-center whitespace-nowrap font-medium transition-colors
+        focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50
+        focus-visible:ring-1 focus-visible:ring-ring gap-2 leading-6 border border-transparent
+        rounded-md justify-center text-muted-foreground aspect-square size-6 p-0 hover:bg-transparent
+        hover:text-foreground dark:hover:text-white\"><svg xmlns=\"http://www.w3.org/2000/svg\"
+        viewBox=\"0 0 512 512\" class=\"size-4\"><title>X</title><path d=\"M389.2
+        48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8
+        48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z\"
+        fill=\"currentColor\"></path></svg></button></a></div></div></div></div></footer></div><script>$RB=[];$RV=function(b){$RT=performance.now();for(var
+        a=0;a<b.length;a+=2){var c=b[a],e=b[a+1];null!==e.parentNode&&e.parentNode.removeChild(e);var
+        f=c.parentNode;if(f){var g=c.previousSibling,h=0;do{if(c&&8===c.nodeType){var
+        d=c.data;if(\"/$\"===d||\"/&\"===d)if(0===h)break;else h--;else\"$\"!==d&&\"$?\"!==d&&\"$~\"!==d&&\"$!\"!==d&&\"&\"!==d||h++}d=c.nextSibling;f.removeChild(c);c=d}while(c);for(;e.firstChild;)f.insertBefore(e.firstChild,c);g.data=\"$\";g._reactRetry&&g._reactRetry()}}b.length=0};\n$RC=function(b,a){if(a=document.getElementById(a))(b=document.getElementById(b))?(b.previousSibling.data=\"$~\",$RB.push(b,a),2===$RB.length&&(b=\"number\"!==typeof
+        $RT?0:$RT,a=performance.now(),setTimeout($RV.bind(null,$RB),2300>a&&2E3<a?2300-a:b+300-a))):a.parentNode.removeChild(a)};$RC(\"B:1\",\"S:1\")</script><title>Model
+        Not Found | OpenRouter</title><meta name=\"description\" content=\"The model
+        you are looking for could not be found.\"/><link rel=\"manifest\" href=\"/manifest.webmanifest\"/><meta
+        property=\"og:title\" content=\"OpenRouter\"/><meta property=\"og:description\"
+        content=\"The unified interface for LLMs. Find the best models &amp; prices
+        for your prompts\"/><meta property=\"og:url\" content=\"https://openrouter.ai\"/><meta
+        property=\"og:site_name\" content=\"OpenRouter\"/><meta property=\"og:image:type\"
+        content=\"image/png\"/><meta property=\"og:image\" content=\"https://openrouter.ai/api/models/opengraph-image-1oizug?44ebe5f26300a465\"/><meta
+        property=\"og:image:width\" content=\"1200\"/><meta property=\"og:image:height\"
+        content=\"630\"/><meta name=\"twitter:card\" content=\"summary_large_image\"/><meta
+        name=\"twitter:site\" content=\"@openrouterai\"/><meta name=\"twitter:title\"
+        content=\"OpenRouter\"/><meta name=\"twitter:description\" content=\"The unified
+        interface for LLMs. Find the best models &amp; prices for your prompts\"/><meta
+        name=\"twitter:image\" content=\"https://openrouter.ai/dynamic-og?pathname=default&amp;title=OpenRouter&amp;description=The+unified+interface+for+LLMs.+Find+the+best+models+%26+prices+for+your+prompts\"/><link
+        rel=\"icon\" href=\"/favicon.ico\" type=\"image/x-icon\" sizes=\"16x16\"/><link
+        rel=\"icon\" href=\"/favicon.ico\"/><meta name=\"\xABnxt-icon\xBB\"/><div
+        hidden id=\"S:0\"></div><script>$RC(\"B:0\",\"S:0\")</script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,\"1:\\\"$Sreact.fragment\\\"\\n\"])</script><script>self.__next_f.push([1,\"2:I[28521,[\\\"65863\\\",\\\"static/chunks/a152fabb-67d78d5f3ce6afaa.js\\\",\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"20713\\\",\\\"static/chunks/20713-2068acb7c5048066.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"79146\\\",\\\"static/chunks/79146-324c820d6ceb154e.js\\\",\\\"35018\\\",\\\"static/chunks/35018-d8968acd0af5611e.js\\\",\\\"67776\\\",\\\"static/chunks/67776-e1bc160590fc8e8d.js\\\",\\\"12751\\\",\\\"static/chunks/12751-57233e7fc2cdc911.js\\\",\\\"52773\\\",\\\"static/chunks/52773-3733e0ec6cb320cc.js\\\",\\\"85180\\\",\\\"static/chunks/85180-358bd40209e33e1d.js\\\",\\\"29541\\\",\\\"static/chunks/29541-e7fc6cc9bb8fc029.js\\\",\\\"61316\\\",\\\"static/chunks/61316-d805e7e2a97f0e67.js\\\",\\\"15010\\\",\\\"static/chunks/15010-ef806079e3b55f98.js\\\",\\\"48967\\\",\\\"static/chunks/48967-edc53bc1e957a193.js\\\",\\\"99447\\\",\\\"static/chunks/99447-9b64ed98467f2df2.js\\\",\\\"49370\\\",\\\"static/chunks/49370-f21c65a94f6cbb31.js\\\",\\\"54421\\\",\\\"static/chunks/54421-8290922d79ac9388.js\\\",\\\"74937\\\",\\\"static/chunks/74937-1f9355c1cddd657a.js\\\",\\\"60532\\\",\\\"static/chunks/60532-cf875fc137e52b66.js\\\",\\\"61299\\\",\\\"static/chunks/61299-3f622a24ac1e199b.js\\\",\\\"88900\\\",\\\"static/chunks/88900-f8f69977a632b684.js\\\",\\\"5983\\\",\\\"static/chunks/5983-92e04047bd943484.js\\\",\\\"7177\\\",\\\"static/chunks/app/layout-757aab1e11f32ce5.js\\\"],\\\"HydrationProvider\\\"]\\n\"])</script><script>self.__next_f.push([1,\"3:I[21862,[\\\"65863\\\",\\\"static/chunks/a152fabb-67d78d5f3ce6afaa.js\\\",\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"20713\\\",\\\"static/chunks/20713-2068acb7c5048066.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"79146\\\",\\\"static/chunks/79146-324c820d6ceb154e.js\\\",\\\"35018\\\",\\\"static/chunks/35018-d8968acd0af5611e.js\\\",\\\"67776\\\",\\\"static/chunks/67776-e1bc160590fc8e8d.js\\\",\\\"12751\\\",\\\"static/chunks/12751-57233e7fc2cdc911.js\\\",\\\"52773\\\",\\\"static/chunks/52773-3733e0ec6cb320cc.js\\\",\\\"85180\\\",\\\"static/chunks/85180-358bd40209e33e1d.js\\\",\\\"29541\\\",\\\"static/chunks/29541-e7fc6cc9bb8fc029.js\\\",\\\"61316\\\",\\\"static/chunks/61316-d805e7e2a97f0e67.js\\\",\\\"15010\\\",\\\"static/chunks/15010-ef806079e3b55f98.js\\\",\\\"48967\\\",\\\"static/chunks/48967-edc53bc1e957a193.js\\\",\\\"99447\\\",\\\"static/chunks/99447-9b64ed98467f2df2.js\\\",\\\"49370\\\",\\\"static/chunks/49370-f21c65a94f6cbb31.js\\\",\\\"54421\\\",\\\"static/chunks/54421-8290922d79ac9388.js\\\",\\\"74937\\\",\\\"static/chunks/74937-1f9355c1cddd657a.js\\\",\\\"60532\\\",\\\"static/chunks/60532-cf875fc137e52b66.js\\\",\\\"61299\\\",\\\"static/chunks/61299-3f622a24ac1e199b.js\\\",\\\"88900\\\",\\\"static/chunks/88900-f8f69977a632b684.js\\\",\\\"5983\\\",\\\"static/chunks/5983-92e04047bd943484.js\\\",\\\"7177\\\",\\\"static/chunks/app/layout-757aab1e11f32ce5.js\\\"],\\\"ThemeProvider\\\"]\\n\"])</script><script>self.__next_f.push([1,\"4:I[1681,[\\\"65863\\\",\\\"static/chunks/a152fabb-67d78d5f3ce6afaa.js\\\",\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"20713\\\",\\\"static/chunks/20713-2068acb7c5048066.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"79146\\\",\\\"static/chunks/79146-324c820d6ceb154e.js\\\",\\\"35018\\\",\\\"static/chunks/35018-d8968acd0af5611e.js\\\",\\\"67776\\\",\\\"static/chunks/67776-e1bc160590fc8e8d.js\\\",\\\"12751\\\",\\\"static/chunks/12751-57233e7fc2cdc911.js\\\",\\\"52773\\\",\\\"static/chunks/52773-3733e0ec6cb320cc.js\\\",\\\"85180\\\",\\\"static/chunks/85180-358bd40209e33e1d.js\\\",\\\"29541\\\",\\\"static/chunks/29541-e7fc6cc9bb8fc029.js\\\",\\\"61316\\\",\\\"static/chunks/61316-d805e7e2a97f0e67.js\\\",\\\"15010\\\",\\\"static/chunks/15010-ef806079e3b55f98.js\\\",\\\"48967\\\",\\\"static/chunks/48967-edc53bc1e957a193.js\\\",\\\"99447\\\",\\\"static/chunks/99447-9b64ed98467f2df2.js\\\",\\\"49370\\\",\\\"static/chunks/49370-f21c65a94f6cbb31.js\\\",\\\"54421\\\",\\\"static/chunks/54421-8290922d79ac9388.js\\\",\\\"74937\\\",\\\"static/chunks/74937-1f9355c1cddd657a.js\\\",\\\"60532\\\",\\\"static/chunks/60532-cf875fc137e52b66.js\\\",\\\"61299\\\",\\\"static/chunks/61299-3f622a24ac1e199b.js\\\",\\\"88900\\\",\\\"static/chunks/88900-f8f69977a632b684.js\\\",\\\"5983\\\",\\\"static/chunks/5983-92e04047bd943484.js\\\",\\\"7177\\\",\\\"static/chunks/app/layout-757aab1e11f32ce5.js\\\"],\\\"GlobalErrorToastProvider\\\"]\\n\"])</script><script>self.__next_f.push([1,\"5:I[39923,[\\\"65863\\\",\\\"static/chunks/a152fabb-67d78d5f3ce6afaa.js\\\",\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"20713\\\",\\\"static/chunks/20713-2068acb7c5048066.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"79146\\\",\\\"static/chunks/79146-324c820d6ceb154e.js\\\",\\\"35018\\\",\\\"static/chunks/35018-d8968acd0af5611e.js\\\",\\\"67776\\\",\\\"static/chunks/67776-e1bc160590fc8e8d.js\\\",\\\"12751\\\",\\\"static/chunks/12751-57233e7fc2cdc911.js\\\",\\\"52773\\\",\\\"static/chunks/52773-3733e0ec6cb320cc.js\\\",\\\"85180\\\",\\\"static/chunks/85180-358bd40209e33e1d.js\\\",\\\"29541\\\",\\\"static/chunks/29541-e7fc6cc9bb8fc029.js\\\",\\\"61316\\\",\\\"static/chunks/61316-d805e7e2a97f0e67.js\\\",\\\"15010\\\",\\\"static/chunks/15010-ef806079e3b55f98.js\\\",\\\"48967\\\",\\\"static/chunks/48967-edc53bc1e957a193.js\\\",\\\"99447\\\",\\\"static/chunks/99447-9b64ed98467f2df2.js\\\",\\\"49370\\\",\\\"static/chunks/49370-f21c65a94f6cbb31.js\\\",\\\"54421\\\",\\\"static/chunks/54421-8290922d79ac9388.js\\\",\\\"74937\\\",\\\"static/chunks/74937-1f9355c1cddd657a.js\\\",\\\"60532\\\",\\\"static/chunks/60532-cf875fc137e52b66.js\\\",\\\"61299\\\",\\\"static/chunks/61299-3f622a24ac1e199b.js\\\",\\\"88900\\\",\\\"static/chunks/88900-f8f69977a632b684.js\\\",\\\"5983\\\",\\\"static/chunks/5983-92e04047bd943484.js\\\",\\\"7177\\\",\\\"static/chunks/app/layout-757aab1e11f32ce5.js\\\"],\\\"GlobalProvider\\\"]\\n\"])</script><script>self.__next_f.push([1,\"6:I[75279,[\\\"65863\\\",\\\"static/chunks/a152fabb-67d78d5f3ce6afaa.js\\\",\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"20713\\\",\\\"static/chunks/20713-2068acb7c5048066.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"79146\\\",\\\"static/chunks/79146-324c820d6ceb154e.js\\\",\\\"35018\\\",\\\"static/chunks/35018-d8968acd0af5611e.js\\\",\\\"67776\\\",\\\"static/chunks/67776-e1bc160590fc8e8d.js\\\",\\\"12751\\\",\\\"static/chunks/12751-57233e7fc2cdc911.js\\\",\\\"52773\\\",\\\"static/chunks/52773-3733e0ec6cb320cc.js\\\",\\\"85180\\\",\\\"static/chunks/85180-358bd40209e33e1d.js\\\",\\\"29541\\\",\\\"static/chunks/29541-e7fc6cc9bb8fc029.js\\\",\\\"61316\\\",\\\"static/chunks/61316-d805e7e2a97f0e67.js\\\",\\\"15010\\\",\\\"static/chunks/15010-ef806079e3b55f98.js\\\",\\\"48967\\\",\\\"static/chunks/48967-edc53bc1e957a193.js\\\",\\\"99447\\\",\\\"static/chunks/99447-9b64ed98467f2df2.js\\\",\\\"49370\\\",\\\"static/chunks/49370-f21c65a94f6cbb31.js\\\",\\\"54421\\\",\\\"static/chunks/54421-8290922d79ac9388.js\\\",\\\"74937\\\",\\\"static/chunks/74937-1f9355c1cddd657a.js\\\",\\\"60532\\\",\\\"static/chunks/60532-cf875fc137e52b66.js\\\",\\\"61299\\\",\\\"static/chunks/61299-3f622a24ac1e199b.js\\\",\\\"88900\\\",\\\"static/chunks/88900-f8f69977a632b684.js\\\",\\\"5983\\\",\\\"static/chunks/5983-92e04047bd943484.js\\\",\\\"7177\\\",\\\"static/chunks/app/layout-757aab1e11f32ce5.js\\\"],\\\"ClerkAuthProvider\\\"]\\n\"])</script><script>self.__next_f.push([1,\"7:I[40752,[\\\"65863\\\",\\\"static/chunks/a152fabb-67d78d5f3ce6afaa.js\\\",\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"20713\\\",\\\"static/chunks/20713-2068acb7c5048066.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"79146\\\",\\\"static/chunks/79146-324c820d6ceb154e.js\\\",\\\"35018\\\",\\\"static/chunks/35018-d8968acd0af5611e.js\\\",\\\"67776\\\",\\\"static/chunks/67776-e1bc160590fc8e8d.js\\\",\\\"12751\\\",\\\"static/chunks/12751-57233e7fc2cdc911.js\\\",\\\"52773\\\",\\\"static/chunks/52773-3733e0ec6cb320cc.js\\\",\\\"85180\\\",\\\"static/chunks/85180-358bd40209e33e1d.js\\\",\\\"29541\\\",\\\"static/chunks/29541-e7fc6cc9bb8fc029.js\\\",\\\"61316\\\",\\\"static/chunks/61316-d805e7e2a97f0e67.js\\\",\\\"15010\\\",\\\"static/chunks/15010-ef806079e3b55f98.js\\\",\\\"48967\\\",\\\"static/chunks/48967-edc53bc1e957a193.js\\\",\\\"99447\\\",\\\"static/chunks/99447-9b64ed98467f2df2.js\\\",\\\"49370\\\",\\\"static/chunks/49370-f21c65a94f6cbb31.js\\\",\\\"54421\\\",\\\"static/chunks/54421-8290922d79ac9388.js\\\",\\\"74937\\\",\\\"static/chunks/74937-1f9355c1cddd657a.js\\\",\\\"60532\\\",\\\"static/chunks/60532-cf875fc137e52b66.js\\\",\\\"61299\\\",\\\"static/chunks/61299-3f622a24ac1e199b.js\\\",\\\"88900\\\",\\\"static/chunks/88900-f8f69977a632b684.js\\\",\\\"5983\\\",\\\"static/chunks/5983-92e04047bd943484.js\\\",\\\"7177\\\",\\\"static/chunks/app/layout-757aab1e11f32ce5.js\\\"],\\\"PostHogAnalyticsProvider\\\"]\\n\"])</script><script>self.__next_f.push([1,\"8:I[67852,[\\\"65863\\\",\\\"static/chunks/a152fabb-67d78d5f3ce6afaa.js\\\",\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"20713\\\",\\\"static/chunks/20713-2068acb7c5048066.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"79146\\\",\\\"static/chunks/79146-324c820d6ceb154e.js\\\",\\\"35018\\\",\\\"static/chunks/35018-d8968acd0af5611e.js\\\",\\\"67776\\\",\\\"static/chunks/67776-e1bc160590fc8e8d.js\\\",\\\"12751\\\",\\\"static/chunks/12751-57233e7fc2cdc911.js\\\",\\\"52773\\\",\\\"static/chunks/52773-3733e0ec6cb320cc.js\\\",\\\"85180\\\",\\\"static/chunks/85180-358bd40209e33e1d.js\\\",\\\"29541\\\",\\\"static/chunks/29541-e7fc6cc9bb8fc029.js\\\",\\\"61316\\\",\\\"static/chunks/61316-d805e7e2a97f0e67.js\\\",\\\"15010\\\",\\\"static/chunks/15010-ef806079e3b55f98.js\\\",\\\"48967\\\",\\\"static/chunks/48967-edc53bc1e957a193.js\\\",\\\"99447\\\",\\\"static/chunks/99447-9b64ed98467f2df2.js\\\",\\\"49370\\\",\\\"static/chunks/49370-f21c65a94f6cbb31.js\\\",\\\"54421\\\",\\\"static/chunks/54421-8290922d79ac9388.js\\\",\\\"74937\\\",\\\"static/chunks/74937-1f9355c1cddd657a.js\\\",\\\"60532\\\",\\\"static/chunks/60532-cf875fc137e52b66.js\\\",\\\"61299\\\",\\\"static/chunks/61299-3f622a24ac1e199b.js\\\",\\\"88900\\\",\\\"static/chunks/88900-f8f69977a632b684.js\\\",\\\"5983\\\",\\\"static/chunks/5983-92e04047bd943484.js\\\",\\\"7177\\\",\\\"static/chunks/app/layout-757aab1e11f32ce5.js\\\"],\\\"UserContextProvider\\\"]\\n\"])</script><script>self.__next_f.push([1,\"9:I[10284,[\\\"65863\\\",\\\"static/chunks/a152fabb-67d78d5f3ce6afaa.js\\\",\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"20713\\\",\\\"static/chunks/20713-2068acb7c5048066.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"79146\\\",\\\"static/chunks/79146-324c820d6ceb154e.js\\\",\\\"35018\\\",\\\"static/chunks/35018-d8968acd0af5611e.js\\\",\\\"67776\\\",\\\"static/chunks/67776-e1bc160590fc8e8d.js\\\",\\\"12751\\\",\\\"static/chunks/12751-57233e7fc2cdc911.js\\\",\\\"52773\\\",\\\"static/chunks/52773-3733e0ec6cb320cc.js\\\",\\\"85180\\\",\\\"static/chunks/85180-358bd40209e33e1d.js\\\",\\\"61316\\\",\\\"static/chunks/61316-d805e7e2a97f0e67.js\\\",\\\"83732\\\",\\\"static/chunks/83732-f774e5e3b300d006.js\\\",\\\"3063\\\",\\\"static/chunks/3063-ecdce169dd235584.js\\\",\\\"48967\\\",\\\"static/chunks/48967-edc53bc1e957a193.js\\\",\\\"74656\\\",\\\"static/chunks/74656-6a28f0c23c61b00e.js\\\",\\\"26921\\\",\\\"static/chunks/26921-16e0e8537849eae7.js\\\",\\\"88250\\\",\\\"static/chunks/88250-af40405a368eae8a.js\\\",\\\"88900\\\",\\\"static/chunks/88900-f8f69977a632b684.js\\\",\\\"67852\\\",\\\"static/chunks/67852-455dcf278ccd606c.js\\\",\\\"91797\\\",\\\"static/chunks/91797-158a537f7e2402d5.js\\\",\\\"6162\\\",\\\"static/chunks/app/(marketplace)/%5Bmaker-id%5D/page-60a3062e66a9e5b3.js\\\"],\\\"TooltipProvider\\\"]\\n\"])</script><script>self.__next_f.push([1,\"a:I[98117,[\\\"65863\\\",\\\"static/chunks/a152fabb-67d78d5f3ce6afaa.js\\\",\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"20713\\\",\\\"static/chunks/20713-2068acb7c5048066.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"79146\\\",\\\"static/chunks/79146-324c820d6ceb154e.js\\\",\\\"35018\\\",\\\"static/chunks/35018-d8968acd0af5611e.js\\\",\\\"67776\\\",\\\"static/chunks/67776-e1bc160590fc8e8d.js\\\",\\\"12751\\\",\\\"static/chunks/12751-57233e7fc2cdc911.js\\\",\\\"52773\\\",\\\"static/chunks/52773-3733e0ec6cb320cc.js\\\",\\\"85180\\\",\\\"static/chunks/85180-358bd40209e33e1d.js\\\",\\\"29541\\\",\\\"static/chunks/29541-e7fc6cc9bb8fc029.js\\\",\\\"61316\\\",\\\"static/chunks/61316-d805e7e2a97f0e67.js\\\",\\\"15010\\\",\\\"static/chunks/15010-ef806079e3b55f98.js\\\",\\\"48967\\\",\\\"static/chunks/48967-edc53bc1e957a193.js\\\",\\\"99447\\\",\\\"static/chunks/99447-9b64ed98467f2df2.js\\\",\\\"49370\\\",\\\"static/chunks/49370-f21c65a94f6cbb31.js\\\",\\\"54421\\\",\\\"static/chunks/54421-8290922d79ac9388.js\\\",\\\"74937\\\",\\\"static/chunks/74937-1f9355c1cddd657a.js\\\",\\\"60532\\\",\\\"static/chunks/60532-cf875fc137e52b66.js\\\",\\\"61299\\\",\\\"static/chunks/61299-3f622a24ac1e199b.js\\\",\\\"88900\\\",\\\"static/chunks/88900-f8f69977a632b684.js\\\",\\\"5983\\\",\\\"static/chunks/5983-92e04047bd943484.js\\\",\\\"7177\\\",\\\"static/chunks/app/layout-757aab1e11f32ce5.js\\\"],\\\"Navbar\\\"]\\n\"])</script><script>self.__next_f.push([1,\"b:\\\"$Sreact.suspense\\\"\\n\"])</script><script>self.__next_f.push([1,\"c:I[30779,[\\\"65863\\\",\\\"static/chunks/a152fabb-67d78d5f3ce6afaa.js\\\",\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"20713\\\",\\\"static/chunks/20713-2068acb7c5048066.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"79146\\\",\\\"static/chunks/79146-324c820d6ceb154e.js\\\",\\\"35018\\\",\\\"static/chunks/35018-d8968acd0af5611e.js\\\",\\\"67776\\\",\\\"static/chunks/67776-e1bc160590fc8e8d.js\\\",\\\"12751\\\",\\\"static/chunks/12751-57233e7fc2cdc911.js\\\",\\\"52773\\\",\\\"static/chunks/52773-3733e0ec6cb320cc.js\\\",\\\"85180\\\",\\\"static/chunks/85180-358bd40209e33e1d.js\\\",\\\"29541\\\",\\\"static/chunks/29541-e7fc6cc9bb8fc029.js\\\",\\\"61316\\\",\\\"static/chunks/61316-d805e7e2a97f0e67.js\\\",\\\"15010\\\",\\\"static/chunks/15010-ef806079e3b55f98.js\\\",\\\"48967\\\",\\\"static/chunks/48967-edc53bc1e957a193.js\\\",\\\"99447\\\",\\\"static/chunks/99447-9b64ed98467f2df2.js\\\",\\\"49370\\\",\\\"static/chunks/49370-f21c65a94f6cbb31.js\\\",\\\"54421\\\",\\\"static/chunks/54421-8290922d79ac9388.js\\\",\\\"74937\\\",\\\"static/chunks/74937-1f9355c1cddd657a.js\\\",\\\"60532\\\",\\\"static/chunks/60532-cf875fc137e52b66.js\\\",\\\"61299\\\",\\\"static/chunks/61299-3f622a24ac1e199b.js\\\",\\\"88900\\\",\\\"static/chunks/88900-f8f69977a632b684.js\\\",\\\"5983\\\",\\\"static/chunks/5983-92e04047bd943484.js\\\",\\\"7177\\\",\\\"static/chunks/app/layout-757aab1e11f32ce5.js\\\"],\\\"default\\\"]\\n\"])</script><script>self.__next_f.push([1,\"d:I[54404,[],\\\"\\\"]\\ne:I[38530,[],\\\"\\\"]\\n\"])</script><script>self.__next_f.push([1,\"f:I[66272,[\\\"65863\\\",\\\"static/chunks/a152fabb-67d78d5f3ce6afaa.js\\\",\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"20713\\\",\\\"static/chunks/20713-2068acb7c5048066.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"79146\\\",\\\"static/chunks/79146-324c820d6ceb154e.js\\\",\\\"35018\\\",\\\"static/chunks/35018-d8968acd0af5611e.js\\\",\\\"67776\\\",\\\"static/chunks/67776-e1bc160590fc8e8d.js\\\",\\\"12751\\\",\\\"static/chunks/12751-57233e7fc2cdc911.js\\\",\\\"52773\\\",\\\"static/chunks/52773-3733e0ec6cb320cc.js\\\",\\\"85180\\\",\\\"static/chunks/85180-358bd40209e33e1d.js\\\",\\\"61316\\\",\\\"static/chunks/61316-d805e7e2a97f0e67.js\\\",\\\"83732\\\",\\\"static/chunks/83732-f774e5e3b300d006.js\\\",\\\"3063\\\",\\\"static/chunks/3063-ecdce169dd235584.js\\\",\\\"48967\\\",\\\"static/chunks/48967-edc53bc1e957a193.js\\\",\\\"74656\\\",\\\"static/chunks/74656-6a28f0c23c61b00e.js\\\",\\\"26921\\\",\\\"static/chunks/26921-16e0e8537849eae7.js\\\",\\\"88250\\\",\\\"static/chunks/88250-af40405a368eae8a.js\\\",\\\"88900\\\",\\\"static/chunks/88900-f8f69977a632b684.js\\\",\\\"67852\\\",\\\"static/chunks/67852-455dcf278ccd606c.js\\\",\\\"91797\\\",\\\"static/chunks/91797-158a537f7e2402d5.js\\\",\\\"6162\\\",\\\"static/chunks/app/(marketplace)/%5Bmaker-id%5D/page-60a3062e66a9e5b3.js\\\"],\\\"Separator\\\"]\\n\"])</script><script>self.__next_f.push([1,\"10:I[83109,[\\\"65863\\\",\\\"static/chunks/a152fabb-67d78d5f3ce6afaa.js\\\",\\\"60461\\\",\\\"static/chunks/53f5d41f-6a3943f9a733fd72.js\\\",\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"20713\\\",\\\"static/chunks/20713-2068acb7c5048066.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"79146\\\",\\\"static/chunks/79146-324c820d6ceb154e.js\\\",\\\"35018\\\",\\\"static/chunks/35018-d8968acd0af5611e.js\\\",\\\"67776\\\",\\\"static/chunks/67776-e1bc160590fc8e8d.js\\\",\\\"12751\\\",\\\"static/chunks/12751-57233e7fc2cdc911.js\\\",\\\"52773\\\",\\\"static/chunks/52773-3733e0ec6cb320cc.js\\\",\\\"85180\\\",\\\"static/chunks/85180-358bd40209e33e1d.js\\\",\\\"61316\\\",\\\"static/chunks/61316-d805e7e2a97f0e67.js\\\",\\\"15010\\\",\\\"static/chunks/15010-ef806079e3b55f98.js\\\",\\\"3063\\\",\\\"static/chunks/3063-ecdce169dd235584.js\\\",\\\"48967\\\",\\\"static/chunks/48967-edc53bc1e957a193.js\\\",\\\"64443\\\",\\\"static/chunks/64443-72fde7905772ef9a.js\\\",\\\"75322\\\",\\\"static/chunks/75322-dd4e9add6a9ad0e0.js\\\",\\\"88250\\\",\\\"static/chunks/88250-af40405a368eae8a.js\\\",\\\"74361\\\",\\\"static/chunks/74361-68b8cf4371e4ce40.js\\\",\\\"88900\\\",\\\"static/chunks/88900-f8f69977a632b684.js\\\",\\\"67852\\\",\\\"static/chunks/67852-455dcf278ccd606c.js\\\",\\\"62416\\\",\\\"static/chunks/62416-06cc632ea7a83e7c.js\\\",\\\"77997\\\",\\\"static/chunks/app/(marketplace)/%5Bmaker-id%5D/%5Bslug%5D/layout-cc79c2c7cc579811.js\\\"],\\\"\\\"]\\n\"])</script><script>self.__next_f.push([1,\"11:I[89615,[\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"83318\\\",\\\"static/chunks/app/(user)/layout-1575977d08d8644a.js\\\"],\\\"NavLink\\\"]\\n27:I[52211,[\\\"34219\\\",\\\"static/chunks/app/global-error-140668f4f9b9b7b9.js\\\"],\\\"default\\\"]\\n\"])</script><script>self.__next_f.push([1,\"2b:I[69844,[\\\"65863\\\",\\\"static/chunks/a152fabb-67d78d5f3ce6afaa.js\\\",\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"20713\\\",\\\"static/chunks/20713-2068acb7c5048066.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"79146\\\",\\\"static/chunks/79146-324c820d6ceb154e.js\\\",\\\"35018\\\",\\\"static/chunks/35018-d8968acd0af5611e.js\\\",\\\"67776\\\",\\\"static/chunks/67776-e1bc160590fc8e8d.js\\\",\\\"12751\\\",\\\"static/chunks/12751-57233e7fc2cdc911.js\\\",\\\"52773\\\",\\\"static/chunks/52773-3733e0ec6cb320cc.js\\\",\\\"85180\\\",\\\"static/chunks/85180-358bd40209e33e1d.js\\\",\\\"29541\\\",\\\"static/chunks/29541-e7fc6cc9bb8fc029.js\\\",\\\"61316\\\",\\\"static/chunks/61316-d805e7e2a97f0e67.js\\\",\\\"15010\\\",\\\"static/chunks/15010-ef806079e3b55f98.js\\\",\\\"48967\\\",\\\"static/chunks/48967-edc53bc1e957a193.js\\\",\\\"99447\\\",\\\"static/chunks/99447-9b64ed98467f2df2.js\\\",\\\"49370\\\",\\\"static/chunks/49370-f21c65a94f6cbb31.js\\\",\\\"54421\\\",\\\"static/chunks/54421-8290922d79ac9388.js\\\",\\\"74937\\\",\\\"static/chunks/74937-1f9355c1cddd657a.js\\\",\\\"60532\\\",\\\"static/chunks/60532-cf875fc137e52b66.js\\\",\\\"61299\\\",\\\"static/chunks/61299-3f622a24ac1e199b.js\\\",\\\"88900\\\",\\\"static/chunks/88900-f8f69977a632b684.js\\\",\\\"5983\\\",\\\"static/chunks/5983-92e04047bd943484.js\\\",\\\"7177\\\",\\\"static/chunks/app/layout-757aab1e11f32ce5.js\\\"],\\\"Toaster\\\"]\\n\"])</script><script>self.__next_f.push([1,\"2c:I[58784,[\\\"65863\\\",\\\"static/chunks/a152fabb-67d78d5f3ce6afaa.js\\\",\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"20713\\\",\\\"static/chunks/20713-2068acb7c5048066.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"79146\\\",\\\"static/chunks/79146-324c820d6ceb154e.js\\\",\\\"35018\\\",\\\"static/chunks/35018-d8968acd0af5611e.js\\\",\\\"67776\\\",\\\"static/chunks/67776-e1bc160590fc8e8d.js\\\",\\\"12751\\\",\\\"static/chunks/12751-57233e7fc2cdc911.js\\\",\\\"52773\\\",\\\"static/chunks/52773-3733e0ec6cb320cc.js\\\",\\\"85180\\\",\\\"static/chunks/85180-358bd40209e33e1d.js\\\",\\\"29541\\\",\\\"static/chunks/29541-e7fc6cc9bb8fc029.js\\\",\\\"61316\\\",\\\"static/chunks/61316-d805e7e2a97f0e67.js\\\",\\\"15010\\\",\\\"static/chunks/15010-ef806079e3b55f98.js\\\",\\\"48967\\\",\\\"static/chunks/48967-edc53bc1e957a193.js\\\",\\\"99447\\\",\\\"static/chunks/99447-9b64ed98467f2df2.js\\\",\\\"49370\\\",\\\"static/chunks/49370-f21c65a94f6cbb31.js\\\",\\\"54421\\\",\\\"static/chunks/54421-8290922d79ac9388.js\\\",\\\"74937\\\",\\\"static/chunks/74937-1f9355c1cddd657a.js\\\",\\\"60532\\\",\\\"static/chunks/60532-cf875fc137e52b66.js\\\",\\\"61299\\\",\\\"static/chunks/61299-3f622a24ac1e199b.js\\\",\\\"88900\\\",\\\"static/chunks/88900-f8f69977a632b684.js\\\",\\\"5983\\\",\\\"static/chunks/5983-92e04047bd943484.js\\\",\\\"7177\\\",\\\"static/chunks/app/layout-757aab1e11f32ce5.js\\\"],\\\"CookieConsent\\\"]\\n\"])</script><script>self.__next_f.push([1,\"2d:I[55865,[\\\"65863\\\",\\\"static/chunks/a152fabb-67d78d5f3ce6afaa.js\\\",\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"20713\\\",\\\"static/chunks/20713-2068acb7c5048066.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"79146\\\",\\\"static/chunks/79146-324c820d6ceb154e.js\\\",\\\"35018\\\",\\\"static/chunks/35018-d8968acd0af5611e.js\\\",\\\"67776\\\",\\\"static/chunks/67776-e1bc160590fc8e8d.js\\\",\\\"12751\\\",\\\"static/chunks/12751-57233e7fc2cdc911.js\\\",\\\"52773\\\",\\\"static/chunks/52773-3733e0ec6cb320cc.js\\\",\\\"85180\\\",\\\"static/chunks/85180-358bd40209e33e1d.js\\\",\\\"29541\\\",\\\"static/chunks/29541-e7fc6cc9bb8fc029.js\\\",\\\"61316\\\",\\\"static/chunks/61316-d805e7e2a97f0e67.js\\\",\\\"15010\\\",\\\"static/chunks/15010-ef806079e3b55f98.js\\\",\\\"48967\\\",\\\"static/chunks/48967-edc53bc1e957a193.js\\\",\\\"99447\\\",\\\"static/chunks/99447-9b64ed98467f2df2.js\\\",\\\"49370\\\",\\\"static/chunks/49370-f21c65a94f6cbb31.js\\\",\\\"54421\\\",\\\"static/chunks/54421-8290922d79ac9388.js\\\",\\\"74937\\\",\\\"static/chunks/74937-1f9355c1cddd657a.js\\\",\\\"60532\\\",\\\"static/chunks/60532-cf875fc137e52b66.js\\\",\\\"61299\\\",\\\"static/chunks/61299-3f622a24ac1e199b.js\\\",\\\"88900\\\",\\\"static/chunks/88900-f8f69977a632b684.js\\\",\\\"5983\\\",\\\"static/chunks/5983-92e04047bd943484.js\\\",\\\"7177\\\",\\\"static/chunks/app/layout-757aab1e11f32ce5.js\\\"],\\\"PageAnalytics\\\"]\\n\"])</script><script>self.__next_f.push([1,\"33:I[74468,[],\\\"OutletBoundary\\\"]\\n35:I[21404,[],\\\"AsyncMetadataOutlet\\\"]\\n37:I[74468,[],\\\"ViewportBoundary\\\"]\\n39:I[74468,[],\\\"MetadataBoundary\\\"]\\n\"])</script><script>self.__next_f.push([1,\"3b:I[23238,[\\\"65863\\\",\\\"static/chunks/a152fabb-67d78d5f3ce6afaa.js\\\",\\\"60461\\\",\\\"static/chunks/53f5d41f-6a3943f9a733fd72.js\\\",\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"20713\\\",\\\"static/chunks/20713-2068acb7c5048066.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"79146\\\",\\\"static/chunks/79146-324c820d6ceb154e.js\\\",\\\"35018\\\",\\\"static/chunks/35018-d8968acd0af5611e.js\\\",\\\"67776\\\",\\\"static/chunks/67776-e1bc160590fc8e8d.js\\\",\\\"12751\\\",\\\"static/chunks/12751-57233e7fc2cdc911.js\\\",\\\"52773\\\",\\\"static/chunks/52773-3733e0ec6cb320cc.js\\\",\\\"85180\\\",\\\"static/chunks/85180-358bd40209e33e1d.js\\\",\\\"29541\\\",\\\"static/chunks/29541-e7fc6cc9bb8fc029.js\\\",\\\"61316\\\",\\\"static/chunks/61316-d805e7e2a97f0e67.js\\\",\\\"83732\\\",\\\"static/chunks/83732-f774e5e3b300d006.js\\\",\\\"15010\\\",\\\"static/chunks/15010-ef806079e3b55f98.js\\\",\\\"3063\\\",\\\"static/chunks/3063-ecdce169dd235584.js\\\",\\\"48967\\\",\\\"static/chunks/48967-edc53bc1e957a193.js\\\",\\\"64443\\\",\\\"static/chunks/64443-72fde7905772ef9a.js\\\",\\\"21680\\\",\\\"static/chunks/21680-31cac4ea147ab2ad.js\\\",\\\"50373\\\",\\\"static/chunks/50373-e705843869fa9bcb.js\\\",\\\"74656\\\",\\\"static/chunks/74656-6a28f0c23c61b00e.js\\\",\\\"75322\\\",\\\"static/chunks/75322-dd4e9add6a9ad0e0.js\\\",\\\"96939\\\",\\\"static/chunks/96939-0c60af28b6b10bcc.js\\\",\\\"78421\\\",\\\"static/chunks/78421-7e4f66cdb3ddaedb.js\\\",\\\"41213\\\",\\\"static/chunks/41213-23a9d7559b584f03.js\\\",\\\"88900\\\",\\\"static/chunks/88900-f8f69977a632b684.js\\\",\\\"79322\\\",\\\"static/chunks/79322-2a86d791477f869b.js\\\",\\\"41931\\\",\\\"static/chunks/41931-69e61352227c80de.js\\\",\\\"43559\\\",\\\"static/chunks/43559-76e914a3cf737fda.js\\\",\\\"99170\\\",\\\"static/chunks/app/(marketplace)/%5Bmaker-id%5D/%5Bslug%5D/page-2513510547d90c3e.js\\\"],\\\"ModelPageTabbedSections\\\"]\\n\"])</script><script>self.__next_f.push([1,\"3c:I[1571,[\\\"65863\\\",\\\"static/chunks/a152fabb-67d78d5f3ce6afaa.js\\\",\\\"60461\\\",\\\"static/chunks/53f5d41f-6a3943f9a733fd72.js\\\",\\\"13090\\\",\\\"static/chunks/13090-a79c480fd633a095.js\\\",\\\"20713\\\",\\\"static/chunks/20713-2068acb7c5048066.js\\\",\\\"83109\\\",\\\"static/chunks/83109-760316842d59b4cc.js\\\",\\\"79146\\\",\\\"static/chunks/79146-324c820d6ceb154e.js\\\",\\\"35018\\\",\\\"static/chunks/35018-d8968acd0af5611e.js\\\",\\\"67776\\\",\\\"static/chunks/67776-e1bc160590fc8e8d.js\\\",\\\"12751\\\",\\\"static/chunks/12751-57233e7fc2cdc911.js\\\",\\\"52773\\\",\\\"static/chunks/52773-3733e0ec6cb320cc.js\\\",\\\"85180\\\",\\\"static/chunks/85180-358bd40209e33e1d.js\\\",\\\"61316\\\",\\\"static/chunks/61316-d805e7e2a97f0e67.js\\\",\\\"15010\\\",\\\"static/chunks/15010-ef806079e3b55f98.js\\\",\\\"3063\\\",\\\"static/chunks/3063-ecdce169dd235584.js\\\",\\\"48967\\\",\\\"static/chunks/48967-edc53bc1e957a193.js\\\",\\\"64443\\\",\\\"static/chunks/64443-72fde7905772ef9a.js\\\",\\\"75322\\\",\\\"static/chunks/75322-dd4e9add6a9ad0e0.js\\\",\\\"88250\\\",\\\"static/chunks/88250-af40405a368eae8a.js\\\",\\\"74361\\\",\\\"static/chunks/74361-68b8cf4371e4ce40.js\\\",\\\"88900\\\",\\\"static/chunks/88900-f8f69977a632b684.js\\\",\\\"67852\\\",\\\"static/chunks/67852-455dcf278ccd606c.js\\\",\\\"62416\\\",\\\"static/chunks/62416-06cc632ea7a83e7c.js\\\",\\\"77997\\\",\\\"static/chunks/app/(marketplace)/%5Bmaker-id%5D/%5Bslug%5D/layout-cc79c2c7cc579811.js\\\"],\\\"ModelNotFound\\\"]\\n\"])</script><script>self.__next_f.push([1,\"3d:I[2308,[],\\\"IconMark\\\"]\\n:HL[\\\"/_next/static/media/5b01f339abf2f1a5.p.woff2\\\",\\\"font\\\",{\\\"crossOrigin\\\":\\\"\\\",\\\"type\\\":\\\"font/woff2\\\"}]\\n:HL[\\\"/_next/static/media/e4af272ccee01ff0-s.p.woff2\\\",\\\"font\\\",{\\\"crossOrigin\\\":\\\"\\\",\\\"type\\\":\\\"font/woff2\\\"}]\\n:HL[\\\"/_next/static/css/5b576904c612405e.css\\\",\\\"style\\\"]\\n:HL[\\\"/_next/static/css/8c7b0f31f4fbaca7.css\\\",\\\"style\\\"]\\n:HL[\\\"/_next/static/css/febd397730d0dc0b.css\\\",\\\"style\\\"]\\n:HL[\\\"/_next/static/css/acdaad1d23646914.css\\\",\\\"style\\\"]\\n\"])</script><script>self.__next_f.push([1,\"0:{\\\"P\\\":null,\\\"b\\\":\\\"r1PHN_9cYxOOF-Hk7XsvP\\\",\\\"p\\\":\\\"\\\",\\\"c\\\":[\\\"\\\",\\\"api\\\",\\\"models\\\"],\\\"i\\\":false,\\\"f\\\":[[[\\\"\\\",{\\\"children\\\":[\\\"(marketplace)\\\",{\\\"children\\\":[[\\\"maker-id\\\",\\\"api\\\",\\\"d\\\"],{\\\"children\\\":[[\\\"slug\\\",\\\"models\\\",\\\"d\\\"],{\\\"children\\\":[\\\"__PAGE__\\\",{}]}]}]}]},\\\"$undefined\\\",\\\"$undefined\\\",true],[\\\"\\\",[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/css/5b576904c612405e.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}],[\\\"$\\\",\\\"link\\\",\\\"1\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/css/8c7b0f31f4fbaca7.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}],[\\\"$\\\",\\\"link\\\",\\\"2\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/css/febd397730d0dc0b.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}]],[\\\"$\\\",\\\"html\\\",null,{\\\"lang\\\":\\\"en\\\",\\\"suppressHydrationWarning\\\":true,\\\"children\\\":[[\\\"$\\\",\\\"body\\\",null,{\\\"className\\\":\\\"__variable_e8ce0c
+        __variable_f910ec font-sans\\\",\\\"children\\\":[\\\"$\\\",\\\"$L2\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$L3\\\",null,{\\\"attribute\\\":\\\"class\\\",\\\"defaultTheme\\\":\\\"light\\\",\\\"disableTransitionOnChange\\\":true,\\\"children\\\":[\\\"$\\\",\\\"$L4\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$L6\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$L7\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$L8\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$L9\\\",null,{\\\"children\\\":[[\\\"$\\\",\\\"main\\\",null,{\\\"className\\\":\\\"tabular-nums\\\",\\\"children\\\":[[\\\"$\\\",\\\"$La\\\",null,{}],[\\\"$\\\",\\\"$b\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$Lc\\\",null,{}]}],[\\\"$\\\",\\\"$Ld\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$Le\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":[[\\\"$\\\",\\\"div\\\",null,{\\\"className\\\":\\\"flex
+        flex-col items-center justify-center bg-background text-foreground\\\",\\\"children\\\":[[\\\"$\\\",\\\"div\\\",null,{\\\"className\\\":\\\"relative
+        z-0 transition-all h-[calc(100dvh-4rem)] md:h-[calc(100dvh-5.25rem)] main-content-container
+        items-center justify-center flex flex-col gap-4\\\",\\\"ref\\\":\\\"$undefined\\\",\\\"children\\\":[[\\\"$\\\",\\\"h2\\\",null,{\\\"className\\\":\\\"flex
+        w-96 items-center justify-between gap-2\\\",\\\"children\\\":[[\\\"$\\\",\\\"$Lf\\\",null,{\\\"className\\\":\\\"flex-1
+        bg-gradient-to-r from-background via-background to-border\\\"}],[\\\"$\\\",\\\"span\\\",null,{\\\"children\\\":\\\"404:
+        Not Found\\\"}],[\\\"$\\\",\\\"$Lf\\\",null,{\\\"className\\\":\\\"flex-1
+        bg-gradient-to-l from-background via-background to-border\\\"}]]}],[\\\"$\\\",\\\"div\\\",null,{\\\"className\\\":\\\"flex
+        flex-col gap-8 md:flex-row\\\",\\\"children\\\":[[\\\"$\\\",\\\"$L10\\\",null,{\\\"href\\\":\\\"/\\\",\\\"className\\\":\\\"self-start\\\",\\\"children\\\":[\\\"$\\\",\\\"button\\\",null,{\\\"className\\\":\\\"items-center
+        justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none
+        disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-1 focus-visible:ring-ring
+        bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-8
+        rounded-md px-3 text-xs group flex gap-2\\\",\\\"ref\\\":\\\"$undefined\\\",\\\"disabled\\\":\\\"$undefined\\\",\\\"children\\\":[[\\\"$\\\",\\\"svg\\\",null,{\\\"xmlns\\\":\\\"http://www.w3.org/2000/svg\\\",\\\"fill\\\":\\\"none\\\",\\\"viewBox\\\":\\\"0
+        0 24 24\\\",\\\"strokeWidth\\\":1.5,\\\"stroke\\\":\\\"currentColor\\\",\\\"aria-hidden\\\":\\\"true\\\",\\\"data-slot\\\":\\\"icon\\\",\\\"ref\\\":\\\"$undefined\\\",\\\"aria-labelledby\\\":\\\"$undefined\\\",\\\"className\\\":\\\"size-4
+        transition-transform group-hover:-translate-x-1\\\",\\\"children\\\":[null,[\\\"$\\\",\\\"path\\\",null,{\\\"strokeLinecap\\\":\\\"round\\\",\\\"strokeLinejoin\\\":\\\"round\\\",\\\"d\\\":\\\"M10.5
+        19.5 3 12m0 0 7.5-7.5M3 12h18\\\"}]]}],\\\"Go Home\\\"]}]}],[\\\"$\\\",\\\"$L10\\\",null,{\\\"href\\\":\\\"/models\\\",\\\"className\\\":\\\"self-end\\\",\\\"children\\\":[\\\"$\\\",\\\"button\\\",null,{\\\"className\\\":\\\"items-center
+        justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none
+        disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-1 focus-visible:ring-ring
+        bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-8
+        rounded-md px-3 text-xs group flex gap-2\\\",\\\"ref\\\":\\\"$undefined\\\",\\\"disabled\\\":\\\"$undefined\\\",\\\"children\\\":[\\\"Browse
+        Models\\\",[\\\"$\\\",\\\"svg\\\",null,{\\\"xmlns\\\":\\\"http://www.w3.org/2000/svg\\\",\\\"fill\\\":\\\"none\\\",\\\"viewBox\\\":\\\"0
+        0 24 24\\\",\\\"strokeWidth\\\":1.5,\\\"stroke\\\":\\\"currentColor\\\",\\\"aria-hidden\\\":\\\"true\\\",\\\"data-slot\\\":\\\"icon\\\",\\\"ref\\\":\\\"$undefined\\\",\\\"aria-labelledby\\\":\\\"$undefined\\\",\\\"className\\\":\\\"size-4
+        transition-transform group-hover:translate-x-1\\\",\\\"children\\\":[null,[\\\"$\\\",\\\"path\\\",null,{\\\"strokeLinecap\\\":\\\"round\\\",\\\"strokeLinejoin\\\":\\\"round\\\",\\\"d\\\":\\\"M13.5
+        4.5 21 12m0 0-7.5 7.5M21 12H3\\\"}]]}]]}]}]]}]]}],[\\\"$\\\",\\\"footer\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"div\\\",null,{\\\"className\\\":\\\"flex
+        flex-col flex-wrap items-center justify-between gap-4 p-4 border-t bg-background
+        font-medium md:flex-row-reverse\\\",\\\"children\\\":[[\\\"$\\\",\\\"menu\\\",null,{\\\"className\\\":\\\"flex
+        flex-1 flex-wrap text-center md:justify-end\\\",\\\"children\\\":[[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"https://status.openrouter.ai\\\",\\\"children\\\":\\\"Status\\\"}]}],[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":\\\"$L12\\\"}],\\\"$L13\\\",\\\"$L14\\\",\\\"$L15\\\",\\\"$L16\\\",\\\"$L17\\\",\\\"$L18\\\",\\\"$L19\\\",\\\"$L1a\\\",\\\"$L1b\\\"]}],\\\"$L1c\\\"]}]}]]}],[]],\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]]}],\\\"$L1d\\\",\\\"$L1e\\\"]}]}]}]}]}]}]}]}]}],\\\"$L1f\\\"]}]]}],{\\\"children\\\":[\\\"(marketplace)\\\",\\\"$L20\\\",{\\\"children\\\":[[\\\"maker-id\\\",\\\"api\\\",\\\"d\\\"],\\\"$L21\\\",{\\\"children\\\":[[\\\"slug\\\",\\\"models\\\",\\\"d\\\"],\\\"$L22\\\",{\\\"children\\\":[\\\"__PAGE__\\\",\\\"$L23\\\",{},null,false]},null,false]},null,false]},[\\\"$L24\\\",[],[]],false]},[\\\"$L25\\\",[],[]],false],\\\"$L26\\\",false]],\\\"m\\\":\\\"$undefined\\\",\\\"G\\\":[\\\"$27\\\",[]],\\\"s\\\":false,\\\"S\\\":false}\\n\"])</script><script>self.__next_f.push([1,\"12:[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"/announcements\\\",\\\"children\\\":\\\"Announcements\\\"}]\\n13:[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"https://openrouter.ai/docs\\\",\\\"hardNav\\\":true,\\\"children\\\":\\\"Docs\\\"}]}]\\n14:[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"/about\\\",\\\"children\\\":\\\"About\\\"}]}]\\n15:[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"/partners\\\",\\\"children\\\":\\\"Partners\\\"}]}]\\n16:[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"/enterprise\\\",\\\"children\\\":\\\"Enterprise\\\"}]}]\\n17:[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"/careers\\\",\\\"children\\\":\\\"Careers\\\"}]}]\\n18:[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"/models\\\",\\\"children\\\":\\\"Pricing\\\"}]}]\\n19:[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"/privacy\\\",\\\"children\\\":\\\"Privacy\\\"}]}]\\n1a:[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"/terms\\\",\\\"children\\\":\\\"Terms\\\"}]}]\\n1b:[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"aria-hidden\\\":true,\\\"children\\\":\\\"\_\\\"}]\\n28:T522,\"])</script><script>self.__next_f.push([1,\"M165.9
+        397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3
+        5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5
+        .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6
+        4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8
+        169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8
+        0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6
+        58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5
+        0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27
+        20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2
+        61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2
+        7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2
+        457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3
+        .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7
+        1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3
+        .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6
+        1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z\"])</script><script>self.__next_f.push([1,\"1c:[\\\"$\\\",\\\"div\\\",null,{\\\"className\\\":\\\"flex
+        flex-col items-center gap-4 m-auto md:flex-row md:gap-8 lg:m-0\\\",\\\"children\\\":[[\\\"$\\\",\\\"div\\\",null,{\\\"className\\\":\\\"text-center
+        text-muted-foreground\\\",\\\"children\\\":\\\"\xA9 2023 \u2013 2025 OpenRouter,
+        Inc\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"className\\\":\\\"md:mr-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"div\\\",null,{\\\"className\\\":\\\"flex
+        items-center justify-center gap-2\\\",\\\"children\\\":[[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"https://discord.gg/fVyRaUDgxW\\\",\\\"target\\\":\\\"_blank\\\",\\\"className\\\":\\\"aspect-square
+        size-6 p-0 hover:bg-transparent hover:text-foreground dark:hover:text-white\\\",\\\"children\\\":[\\\"$\\\",\\\"svg\\\",null,{\\\"xmlns\\\":\\\"http://www.w3.org/2000/svg\\\",\\\"viewBox\\\":\\\"0
+        0 640 512\\\",\\\"className\\\":\\\"size-4\\\",\\\"children\\\":[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"Discord\\\"}],[\\\"$\\\",\\\"path\\\",null,{\\\"d\\\":\\\"M524.5
+        69.8a1.5 1.5 0 0 0 -.8-.7A485.1 485.1 0 0 0 404.1 32a1.8 1.8 0 0 0 -1.9 .9
+        337.5 337.5 0 0 0 -14.9 30.6 447.8 447.8 0 0 0 -134.4 0 309.5 309.5 0 0 0
+        -15.1-30.6 1.9 1.9 0 0 0 -1.9-.9A483.7 483.7 0 0 0 116.1 69.1a1.7 1.7 0 0
+        0 -.8 .7C39.1 183.7 18.2 294.7 28.4 404.4a2 2 0 0 0 .8 1.4A487.7 487.7 0 0
+        0 176 479.9a1.9 1.9 0 0 0 2.1-.7A348.2 348.2 0 0 0 208.1 430.4a1.9 1.9 0 0
+        0 -1-2.6 321.2 321.2 0 0 1 -45.9-21.9 1.9 1.9 0 0 1 -.2-3.1c3.1-2.3 6.2-4.7
+        9.1-7.1a1.8 1.8 0 0 1 1.9-.3c96.2 43.9 200.4 43.9 295.5 0a1.8 1.8 0 0 1 1.9
+        .2c2.9 2.4 6 4.9 9.1 7.2a1.9 1.9 0 0 1 -.2 3.1 301.4 301.4 0 0 1 -45.9 21.8
+        1.9 1.9 0 0 0 -1 2.6 391.1 391.1 0 0 0 30 48.8 1.9 1.9 0 0 0 2.1 .7A486 486
+        0 0 0 610.7 405.7a1.9 1.9 0 0 0 .8-1.4C623.7 277.6 590.9 167.5 524.5 69.8zM222.5
+        337.6c-29 0-52.8-26.6-52.8-59.2S193.1 219.1 222.5 219.1c29.7 0 53.3 26.8 52.8
+        59.2C275.3 311 251.9 337.6 222.5 337.6zm195.4 0c-29 0-52.8-26.6-52.8-59.2S388.4
+        219.1 417.9 219.1c29.7 0 53.3 26.8 52.8 59.2C470.7 311 447.5 337.6 417.9 337.6z\\\",\\\"fill\\\":\\\"currentColor\\\"}]]}]}],[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"https://github.com/OpenRouterTeam\\\",\\\"target\\\":\\\"_blank\\\",\\\"className\\\":\\\"aspect-square
+        size-6 p-0 hover:bg-transparent hover:text-foreground dark:hover:text-white\\\",\\\"children\\\":[\\\"$\\\",\\\"svg\\\",null,{\\\"xmlns\\\":\\\"http://www.w3.org/2000/svg\\\",\\\"viewBox\\\":\\\"0
+        0 496 512\\\",\\\"className\\\":\\\"size-4\\\",\\\"children\\\":[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"GitHub\\\"}],[\\\"$\\\",\\\"path\\\",null,{\\\"d\\\":\\\"$28\\\",\\\"fill\\\":\\\"currentColor\\\"}]]}]}],[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"https://www.linkedin.com/company/104068329\\\",\\\"target\\\":\\\"_blank\\\",\\\"className\\\":\\\"aspect-square
+        size-6 p-0 hover:bg-transparent hover:text-foreground dark:hover:text-white\\\",\\\"children\\\":\\\"$L29\\\"}],\\\"$L2a\\\"]}]}]]}]\\n\"])</script><script>self.__next_f.push([1,\"1d:[\\\"$\\\",\\\"$L2b\\\",null,{}]\\n1e:[\\\"$\\\",\\\"$L2c\\\",null,{}]\\n1f:[\\\"$\\\",\\\"$L2d\\\",null,{}]\\n2e:T522,\"])</script><script>self.__next_f.push([1,\"M165.9
+        397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3
+        5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5
+        .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6
+        4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8
+        169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8
+        0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6
+        58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5
+        0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27
+        20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2
+        61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2
+        7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2
+        457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3
+        .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7
+        1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3
+        .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6
+        1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z\"])</script><script>self.__next_f.push([1,\"20:[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[null,[[\\\"$\\\",\\\"$Ld\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$Le\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":\\\"$undefined\\\",\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}],[\\\"$\\\",\\\"footer\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"div\\\",null,{\\\"className\\\":\\\"flex
+        flex-col flex-wrap items-center justify-between gap-4 p-4 border-t bg-background
+        font-medium md:flex-row-reverse\\\",\\\"children\\\":[[\\\"$\\\",\\\"menu\\\",null,{\\\"className\\\":\\\"flex
+        flex-1 flex-wrap text-center md:justify-end\\\",\\\"children\\\":[[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"https://status.openrouter.ai\\\",\\\"children\\\":\\\"Status\\\"}]}],[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"/announcements\\\",\\\"children\\\":\\\"Announcements\\\"}]}],[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"https://openrouter.ai/docs\\\",\\\"hardNav\\\":true,\\\"children\\\":\\\"Docs\\\"}]}],[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"/about\\\",\\\"children\\\":\\\"About\\\"}]}],[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"/partners\\\",\\\"children\\\":\\\"Partners\\\"}]}],[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"/enterprise\\\",\\\"children\\\":\\\"Enterprise\\\"}]}],[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"/careers\\\",\\\"children\\\":\\\"Careers\\\"}]}],[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"/models\\\",\\\"children\\\":\\\"Pricing\\\"}]}],[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"/privacy\\\",\\\"children\\\":\\\"Privacy\\\"}]}],[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"/terms\\\",\\\"children\\\":\\\"Terms\\\"}]}],[\\\"$\\\",\\\"li\\\",null,{\\\"className\\\":\\\"basis-1/2
+        shrink md:basis-auto\\\",\\\"aria-hidden\\\":true,\\\"children\\\":\\\"\_\\\"}]]}],[\\\"$\\\",\\\"div\\\",null,{\\\"className\\\":\\\"flex
+        flex-col items-center gap-4 m-auto md:flex-row md:gap-8 lg:m-0\\\",\\\"children\\\":[[\\\"$\\\",\\\"div\\\",null,{\\\"className\\\":\\\"text-center
+        text-muted-foreground\\\",\\\"children\\\":\\\"\xA9 2023 \u2013 2025 OpenRouter,
+        Inc\\\"}],[\\\"$\\\",\\\"div\\\",null,{\\\"className\\\":\\\"md:mr-auto\\\",\\\"children\\\":[\\\"$\\\",\\\"div\\\",null,{\\\"className\\\":\\\"flex
+        items-center justify-center gap-2\\\",\\\"children\\\":[[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"https://discord.gg/fVyRaUDgxW\\\",\\\"target\\\":\\\"_blank\\\",\\\"className\\\":\\\"aspect-square
+        size-6 p-0 hover:bg-transparent hover:text-foreground dark:hover:text-white\\\",\\\"children\\\":[\\\"$\\\",\\\"svg\\\",null,{\\\"xmlns\\\":\\\"http://www.w3.org/2000/svg\\\",\\\"viewBox\\\":\\\"0
+        0 640 512\\\",\\\"className\\\":\\\"size-4\\\",\\\"children\\\":[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"Discord\\\"}],[\\\"$\\\",\\\"path\\\",null,{\\\"d\\\":\\\"M524.5
+        69.8a1.5 1.5 0 0 0 -.8-.7A485.1 485.1 0 0 0 404.1 32a1.8 1.8 0 0 0 -1.9 .9
+        337.5 337.5 0 0 0 -14.9 30.6 447.8 447.8 0 0 0 -134.4 0 309.5 309.5 0 0 0
+        -15.1-30.6 1.9 1.9 0 0 0 -1.9-.9A483.7 483.7 0 0 0 116.1 69.1a1.7 1.7 0 0
+        0 -.8 .7C39.1 183.7 18.2 294.7 28.4 404.4a2 2 0 0 0 .8 1.4A487.7 487.7 0 0
+        0 176 479.9a1.9 1.9 0 0 0 2.1-.7A348.2 348.2 0 0 0 208.1 430.4a1.9 1.9 0 0
+        0 -1-2.6 321.2 321.2 0 0 1 -45.9-21.9 1.9 1.9 0 0 1 -.2-3.1c3.1-2.3 6.2-4.7
+        9.1-7.1a1.8 1.8 0 0 1 1.9-.3c96.2 43.9 200.4 43.9 295.5 0a1.8 1.8 0 0 1 1.9
+        .2c2.9 2.4 6 4.9 9.1 7.2a1.9 1.9 0 0 1 -.2 3.1 301.4 301.4 0 0 1 -45.9 21.8
+        1.9 1.9 0 0 0 -1 2.6 391.1 391.1 0 0 0 30 48.8 1.9 1.9 0 0 0 2.1 .7A486 486
+        0 0 0 610.7 405.7a1.9 1.9 0 0 0 .8-1.4C623.7 277.6 590.9 167.5 524.5 69.8zM222.5
+        337.6c-29 0-52.8-26.6-52.8-59.2S193.1 219.1 222.5 219.1c29.7 0 53.3 26.8 52.8
+        59.2C275.3 311 251.9 337.6 222.5 337.6zm195.4 0c-29 0-52.8-26.6-52.8-59.2S388.4
+        219.1 417.9 219.1c29.7 0 53.3 26.8 52.8 59.2C470.7 311 447.5 337.6 417.9 337.6z\\\",\\\"fill\\\":\\\"currentColor\\\"}]]}]}],[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"https://github.com/OpenRouterTeam\\\",\\\"target\\\":\\\"_blank\\\",\\\"className\\\":\\\"aspect-square
+        size-6 p-0 hover:bg-transparent hover:text-foreground dark:hover:text-white\\\",\\\"children\\\":[\\\"$\\\",\\\"svg\\\",null,{\\\"xmlns\\\":\\\"http://www.w3.org/2000/svg\\\",\\\"viewBox\\\":\\\"0
+        0 496 512\\\",\\\"className\\\":\\\"size-4\\\",\\\"children\\\":[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"GitHub\\\"}],[\\\"$\\\",\\\"path\\\",null,{\\\"d\\\":\\\"$2e\\\",\\\"fill\\\":\\\"currentColor\\\"}]]}]}],\\\"$L2f\\\",\\\"$L30\\\"]}]}]]}]]}]}]]]}]\\n\"])</script><script>self.__next_f.push([1,\"21:[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$Ld\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$Le\\\",null,{}],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":\\\"$undefined\\\",\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\"}]]}]\\n22:[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/css/acdaad1d23646914.css\\\",\\\"precedence\\\":\\\"next\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"}]],\\\"$L31\\\"]}]\\n23:[\\\"$\\\",\\\"$1\\\",\\\"c\\\",{\\\"children\\\":[\\\"$L32\\\",null,[\\\"$\\\",\\\"$L33\\\",null,{\\\"children\\\":[\\\"$L34\\\",[\\\"$\\\",\\\"$L35\\\",null,{\\\"promise\\\":\\\"$@36\\\"}]]}]]}]\\n24:[\\\"$\\\",\\\"div\\\",\\\"l\\\",{\\\"className\\\":\\\"flex
+        flex-col items-center min-h-[calc(100vh-80px)] w-full md:min-h-screen\\\"}]\\n25:[\\\"$\\\",\\\"div\\\",\\\"l\\\",{\\\"className\\\":\\\"flex
+        flex-col items-center min-h-[calc(100vh-80px)] w-full md:min-h-screen\\\"}]\\n26:[\\\"$\\\",\\\"$1\\\",\\\"h\\\",{\\\"children\\\":[null,[[\\\"$\\\",\\\"$L37\\\",null,{\\\"children\\\":\\\"$L38\\\"}],[\\\"$\\\",\\\"meta\\\",null,{\\\"name\\\":\\\"next-size-adjust\\\",\\\"content\\\":\\\"\\\"}]],[\\\"$\\\",\\\"$L39\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"div\\\",null,{\\\"hidden\\\":true,\\\"children\\\":[\\\"$\\\",\\\"$b\\\",null,{\\\"fallback\\\":null,\\\"children\\\":\\\"$L3a\\\"}]}]}]]}]\\n29:[\\\"$\\\",\\\"svg\\\",null,{\\\"xmlns\\\":\\\"http://www.w3.org/2000/svg\\\",\\\"viewBox\\\":\\\"0
+        0 448 512\\\",\\\"className\\\":\\\"size-4\\\",\\\"children\\\":[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"LinkedIn\\\"}],[\\\"$\\\",\\\"path\\\",null,{\\\"d\\\":\\\"M100.3
+        480H7.4V180.9h92.9V480zM53.8 140.1C24.1 140.1 0 115.5 0 85.8 0 56.1 24.1 32
+        53.8 32c29.7 0 53.8 24.1 53.8 53.8 0 29.7-24.1 54.3-53.8 54.3zM448 480h-92.7V334.4c0-34.7-.7-79.2-48.3-79.2-48.3
+        0-55.7 37.7-55.7 76.7V480h-92.8V180.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3
+        94 0 111.3 61.9 111.3 142.3V480z\\\",\\\"fill\\\":\\\"currentColor\\\"}]]}]\\n2a:[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"https://twitter.com/openrouterai\\\",\\\"target\\\":\\\"_blank\\\",\\\"className\\\":\\\"aspect-square
+        size-6 p-0 hover:bg-transparent hover:text-foreground dark:hover:text-white\\\",\\\"children\\\":[\\\"$\\\",\\\"svg\\\",null,{\\\"xmlns\\\":\\\"http://www.w3.org/2000/svg\\\",\\\"viewBox\\\":\\\"0
+        0 512 512\\\",\\\"className\\\":\\\"size-4\\\",\\\"children\\\":[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"X\\\"}],[\\\"$\\\",\\\"path\\\",null,{\\\"d\\\":\\\"M389.2
+        48h70.6L305.6 224.2 4\"])</script><script>self.__next_f.push([1,\"87 464H345L233.7
+        318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4
+        421.8h39.1L151.1 88h-42L364.4 421.8z\\\",\\\"fill\\\":\\\"currentColor\\\"}]]}]}]\\n\"])</script><script>self.__next_f.push([1,\"2f:[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"https://www.linkedin.com/company/104068329\\\",\\\"target\\\":\\\"_blank\\\",\\\"className\\\":\\\"aspect-square
+        size-6 p-0 hover:bg-transparent hover:text-foreground dark:hover:text-white\\\",\\\"children\\\":[\\\"$\\\",\\\"svg\\\",null,{\\\"xmlns\\\":\\\"http://www.w3.org/2000/svg\\\",\\\"viewBox\\\":\\\"0
+        0 448 512\\\",\\\"className\\\":\\\"size-4\\\",\\\"children\\\":[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"LinkedIn\\\"}],[\\\"$\\\",\\\"path\\\",null,{\\\"d\\\":\\\"M100.3
+        480H7.4V180.9h92.9V480zM53.8 140.1C24.1 140.1 0 115.5 0 85.8 0 56.1 24.1 32
+        53.8 32c29.7 0 53.8 24.1 53.8 53.8 0 29.7-24.1 54.3-53.8 54.3zM448 480h-92.7V334.4c0-34.7-.7-79.2-48.3-79.2-48.3
+        0-55.7 37.7-55.7 76.7V480h-92.8V180.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3
+        94 0 111.3 61.9 111.3 142.3V480z\\\",\\\"fill\\\":\\\"currentColor\\\"}]]}]}]\\n\"])</script><script>self.__next_f.push([1,\"30:[\\\"$\\\",\\\"$L11\\\",null,{\\\"href\\\":\\\"https://twitter.com/openrouterai\\\",\\\"target\\\":\\\"_blank\\\",\\\"className\\\":\\\"aspect-square
+        size-6 p-0 hover:bg-transparent hover:text-foreground dark:hover:text-white\\\",\\\"children\\\":[\\\"$\\\",\\\"svg\\\",null,{\\\"xmlns\\\":\\\"http://www.w3.org/2000/svg\\\",\\\"viewBox\\\":\\\"0
+        0 512 512\\\",\\\"className\\\":\\\"size-4\\\",\\\"children\\\":[[\\\"$\\\",\\\"title\\\",null,{\\\"children\\\":\\\"X\\\"}],[\\\"$\\\",\\\"path\\\",null,{\\\"d\\\":\\\"M389.2
+        48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8
+        48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z\\\",\\\"fill\\\":\\\"currentColor\\\"}]]}]}]\\n32:[\\\"$\\\",\\\"$L3b\\\",null,{}]\\n31:[\\\"$\\\",\\\"$L3c\\\",null,{}]\\n38:[[\\\"$\\\",\\\"meta\\\",\\\"0\\\",{\\\"charSet\\\":\\\"utf-8\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"viewport\\\",\\\"content\\\":\\\"width=device-width,
+        initial-scale=1, minimum-scale=1\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"2\\\",{\\\"name\\\":\\\"theme-color\\\",\\\"media\\\":\\\"(prefers-color-scheme:
+        light)\\\",\\\"content\\\":\\\"rgb(255, 255, 255)\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"3\\\",{\\\"name\\\":\\\"theme-color\\\",\\\"media\\\":\\\"(prefers-color-scheme:
+        dark)\\\",\\\"content\\\":\\\"rgb(9, 10, 11)\\\"}]]\\n34:null\\n\"])</script><script>self.__next_f.push([1,\"36:{\\\"metadata\\\":[[\\\"$\\\",\\\"title\\\",\\\"0\\\",{\\\"children\\\":\\\"Model
+        Not Found | OpenRouter\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"description\\\",\\\"content\\\":\\\"The
+        model you are looking for could not be found.\\\"}],[\\\"$\\\",\\\"link\\\",\\\"2\\\",{\\\"rel\\\":\\\"manifest\\\",\\\"href\\\":\\\"/manifest.webmanifest\\\",\\\"crossOrigin\\\":\\\"$undefined\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"3\\\",{\\\"property\\\":\\\"og:title\\\",\\\"content\\\":\\\"OpenRouter\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"4\\\",{\\\"property\\\":\\\"og:description\\\",\\\"content\\\":\\\"The
+        unified interface for LLMs. Find the best models \\u0026 prices for your prompts\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"5\\\",{\\\"property\\\":\\\"og:url\\\",\\\"content\\\":\\\"https://openrouter.ai\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"6\\\",{\\\"property\\\":\\\"og:site_name\\\",\\\"content\\\":\\\"OpenRouter\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"7\\\",{\\\"property\\\":\\\"og:image:type\\\",\\\"content\\\":\\\"image/png\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"8\\\",{\\\"property\\\":\\\"og:image\\\",\\\"content\\\":\\\"https://openrouter.ai/api/models/opengraph-image-1oizug?44ebe5f26300a465\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"9\\\",{\\\"property\\\":\\\"og:image:width\\\",\\\"content\\\":\\\"1200\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"10\\\",{\\\"property\\\":\\\"og:image:height\\\",\\\"content\\\":\\\"630\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"11\\\",{\\\"name\\\":\\\"twitter:card\\\",\\\"content\\\":\\\"summary_large_image\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"12\\\",{\\\"name\\\":\\\"twitter:site\\\",\\\"content\\\":\\\"@openrouterai\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"13\\\",{\\\"name\\\":\\\"twitter:title\\\",\\\"content\\\":\\\"OpenRouter\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"14\\\",{\\\"name\\\":\\\"twitter:description\\\",\\\"content\\\":\\\"The
+        unified interface for LLMs. Find the best models \\u0026 prices for your prompts\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"15\\\",{\\\"name\\\":\\\"twitter:image\\\",\\\"content\\\":\\\"https://openrouter.ai/dynamic-og?pathname=default\\u0026title=OpenRouter\\u0026description=The+unified+interface+for+LLMs.+Find+the+best+models+%26+prices+for+your+prompts\\\"}],[\\\"$\\\",\\\"link\\\",\\\"16\\\",{\\\"rel\\\":\\\"icon\\\",\\\"href\\\":\\\"/favicon.ico\\\",\\\"type\\\":\\\"image/x-icon\\\",\\\"sizes\\\":\\\"16x16\\\"}],[\\\"$\\\",\\\"link\\\",\\\"17\\\",{\\\"rel\\\":\\\"icon\\\",\\\"href\\\":\\\"/favicon.ico\\\"}],[\\\"$\\\",\\\"$L3d\\\",\\\"18\\\",{}]],\\\"error\\\":null,\\\"digest\\\":\\\"$undefined\\\"}\\n\"])</script><script>self.__next_f.push([1,\"3a:\\\"$36:metadata\\\"\\n\"])</script></body></html>"
+    headers:
+      Access-Control-Allow-Headers:
+      - Authorization, User-Agent, X-Api-Key, X-CSRF-Token, X-Requested-With, Accept,
+        Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version,
+        HTTP-Referer, X-Windowai-Title, X-Openrouter-Title, X-Title, X-Stainless-Lang,
+        X-Stainless-Package-Version, X-Stainless-OS, X-Stainless-Arch, X-Stainless-Runtime,
+        X-Stainless-Runtime-Version, X-Stainless-Retry-Count, Protection-Key
+      Access-Control-Allow-Methods:
+      - GET,OPTIONS,PATCH,DELETE,POST,PUT
+      Access-Control-Allow-Origin:
+      - '*'
+      CF-RAY:
+      - 969f352c7a5ec9a8-IAD
+      Cache-Control:
+      - private, no-cache, no-store, max-age=0, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Security-Policy:
+      - 'default-src ''self''; script-src ''self'' ''unsafe-eval'' ''unsafe-inline''
+        https://basehub.com https://*.pusher.com https://clerk.openrouter.ai https://challenges.cloudflare.com
+        https://checkout.stripe.com https://connect-js.stripe.com https://js.stripe.com
+        https://maps.googleapis.com https://www.googletagmanager.com ''wasm-unsafe-eval''
+        https://*.us5.datadoghq.com https://cdn.jsdelivr.net https://*.algolia.net
+        https://*.algolianet.com https://app.buildwithfern.com https://prod.ferndocs.com
+        https://cdn.segment.com https://jobs.ashbyhq.com https://*.posthog.com; connect-src
+        ''self'' https://basehub.com https://aws.basehub.com https://*.pusher.com
+        wss://*.pusher.com https://clerk.openrouter.ai https://checkout.stripe.com
+        https://api.stripe.com https://maps.googleapis.com *.google-analytics.com
+        https://www.googletagmanager.com https://raw.githubusercontent.com wss://www.walletlink.org/rpc
+        https://static.cloudflareinsights.com https://*.us5.datadoghq.com https://*.algolia.net
+        https://*.algolianet.com https://app.buildwithfern.com https://prod.ferndocs.com
+        https://api.segment.io https://cdn.segment.com https://www.openrouter.ai https://openrouter.ai
+        https://jobs.ashbyhq.com https://api.ashbyhq.com/ https://*.posthog.com; frame-src
+        ''self'' https://basehub.com https://*.pusher.com https://challenges.cloudflare.com
+        https://checkout.stripe.com https://connect-js.stripe.com https://js.stripe.com
+        https://hooks.stripe.com https://us5.datadoghq.com https://openrouter.notion.site
+        https://*.us5.datadoghq.com https://app.buildwithfern.com https://prod.ferndocs.com
+        https://jobs.ashbyhq.com; img-src ''self'' data: blob: https://basehub.com
+        https://*.basehub.com https://*.pusher.com https://img.clerk.com https://*.stripe.com
+        https://www.googletagmanager.com https://t0.gstatic.com https://*.algolia.io
+        https://files.buildwithfern.com https://icons.ferndocs.com; worker-src ''self''
+        blob: data:; style-src ''self'' ''unsafe-inline'' sha256-0hAheEzaMe6uXIKV4EehS9pu1am1lj/KnnzrOYqckXk=
+        https://cdn.jsdelivr.net https://app.buildwithfern.com https://prod.ferndocs.com
+        https://jobs.ashbyhq.com; frame-ancestors ''self''; font-src ''self'' https://cdn.jsdelivr.net;
+        upgrade-insecure-requests'
+      Content-Type:
+      - text/html; charset=utf-8
+      Date:
+      - Mon, 04 Aug 2025 15:49:58 GMT
+      Link:
+      - </_next/static/media/5b01f339abf2f1a5.p.woff2>; rel=preload; as="font"; crossorigin="";
+        type="font/woff2", </_next/static/media/e4af272ccee01ff0-s.p.woff2>; rel=preload;
+        as="font"; crossorigin=""; type="font/woff2"
+      Permissions-Policy:
+      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
+        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
+      Referrer-Policy:
+      - no-referrer, strict-origin-when-cross-origin
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=63072000
+      Transfer-Encoding:
+      - chunked
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Matched-Path:
+      - /[maker-id]/[slug]
+      X-Powered-By:
+      - Next.js
+      X-Vercel-Cache:
+      - BYPASS
+      X-Vercel-Id:
+      - iad1::iad1::5wvc6-1754322598152-3693dd9addb4
+      cf-cache-status:
+      - DYNAMIC
+      content-length:
+      - '77109'
+      vary:
+      - accept-encoding
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -29,7 +29,7 @@ class PerplexityProvider(OpenAIProvider):
             with httpx.Client() as client:
                 response = client.get(
                     urljoin(str(self.base_url), "async/chat/completions"),
-                    headers={"Authorization": f"Bearer {self.api_key!s}"}
+                    headers={"Authorization": f"Bearer {self.api_key!s}"},
                 )
                 return response.status_code == 200
         except Exception as e:

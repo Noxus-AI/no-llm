@@ -24,8 +24,7 @@ class MistralProvider(ProviderConfiguration):
         try:
             with httpx.Client() as client:
                 response = client.get(
-                    "https://api.mistral.ai/v1/models",
-                    headers={"Authorization": f"Bearer {self.api_key!s}"}
+                    "https://api.mistral.ai/v1/models", headers={"Authorization": f"Bearer {self.api_key!s}"}
                 )
                 return response.status_code == 200
         except Exception as e:
