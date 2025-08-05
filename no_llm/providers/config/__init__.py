@@ -35,8 +35,13 @@ class ProviderConfiguration(BaseResource):
 
     def has_valid_env(self) -> bool:
         """Check if all required environment variables are set"""
+        # TODO; very fickle implementation, should be improved
         for field_name, field in self.__class__.model_fields.items():
-            if field.annotation == EnvVar[str] and not getattr(self, field_name).is_valid():
+            if (
+                field.annotation == EnvVar[str]
+                and isinstance(getattr(self, field_name), EnvVar)
+                and not getattr(self, field_name).is_valid()
+            ):
                 return False
         return True
 

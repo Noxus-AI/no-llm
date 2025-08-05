@@ -36,7 +36,7 @@ class Registry:
         model = self.models.get(model_id)
 
         # Get provider types that this model supports
-        compatible_provider_types = {provider().type for provider in model._compatible_providers} # noqa: SLF001
+        compatible_provider_types = {provider().type for provider in model._compatible_providers}  # noqa: SLF001
         logger.debug(f"Model {model_id} supports provider types: {compatible_provider_types}")
 
         # Find all providers of compatible types
@@ -60,7 +60,7 @@ class Registry:
 
         # Find all models that support this provider type
         for model in self.models.list(only_valid=only_valid, only_active=only_active):
-            if type(provider) in model._compatible_providers: # noqa: SLF001
+            if type(provider) in model._compatible_providers:  # noqa: SLF001
                 logger.debug(f"Model {model.identity.id} is compatible with provider {provider_id}")
                 yield model
 
