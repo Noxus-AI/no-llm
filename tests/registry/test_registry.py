@@ -37,12 +37,12 @@ class TestRegistry:
     @patch('no_llm.models.registry.ModelRegistry.get')
     @patch('no_llm.providers.registry.ProviderRegistry.list_by_type')
     def test_get_compatible_providers(self, mock_list_by_type, mock_get_model, registry: Registry):
-        # Mock model with providers
-        mock_provider_config = Mock()
-        mock_provider_config.type = "anthropic"
+        # Mock model with compatible providers
+        mock_provider_class = Mock()
+        mock_provider_class.return_value.type = "anthropic"
         
         mock_model = Mock(spec=ModelConfiguration)
-        mock_model.providers = [mock_provider_config]
+        mock_model._compatible_providers = {mock_provider_class}
         mock_model.identity = Mock()
         mock_model.identity.id = "test-model"
         mock_get_model.return_value = mock_model
@@ -66,17 +66,16 @@ class TestRegistry:
         mock_provider.type = "anthropic"
         mock_get_provider.return_value = mock_provider
 
-        # Mock models
-        mock_provider_config = Mock()
-        mock_provider_config.type = "anthropic"
+        # Mock models with compatible provider types
+        mock_provider_class = type(mock_provider)
         
         compatible_model = Mock(spec=ModelConfiguration)
-        compatible_model.providers = [mock_provider_config]
+        compatible_model._compatible_providers = {mock_provider_class}
         compatible_model.identity = Mock()
         compatible_model.identity.id = "compatible-model"
         
         incompatible_model = Mock(spec=ModelConfiguration)
-        incompatible_model.providers = [Mock(type="openai")]
+        incompatible_model._compatible_providers = {Mock}  # Different provider type
         incompatible_model.identity = Mock()
         incompatible_model.identity.id = "incompatible-model"
         
@@ -101,11 +100,11 @@ class TestRegistry:
         with patch.object(registry.models, 'get') as mock_get_model, \
              patch.object(registry.providers, 'list_by_type') as mock_list_by_type:
             
-            mock_provider_config = Mock()
-            mock_provider_config.type = "anthropic"
+            mock_provider_class = Mock()
+            mock_provider_class.return_value.type = "anthropic"
             
             mock_model = Mock(spec=ModelConfiguration)
-            mock_model.providers = [mock_provider_config]
+            mock_model._compatible_providers = {mock_provider_class}
             mock_model.identity = Mock()
             mock_model.identity.id = "test-model"
             mock_get_model.return_value = mock_model
@@ -135,13 +134,13 @@ class TestRegistry:
              patch.object(registry.providers, 'list_by_type') as mock_list_by_type:
             
             # Model supports multiple provider types
-            mock_provider_config1 = Mock()
-            mock_provider_config1.type = "anthropic"
-            mock_provider_config2 = Mock()
-            mock_provider_config2.type = "openai"
+            mock_provider_class1 = Mock()
+            mock_provider_class1.return_value.type = "anthropic"
+            mock_provider_class2 = Mock()
+            mock_provider_class2.return_value.type = "openai"
             
             mock_model = Mock(spec=ModelConfiguration)
-            mock_model.providers = [mock_provider_config1, mock_provider_config2]
+            mock_model._compatible_providers = {mock_provider_class1, mock_provider_class2}
             mock_model.identity = Mock()
             mock_model.identity.id = "multi-provider-model"
             mock_get_model.return_value = mock_model
