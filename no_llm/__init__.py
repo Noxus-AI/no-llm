@@ -27,5 +27,6 @@ __all__ = [
     "ModelConfiguration",
     "ValidationMode",
     "ModelParameters",
+    "ModelRegistry",
     "ProviderRegistry",
 ]

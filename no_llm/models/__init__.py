@@ -33,6 +33,9 @@ from no_llm.models.model_configs.openai import (
     GPT4Configuration,
     GPT4OConfiguration,
     GPT4OMiniConfiguration,
+    GPT5Configuration,
+    GPT5MiniConfiguration,
+    GPT5NanoConfiguration,
     GPT35TurboConfiguration,
     GPT41Configuration,
     GPT41MiniConfiguration,
@@ -89,4 +92,7 @@ __all__ = [
     "O3Configuration",
     "Grok3Configuration",
     "Grok4Configuration",
+    "GPT5Configuration",
+    "GPT5MiniConfiguration",
+    "GPT5NanoConfiguration",
 ]

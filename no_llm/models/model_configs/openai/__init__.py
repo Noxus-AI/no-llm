@@ -5,6 +5,9 @@ from no_llm.models.model_configs.openai.gpt_4_1_mini import GPT41MiniConfigurati
 from no_llm.models.model_configs.openai.gpt_4_1_nano import GPT41NanoConfiguration
 from no_llm.models.model_configs.openai.gpt_4o import GPT4OConfiguration
 from no_llm.models.model_configs.openai.gpt_4o_mini import GPT4OMiniConfiguration
+from no_llm.models.model_configs.openai.gpt_5 import GPT5Configuration
+from no_llm.models.model_configs.openai.gpt_5_mini import GPT5MiniConfiguration
+from no_llm.models.model_configs.openai.gpt_5_nano import GPT5NanoConfiguration
 from no_llm.models.model_configs.openai.o1_mini import O1MiniConfiguration
 from no_llm.models.model_configs.openai.o3 import O3Configuration
 from no_llm.models.model_configs.openai.o3_mini import O3MiniConfiguration
@@ -22,4 +25,7 @@ __all__ = [
     "GPT4OConfiguration",
     "O4MiniConfiguration",
     "O3Configuration",
+    "GPT5Configuration",
+    "GPT5MiniConfiguration",
+    "GPT5NanoConfiguration",
 ]
