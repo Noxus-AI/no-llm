@@ -19,11 +19,10 @@ from no_llm.models.config import (
     ParameterVariant,
     PrivacyLevel,
     QualityProperties,
-    RangeValidation,
     SpeedProperties,
     TokenPrices,
 )
-from no_llm.models.config.parameters import NotGiven
+from no_llm.models.config.parameters import NOT_GIVEN, NotGiven
 from no_llm.models.model_configs.openai.base import OpenaiBaseConfiguration
 from no_llm.providers import (
     AzureProvider,
@@ -86,9 +85,8 @@ class GPT5MiniConfiguration(OpenaiBaseConfiguration):
         model_config = ConfigurableModelParameters.model_config
         temperature: ParameterValue[float | NotGiven] = Field(
             default_factory=lambda: ParameterValue[float | NotGiven](
-                variant=ParameterVariant.VARIABLE,
-                value=0.0,
-                validation_rule=RangeValidation(min_value=0.0, max_value=1.0),
+                variant=ParameterVariant.UNSUPPORTED,
+                value=NOT_GIVEN,
             )
         )
 
