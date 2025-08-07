@@ -26,7 +26,8 @@ class ProviderConfiguration(BaseResource):
         return self.has_valid_env()
 
     def test(self) -> bool:
-        raise NotImplementedError("Test method not implemented")
+        msg = "Test method not implemented"
+        raise NotImplementedError(msg)
 
     def iter(self) -> Iterator[ProviderConfiguration]:
         """Default implementation yields just the provider itself"""

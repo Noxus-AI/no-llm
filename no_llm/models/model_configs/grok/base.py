@@ -4,13 +4,13 @@ from typing import TYPE_CHECKING
 
 from pydantic import PrivateAttr
 from pydantic_ai.models.fallback import FallbackModel
-from pydantic_ai.models.openai import OpenAIModelSettings
 
 from no_llm.models.model_configs.openai.base import OpenaiBaseConfiguration
 from no_llm.providers import AnyProvider, GrokProvider, OpenRouterProvider
 
 if TYPE_CHECKING:
     from pydantic_ai.models import Model
+    from pydantic_ai.models.openai import OpenAIModelSettings
 
 
 class GrokBaseConfiguration(OpenaiBaseConfiguration):
