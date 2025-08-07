@@ -15,7 +15,7 @@ class GrokProvider(OpenAIProvider):
     type: Literal["grok"] = "grok"  # type: ignore
     id: str = "grok"
     name: str = "Grok"
-    api_key: EnvVar[str] | str = Field(
+    api_key: EnvVar[str] = Field(
         default_factory=lambda: EnvVar[str]("$GROK_API_KEY"),
         description="Name of environment variable containing API key",
     )

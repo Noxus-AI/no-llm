@@ -15,7 +15,7 @@ class OpenRouterProvider(OpenAIProvider):
     type: Literal["openrouter"] = "openrouter"  # type: ignore
     id: str = "openrouter"
     name: str = "OpenRouter"
-    api_key: EnvVar[str] | str = Field(
+    api_key: EnvVar[str] = Field(
         default_factory=lambda: EnvVar[str]("$OPENROUTER_API_KEY"),
         description="Name of environment variable containing API key",
     )

@@ -17,7 +17,7 @@ class GeminiProvider(ProviderConfiguration):
     type: Literal["gemini"] = "gemini"  # type: ignore
     id: str = "gemini"
     name: str = "Gemini"
-    api_key: EnvVar[str] | str = Field(
+    api_key: EnvVar[str] = Field(
         default_factory=lambda: EnvVar[str]("$GEMINI_API_KEY"),
         description="Name of environment variable containing API key",
     )

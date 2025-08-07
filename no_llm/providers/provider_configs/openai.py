@@ -18,7 +18,7 @@ class OpenAIProvider(ProviderConfiguration):
     type: Literal["openai"] = "openai"  # type: ignore
     id: str = "openai"
     name: str = "OpenAI"
-    api_key: EnvVar[str] | str = Field(
+    api_key: EnvVar[str] = Field(
         default_factory=lambda: EnvVar[str]("$OPENAI_API_KEY"),
         description="Name of environment variable containing API key",
     )

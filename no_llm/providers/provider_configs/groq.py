@@ -15,7 +15,7 @@ class GroqProvider(ProviderConfiguration):
     type: Literal["groq"] = "groq"  # type: ignore
     id: str = "groq"
     name: str = "Groq"
-    api_key: EnvVar[str] | str = Field(
+    api_key: EnvVar[str] = Field(
         default_factory=lambda: EnvVar[str]("$GROQ_API_KEY"),
         description="Name of environment variable containing API key",
     )

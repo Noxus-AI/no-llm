@@ -107,7 +107,7 @@ class VertexProvider(ProviderConfiguration):
     type: Literal["vertex"] = "vertex"  # type: ignore
     id: str = "vertex"
     name: str = "Vertex AI"
-    project_id: EnvVar[str] | str = Field(default_factory=lambda: EnvVar[str]("$VERTEX_PROJECT_ID"))
+    project_id: EnvVar[str] = Field(default_factory=lambda: EnvVar[str]("$VERTEX_PROJECT_ID"))
     locations: list[str] = Field(default=["us-central1", "europe-west1"])
     # HACK: gah
     model_family: Literal["gemini", "claude", "mistral", "llama"] = Field(

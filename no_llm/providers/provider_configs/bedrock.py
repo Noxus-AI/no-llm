@@ -14,7 +14,7 @@ class BedrockProvider(ProviderConfiguration):
     type: Literal["bedrock"] = "bedrock"  # type: ignore
     id: str = "bedrock"
     name: str = "Bedrock"
-    region: EnvVar[str] | str = Field(default_factory=lambda: EnvVar[str]("$BEDROCK_REGION"), description="AWS region")
+    region: EnvVar[str] = Field(default_factory=lambda: EnvVar[str]("$BEDROCK_REGION"), description="AWS region")
     locations: list[str] = Field(default=["us-east-1"], description="AWS regions")
     _value: str | None = PrivateAttr(default=None)
 

@@ -19,7 +19,7 @@ class AnthropicProvider(ProviderConfiguration):
     type: Literal["anthropic"] = "anthropic"  # type: ignore
     id: str = "anthropic"
     name: str = "Anthropic"
-    api_key: EnvVar[str] | str = Field(
+    api_key: EnvVar[str] = Field(
         default_factory=lambda: EnvVar[str]("$ANTHROPIC_API_KEY"),
         description="Name of environment variable containing API key",
     )

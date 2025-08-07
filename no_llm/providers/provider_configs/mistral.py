@@ -15,7 +15,7 @@ class MistralProvider(ProviderConfiguration):
     type: Literal["mistral"] = "mistral"  # type: ignore
     id: str = "mistral"
     name: str = "Mistral AI"
-    api_key: EnvVar[str] | str = Field(
+    api_key: EnvVar[str] = Field(
         default_factory=lambda: EnvVar[str]("$MISTRAL_API_KEY"),
         description="Name of environment variable containing API key",
     )
