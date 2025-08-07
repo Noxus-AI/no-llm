@@ -18,7 +18,7 @@ class PerplexityProvider(OpenAIProvider):
     type: Literal["perplexity"] = "perplexity"  # type: ignore
     id: str = "perplexity"
     name: str = "Perplexity AI"
-    api_key: EnvVar[str] = Field(
+    api_key: EnvVar[str] | str = Field(
         default_factory=lambda: EnvVar[str]("$PERPLEXITY_API_KEY"),
         description="Name of environment variable containing API key",
     )

@@ -6,6 +6,7 @@ from no_llm.providers.provider_configs.azure import AzureProvider
 from no_llm.providers.provider_configs.bedrock import BedrockProvider
 from no_llm.providers.provider_configs.deepseek import DeepseekProvider
 from no_llm.providers.provider_configs.fireworks import FireworksProvider
+from no_llm.providers.provider_configs.gemini import GeminiProvider
 from no_llm.providers.provider_configs.grok import GrokProvider
 from no_llm.providers.provider_configs.groq import GroqProvider
 from no_llm.providers.provider_configs.mistral import MistralProvider
@@ -31,6 +32,7 @@ __all__ = [
     "OpenRouterProvider",
     "GrokProvider",
     "FireworksProvider",
+    "GeminiProvider",
     "ProviderConfiguration",
 ]
 

@@ -4,6 +4,7 @@ import sys
 from typing import TYPE_CHECKING, Literal, assert_never, cast
 
 from anthropic import AsyncAnthropicVertex
+from loguru import logger
 from mistralai_gcp import MistralGoogleCloud
 from pydantic import Field, PrivateAttr
 from pydantic_ai.providers.anthropic import (
@@ -106,7 +107,7 @@ class VertexProvider(ProviderConfiguration):
     type: Literal["vertex"] = "vertex"  # type: ignore
     id: str = "vertex"
     name: str = "Vertex AI"
-    project_id: EnvVar[str] = Field(default_factory=lambda: EnvVar[str]("$VERTEX_PROJECT_ID"))
+    project_id: EnvVar[str] | str = Field(default_factory=lambda: EnvVar[str]("$VERTEX_PROJECT_ID"))
     locations: list[str] = Field(default=["us-central1", "europe-west1"])
     # HACK: gah
     model_family: Literal["gemini", "claude", "mistral", "llama"] = Field(
@@ -136,10 +137,6 @@ class VertexProvider(ProviderConfiguration):
         self, model_family: Literal["gemini", "claude", "mistral", "llama"]
     ) -> PydanticGoogleVertexProvider | PydanticAnthropicProvider | PydanticMistralProvider | PydanticGoogleProvider:
         if model_family == "gemini":
-            # return PydanticGoogleVertexProvider(
-            #     project_id=str(self.project_id),
-            #     region=cast(VertexAiRegion, self.current),
-            # )
             return PydanticGoogleProvider(
                 project=str(self.project_id),
                 location=cast(VertexAiRegion, self.current),
@@ -164,3 +161,12 @@ class VertexProvider(ProviderConfiguration):
             raise NotImplementedError(msg)
         else:
             assert_never(self.model_family)
+
+    def test(self) -> bool:
+        provider = cast(PydanticGoogleProvider, self.to_pydantic("gemini"))
+        try:
+            provider.client.models.list()
+            return True
+        except Exception as e:
+            logger.opt(exception=e).error(f"Failed to test connectivity to {self.__class__.__name__}")
+            return False

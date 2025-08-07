@@ -15,7 +15,7 @@ class FireworksProvider(OpenAIProvider):
     type: Literal["fireworks"] = "fireworks"  # type: ignore
     id: str = "fireworks"
     name: str = "Fireworks"
-    api_key: EnvVar[str] = Field(
+    api_key: EnvVar[str] | str = Field(
         default_factory=lambda: EnvVar[str]("$FIREWORKS_API_KEY"),
         description="Name of environment variable containing API key",
     )

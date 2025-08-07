@@ -15,7 +15,7 @@ class DeepseekProvider(OpenAIProvider):
     type: Literal["deepseek"] = "deepseek"  # type: ignore
     id: str = "deepseek"
     name: str = "DeepSeek"
-    api_key: EnvVar[str] = Field(
+    api_key: EnvVar[str] | str = Field(
         default_factory=lambda: EnvVar[str]("$DEEPSEEK_API_KEY"),
         description="Name of environment variable containing API key",
     )

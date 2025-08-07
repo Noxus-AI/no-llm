@@ -12,7 +12,7 @@ from no_llm.models.config import (
     ModelConfiguration,
 )
 from no_llm.models.config.parameters import NOT_GIVEN
-from no_llm.providers import AnyProvider, OpenRouterProvider, VertexProvider
+from no_llm.providers import AnyProvider, GeminiProvider, OpenRouterProvider, VertexProvider
 
 if TYPE_CHECKING:
     from pydantic_ai.models import Model
@@ -25,7 +25,9 @@ THINKING_BUDGET = {
 
 
 class GeminiBaseConfiguration(ModelConfiguration):
-    _compatible_providers: set[type[AnyProvider]] = PrivateAttr(default={OpenRouterProvider, VertexProvider})
+    _compatible_providers: set[type[AnyProvider]] = PrivateAttr(
+        default={OpenRouterProvider, VertexProvider, GeminiProvider}
+    )
 
     def to_pydantic_model(self) -> Model:
         from pydantic_ai.models.google import GoogleModel

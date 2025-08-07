@@ -15,7 +15,7 @@ class TogetherProvider(OpenAIProvider):
     type: Literal["together"] = "together"  # type: ignore
     id: str = "together"
     name: str = "TogetherAI"
-    api_key: EnvVar[str] = Field(
+    api_key: EnvVar[str] | str = Field(
         default_factory=lambda: EnvVar[str]("$TOGETHER_API_KEY"),
         description="Name of environment variable containing API key",
     )

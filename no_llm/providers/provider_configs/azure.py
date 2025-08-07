@@ -14,11 +14,11 @@ class AzureProvider(ProviderConfiguration):
     type: Literal["azure"] = "azure"  # type: ignore
     id: str = "azure"
     name: str = "Azure"
-    api_key: EnvVar[str] = Field(
+    api_key: EnvVar[str] | str = Field(
         default_factory=lambda: EnvVar[str]("$AZURE_API_KEY"),
         description="Name of environment variable containing API key",
     )
-    base_url: EnvVar[str] = Field(
+    base_url: EnvVar[str] | str = Field(
         default_factory=lambda: EnvVar[str]("$AZURE_BASE_URL"),
         description="Optional base URL override",
     )
