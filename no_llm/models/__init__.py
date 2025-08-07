@@ -25,6 +25,7 @@ from no_llm.models.model_configs.gemini import (
     Gemini25FlashLiteConfiguration,
     Gemini25ProConfiguration,
 )
+from no_llm.models.model_configs.grok import Grok3Configuration, Grok4Configuration
 from no_llm.models.model_configs.groq import GroqMixtralConfiguration
 from no_llm.models.model_configs.llama import Llama3370BConfiguration, Llama31405BConfiguration
 from no_llm.models.model_configs.mistral import MistralLargeConfiguration, MistralNemoConfiguration
@@ -86,4 +87,6 @@ __all__ = [
     "GPT41MiniConfiguration",
     "O4MiniConfiguration",
     "O3Configuration",
+    "Grok3Configuration",
+    "Grok4Configuration",
 ]
