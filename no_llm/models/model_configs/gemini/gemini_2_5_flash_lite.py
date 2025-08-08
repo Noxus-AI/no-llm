@@ -73,11 +73,11 @@ class Gemini25FlashLiteConfiguration(GeminiBaseConfiguration):
     )
 
     integration_aliases: IntegrationAliases | None = IntegrationAliases(
-        pydantic_ai="gemini-2.5-flash-lite-preview-06-17",
-        litellm="gemini/gemini-2.5-flash-lite-preview-06-17",
-        langfuse="gemini-2.5-flash-lite-preview-06-17",
-        lmarena="gemini-2.5-flash-lite-preview-06-17",
-        openrouter="google/gemini-2.5-flash-lite-preview-06-17",
+        pydantic_ai="gemini-2.5-flash-lite",
+        litellm="gemini/gemini-2.5-flash-lite",
+        langfuse="gemini-2.5-flash-lite",
+        lmarena="gemini-2.5-flash-lite",
+        openrouter="google/gemini-2.5-flash-lite",
     )
 
     class Parameters(ConfigurableModelParameters):
