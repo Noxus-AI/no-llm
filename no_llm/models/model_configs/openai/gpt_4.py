@@ -38,7 +38,7 @@ class GPT4Configuration(OpenaiBaseConfiguration):
 
     identity: ModelIdentity = ModelIdentity(
         id="gpt-4",
-        name="GPT-4",
+        name="GPT 4",
         version="1.0.0",
         description="Advanced language model with strong reasoning capabilities",
         creator="OpenAI",

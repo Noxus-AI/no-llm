@@ -38,7 +38,7 @@ class GPT4OMiniConfiguration(OpenaiBaseConfiguration):
 
     identity: ModelIdentity = ModelIdentity(
         id="gpt-4o-mini",
-        name="GPT-4o Mini",
+        name="GPT 4o Mini",
         version="2024.02",
         description="Smaller and faster version of GPT-4o optimized for quick responses while maintaining good quality.",
         creator="OpenAI",

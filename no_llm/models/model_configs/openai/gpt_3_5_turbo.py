@@ -38,7 +38,7 @@ class GPT35TurboConfiguration(OpenaiBaseConfiguration):
 
     identity: ModelIdentity = ModelIdentity(
         id="gpt-3.5-turbo",
-        name="GPT3.5 Turbo",
+        name="GPT 3.5 Turbo",
         version="2024.02",
         description="Older version of the GPT line of models, still capable and very fast.",
         creator="OpenAI",
