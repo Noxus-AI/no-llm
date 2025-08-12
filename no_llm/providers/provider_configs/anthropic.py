@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Literal
+from urllib.parse import urljoin
 
 import httpx
 from loguru import logger
@@ -27,9 +28,12 @@ class AnthropicProvider(ProviderConfiguration):
 
     def test(self) -> bool:
         try:
+            base_url = str(self.base_url)
+            if not base_url.endswith("/"):
+                base_url += "/"
             with httpx.Client() as client:
                 response = client.get(
-                    "https://api.anthropic.com/v1/models",
+                    urljoin(base_url, "models"),
                     headers={"Authorization": f"Bearer {self.api_key!s}"},
                 )
                 return response.status_code == 200

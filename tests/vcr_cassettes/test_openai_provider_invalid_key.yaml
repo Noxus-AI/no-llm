@@ -1,0 +1,58 @@
+interactions:
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate, br, zstd
+      connection:
+      - keep-alive
+      host:
+      - api.openai.com
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://api.openai.com/v1/models
+  response:
+    body:
+      string: "{\n  \"error\": {\n    \"message\": \"Incorrect API key provided: invalid-***-key.
+        You can find your API key at https://platform.openai.com/account/api-keys.\",\n
+        \   \"type\": \"invalid_request_error\",\n    \"param\": null,\n    \"code\":
+        \"invalid_api_key\"\n  }\n}"
+    headers:
+      CF-RAY:
+      - 96e36478eddae3c3-LIS
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '244'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 12 Aug 2025 22:26:07 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - _cfuvid=hIJDIqBegyNWFQr2cUEFlvkY4xIU6KMdd2jajHhj7YY-1755037567095-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      X-Content-Type-Options:
+      - nosniff
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
+      openai-processing-ms:
+      - '2'
+      openai-version:
+      - '2020-10-01'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      www-authenticate:
+      - Bearer realm="OpenAI API"
+      x-request-id:
+      - cd4efcac145c5dbf8d5dbdb2cb74f7ad
+    status:
+      code: 401
+      message: Unauthorized
+version: 1

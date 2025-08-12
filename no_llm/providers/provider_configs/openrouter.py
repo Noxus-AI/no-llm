@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 from typing import Literal
+from urllib.parse import urljoin
 
+import httpx
+from loguru import logger
 from pydantic import Field
 from pydantic_ai.providers.openai import OpenAIProvider as PydanticOpenAIProvider
 
@@ -20,7 +23,7 @@ class OpenRouterProvider(OpenAIProvider):
         description="Name of environment variable containing API key",
     )
     base_url: str | None = Field(
-        default="https://openrouter.ai/api/v1",
+        default="https://openrouter.ai/api/v1/",
         description="Base URL for OpenRouter API",
     )
 
@@ -29,3 +32,16 @@ class OpenRouterProvider(OpenAIProvider):
             api_key=str(self.api_key),
             base_url=str(self.base_url),
         )
+
+    def test(self) -> bool:
+        base_url = str(self.base_url)
+        if not base_url.endswith("/"):
+            base_url += "/"
+        models_endpoint = urljoin(base_url, "credits")
+        try:
+            with httpx.Client() as client:
+                response = client.get(models_endpoint, headers={"Authorization": f"Bearer {self.api_key!s}"})
+                return response.status_code == 200
+        except Exception as e:
+            logger.opt(exception=e).error(f"Failed to test connectivity to {self.__class__.__name__}")
+            return False

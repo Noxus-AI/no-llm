@@ -16,18 +16,18 @@ interactions:
     uri: https://openrouter.ai/api/v1/credits
   response:
     body:
-      string: '{"data":{"total_credits":0,"total_usage":0.0921144}}'
+      string: '{"error":{"message":"No auth credentials found","code":401}}'
     headers:
       Access-Control-Allow-Origin:
       - '*'
       CF-RAY:
-      - 96e36d112f898e38-LIS
+      - 96e36c9ecb28e3bd-LIS
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Date:
-      - Tue, 12 Aug 2025 22:31:59 GMT
+      - Tue, 12 Aug 2025 22:31:40 GMT
       Permissions-Policy:
       - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
         "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
@@ -41,9 +41,7 @@ interactions:
       - Accept-Encoding
       X-Content-Type-Options:
       - nosniff
-      content-length:
-      - '52'
     status:
-      code: 200
-      message: OK
+      code: 401
+      message: Unauthorized
 version: 1

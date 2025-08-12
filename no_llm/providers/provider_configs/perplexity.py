@@ -26,9 +26,12 @@ class PerplexityProvider(OpenAIProvider):
 
     def test(self) -> bool:
         try:
+            base_url = str(self.base_url)
+            if not base_url.endswith("/"):
+                base_url += "/"
             with httpx.Client() as client:
                 response = client.get(
-                    urljoin(str(self.base_url), "async/chat/completions"),
+                    urljoin(base_url, "async/chat/completions"),
                     headers={"Authorization": f"Bearer {self.api_key!s}"},
                 )
                 return response.status_code == 200

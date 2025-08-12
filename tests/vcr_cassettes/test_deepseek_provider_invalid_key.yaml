@@ -1,0 +1,49 @@
+interactions:
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate, br, zstd
+      connection:
+      - keep-alive
+      host:
+      - api.deepseek.com
+      user-agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://api.deepseek.com/models
+  response:
+    body:
+      string: '{"error":{"message":"Authentication Fails, Your api key: ****-key is
+        invalid","type":"authentication_error","param":null,"code":"invalid_request_error"}}'
+    headers:
+      CF-RAY:
+      - 96e364723874e3cd-LIS
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '153'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 12 Aug 2025 22:26:06 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      access-control-allow-credentials:
+      - 'true'
+      cf-cache-status:
+      - DYNAMIC
+      vary:
+      - origin, access-control-request-method, access-control-request-headers
+      x-ds-trace-id:
+      - e3573e2ec96a1015ea05fc9b9ef85c8e
+    status:
+      code: 401
+      message: Unauthorized
+version: 1
