@@ -108,7 +108,7 @@ class VertexProvider(ProviderConfiguration):
     id: str = "vertex"
     name: str = "Vertex AI"
     project_id: EnvVar[str] = Field(default_factory=lambda: EnvVar[str]("$VERTEX_PROJECT_ID"))
-    locations: list[str] = Field(default=["us-central1", "europe-west1"])
+    locations: list[str] = Field(default=["us-central1", "europe-west1"], min_length=1)
     # HACK: gah
     model_family: Literal["gemini", "claude", "mistral", "llama"] = Field(
         default="gemini",
@@ -163,9 +163,12 @@ class VertexProvider(ProviderConfiguration):
             assert_never(self.model_family)
 
     def test(self) -> bool:
+        if len(self.locations) == 0:
+            return False
+
         provider = cast(PydanticGoogleProvider, self.to_pydantic("gemini"))
         try:
-            provider.client.models.list()
+            provider.client.models.list(config={"page_size": 5})
             return True
         except Exception as e:
             logger.opt(exception=e).error(f"Failed to test connectivity to {self.__class__.__name__}")

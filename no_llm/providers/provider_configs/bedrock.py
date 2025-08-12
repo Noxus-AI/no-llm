@@ -15,7 +15,7 @@ class BedrockProvider(ProviderConfiguration):
     id: str = "bedrock"
     name: str = "Bedrock"
     region: EnvVar[str] = Field(default_factory=lambda: EnvVar[str]("$BEDROCK_REGION"), description="AWS region")
-    locations: list[str] = Field(default=["us-east-1"], description="AWS regions")
+    locations: list[str] = Field(default=["us-east-1"], min_length=1, description="AWS regions")
     _value: str | None = PrivateAttr(default=None)
 
     def iter(self) -> Iterator[ProviderConfiguration]:
