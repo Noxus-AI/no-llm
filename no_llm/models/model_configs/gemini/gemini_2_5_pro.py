@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from datetime import datetime
-from typing import TYPE_CHECKING
 
 from pydantic import Field
+from pydantic_ai.models.google import GoogleModelSettings
 
 from no_llm.models.config import (
     ConfigurableModelParameters,
@@ -26,9 +26,6 @@ from no_llm.models.config import (
 from no_llm.models.config.parameters import NOT_GIVEN, NotGiven
 from no_llm.models.model_configs.gemini.base import GeminiBaseConfiguration
 from no_llm.providers import OpenRouterProvider, Providers, VertexProvider
-
-if TYPE_CHECKING:
-    from pydantic_ai.models.google import GoogleModelSettings
 
 
 class Gemini25ProConfiguration(GeminiBaseConfiguration):

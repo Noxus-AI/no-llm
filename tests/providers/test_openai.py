@@ -1,9 +1,8 @@
 import pytest
-
 from no_llm.providers.provider_configs.openai import OpenAIProvider
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_openai_provider_connection():
     """Test that OpenAI provider can successfully connect to the API."""
     provider = OpenAIProvider()
@@ -11,7 +10,7 @@ def test_openai_provider_connection():
     assert result is True, "OpenAI provider test should return True with valid API key"
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_openai_provider_invalid_key(monkeypatch):
     """Test that OpenAI provider returns False with invalid API key."""
     monkeypatch.setenv("INVALID_OPENAI_KEY", "invalid-api-key")

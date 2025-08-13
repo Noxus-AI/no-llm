@@ -168,7 +168,11 @@ class VertexProvider(ProviderConfiguration):
 
         provider = cast(PydanticGoogleProvider, self.to_pydantic("gemini"))
         try:
-            provider.client.models.list(config={"page_size": 5})
+            # provider.client.models.list(config={"page_size": 5})
+            provider.client.models.generate_content(
+                model="gemini-2.0-flash-exp",
+                contents="Hello, world!",
+            )
             return True
         except Exception as e:
             logger.opt(exception=e).error(f"Failed to test connectivity to {self.__class__.__name__}")

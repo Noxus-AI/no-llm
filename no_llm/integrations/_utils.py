@@ -1,9 +1,9 @@
+from __future__ import annotations
+
 import sys
+from typing import TYPE_CHECKING
 
 from loguru import logger
-from pydantic_ai.models import (
-    Model,
-)
 from pydantic_ai.models.anthropic import AnthropicModel
 from pydantic_ai.models.google import GoogleModel
 from pydantic_ai.models.groq import GroqModel
@@ -11,7 +11,6 @@ from pydantic_ai.models.mistral import MistralModel
 from pydantic_ai.models.openai import OpenAIModel, OpenAIResponsesModel
 
 from no_llm.models.config.enums import ModelMode
-from no_llm.models.config.model import ModelConfiguration
 from no_llm.providers import (
     AnthropicProvider,
     AzureProvider,
@@ -26,6 +25,13 @@ from no_llm.providers import (
     TogetherProvider,
     VertexProvider,
 )
+
+if TYPE_CHECKING:
+    from pydantic_ai.models import (
+        Model,
+    )
+
+    from no_llm.models.config.model import ModelConfiguration
 
 
 def pydantic_mistral_gcp_patch():

@@ -1,9 +1,8 @@
 from __future__ import annotations
 
 import pytest
-from pydantic import BaseModel
-
 from no_llm.providers import EnvVar
+from pydantic import BaseModel
 
 
 class TestModel(BaseModel):
@@ -108,7 +107,7 @@ def test_env_var_is_valid(monkeypatch):
     monkeypatch.delenv('TEST_KEY', raising=False)
     env_var = EnvVar[str]('$TEST_KEY')
     assert not env_var.is_valid()
-    
+
     # Test with set env var
     monkeypatch.setenv('TEST_KEY', 'test_value')
     env_var = EnvVar[str]('$TEST_KEY')
@@ -120,11 +119,11 @@ def test_env_var_value_refresh(monkeypatch):
     monkeypatch.setenv('TEST_CACHE', 'initial_value')
     env_var = EnvVar[str]('$TEST_CACHE')
     assert env_var.__get__(None, None) == 'initial_value'
-    
+
     # Change environment variable - should get new value
     monkeypatch.setenv('TEST_CACHE', 'new_value')
     assert env_var.__get__(None, None) == 'new_value'
-    
+
     # Remove environment variable - should get default
     monkeypatch.delenv('TEST_CACHE')
     assert env_var.__get__(None, None) == '$TEST_CACHE'

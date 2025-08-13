@@ -1,9 +1,8 @@
 import pytest
-
 from no_llm.providers.provider_configs.openrouter import OpenRouterProvider
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_openrouter_provider_connection():
     """Test that OpenRouter provider can successfully connect to the API."""
     provider = OpenRouterProvider()
@@ -11,7 +10,7 @@ def test_openrouter_provider_connection():
     assert result is True, "OpenRouter provider test should return True with valid API key"
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_openrouter_provider_invalid_key(monkeypatch):
     """Test that OpenRouter provider returns False with invalid API key."""
     monkeypatch.setenv("INVALID_OPENROUTER_KEY", "invalid-api-key")

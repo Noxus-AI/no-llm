@@ -2,7 +2,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import pytest
-
+from no_llm._utils import find_yaml_file
+from no_llm.errors import (
+    ConfigurationLoadError,
+    ModelNotFoundError,
+)
 from no_llm.models.config.enums import ModelCapability, ModelMode
 from no_llm.models.config.metadata import (
     ModelMetadata,
@@ -13,14 +17,8 @@ from no_llm.models.config.metadata import (
 from no_llm.models.config.model import ModelConfiguration, ModelConstraints, ModelIdentity
 from no_llm.models.config.parameters import ConfigurableModelParameters
 from no_llm.models.config.properties import ModelProperties, QualityProperties, SpeedProperties
-from no_llm.errors import (
-    ConfigurationLoadError,
-    ModelNotFoundError,
-)
+from no_llm.models.registry import ModelRegistry, SetFilter
 from no_llm.providers import OpenAIProvider, Provider
-from no_llm.models.registry import ModelRegistry
-from no_llm.models.registry import SetFilter
-from no_llm._utils import find_yaml_file
 
 
 def create_test_model(model_id: str = "test-model") -> ModelConfiguration:
@@ -473,15 +471,15 @@ def test_model_set_active_functionality():
     registry = ModelRegistry()
     model = create_test_model("test-model")
     registry.register(model)
-    
+
     # Model should be active by default
     assert model.is_active is True
-    
+
     # Set model to inactive
     registry.set_active("test-model", False)
     retrieved_model = registry.get("test-model")
     assert retrieved_model.is_active is False
-    
+
     # Set model back to active
     registry.set_active("test-model", True)
     retrieved_model = registry.get("test-model")
@@ -491,37 +489,37 @@ def test_model_set_active_functionality():
 def test_model_set_active_nonexistent_model():
     """Test setting active status on non-existent model raises error"""
     registry = ModelRegistry()
-    
+
     with pytest.raises(ModelNotFoundError) as exc_info:
         registry.set_active("nonexistent", True)
-    
+
     assert exc_info.value.model_id == "nonexistent"
 
 
 def test_model_listing_with_active_filter(base_registry: ModelRegistry):
     """Test model listing respects is_active filter"""
     registry = base_registry
-    
+
     # Add multiple models
     model1 = create_test_model("model1")
     model2 = create_test_model("model2")
     registry.register(model1)
     registry.register(model2)
-    
+
     # Deactivate one model
     registry.set_active("model1", False)
-    
+
     # Check filtering works
     active_models = list(registry.list(only_valid=False, only_active=True))
     all_models = list(registry.list(only_valid=False, only_active=False))
-    
+
     assert len(active_models) == 1
     assert len(all_models) == 2  # Total unchanged
-    
+
     # Verify the deactivated model is not in active list
     active_model_ids = {m.identity.id for m in active_models}
     assert "model1" not in active_model_ids
-    
+
     # But it should be in the all models list
     all_model_ids = {m.identity.id for m in all_models}
     assert "model1" in all_model_ids
@@ -530,17 +528,17 @@ def test_model_listing_with_active_filter(base_registry: ModelRegistry):
 def test_model_combined_active_and_valid_filtering():
     """Test combined filtering by both is_active and is_valid"""
     registry = ModelRegistry()
-    
+
     # Add a test model
     model = create_test_model("test-model")
     registry.register(model)
-    
+
     # Test all combinations
     models_active_valid = list(registry.list(only_valid=True, only_active=True))
     models_active_any = list(registry.list(only_valid=False, only_active=True))
     models_any_valid = list(registry.list(only_valid=True, only_active=False))
     models_any_any = list(registry.list(only_valid=False, only_active=False))
-    
+
     # Logical relationships should hold
     assert len(models_active_valid) <= len(models_active_any)
     assert len(models_active_valid) <= len(models_any_valid)
@@ -552,17 +550,17 @@ def test_model_filtering_with_other_criteria():
     """Test that is_active and is_valid work with existing filtering criteria"""
     registry = ModelRegistry()
     registry._models.clear()
-    
+
     # Create models with different capabilities
     model1 = create_test_model("model1")
     model1.capabilities = {ModelCapability.STREAMING}
-    
-    model2 = create_test_model("model2")  
+
+    model2 = create_test_model("model2")
     model2.capabilities = {ModelCapability.STRUCTURED_OUTPUT}
-    
+
     registry.register(model1)
     registry.register(model2)
-    
+
     # Test filtering by capabilities with active filter
     streaming_models = list(registry.list(
         capabilities={ModelCapability.STREAMING},
@@ -571,17 +569,17 @@ def test_model_filtering_with_other_criteria():
     ))
     assert len(streaming_models) == 1
     assert streaming_models[0].identity.id == "model1"
-    
+
     # Deactivate model1 and test again
     registry.set_active("model1", False)
-    
+
     streaming_models_active = list(registry.list(
         capabilities={ModelCapability.STREAMING},
         only_active=True,
         only_valid=False
     ))
     assert len(streaming_models_active) == 0
-    
+
     streaming_models_all = list(registry.list(
         capabilities={ModelCapability.STREAMING},
         only_active=False,

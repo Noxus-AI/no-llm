@@ -1,11 +1,15 @@
-from collections.abc import Iterator
-from typing import Literal
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Literal
 
 from pydantic import Field, PrivateAttr
 from pydantic_ai.providers.azure import AzureProvider as PydanticAzureProvider
 
 from no_llm.providers.config import ProviderConfiguration
 from no_llm.providers.env_var import EnvVar
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
 
 
 class AzureProvider(ProviderConfiguration):

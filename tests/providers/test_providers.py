@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from pydantic_ai.providers.openai import OpenAIProvider
 from typing import Literal
 
 from no_llm.providers import EnvVar
 from no_llm.providers.config import ProviderConfiguration
+from pydantic_ai.providers.openai import OpenAIProvider
 
 
 class TestProvider(ProviderConfiguration):

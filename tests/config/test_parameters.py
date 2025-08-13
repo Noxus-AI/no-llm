@@ -1,5 +1,4 @@
 import pytest
-
 from no_llm.models.config.enums import ModelCapability
 from no_llm.models.config.errors import (
     FixedParameterError,
@@ -564,7 +563,7 @@ def test_parameter_value_not_given():
 
 def test_configurable_parameters_validation_modes():
     """Test different validation modes for ConfigurableModelParameters"""
-    import no_llm.settings as settings
+    from no_llm import settings
     from no_llm.settings import ValidationMode
 
     settings.settings.validation_mode = ValidationMode.CLAMP

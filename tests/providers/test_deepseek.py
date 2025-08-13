@@ -1,9 +1,8 @@
 import pytest
-
 from no_llm.providers.provider_configs.deepseek import DeepseekProvider
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_deepseek_provider_connection():
     """Test that DeepSeek provider can successfully connect to the API."""
     provider = DeepseekProvider()
@@ -11,7 +10,7 @@ def test_deepseek_provider_connection():
     assert result is True, "DeepSeek provider test should return True with valid API key"
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_deepseek_provider_invalid_key(monkeypatch):
     """Test that DeepSeek provider returns False with invalid API key."""
     monkeypatch.setenv("INVALID_DEEPSEEK_KEY", "invalid-api-key")

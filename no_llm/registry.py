@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
 from typing import TYPE_CHECKING
 
 from loguru import logger
@@ -10,6 +9,7 @@ from no_llm.providers.registry import ProviderRegistry
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
+    from pathlib import Path
 
     from no_llm.models.config import ModelConfiguration
     from no_llm.providers.config import ProviderConfiguration

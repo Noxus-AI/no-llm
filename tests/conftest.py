@@ -1,9 +1,11 @@
-import pytest
 from pathlib import Path
-from vcr import VCR
 from typing import Any
+
+import pytest
 from no_llm.models.registry import ModelRegistry
 from no_llm.settings import ValidationMode, settings
+from vcr import VCR
+
 
 @pytest.fixture(scope='module')
 def vcr_cassette_dir(request):
@@ -11,6 +13,8 @@ def vcr_cassette_dir(request):
     return str(Path(__file__).parent / "vcr_cassettes")
 
 import brotli
+
+
 def decompress_response(response):
     if response['headers'].get('Content-Encoding') == ['br']:
         response['body']['string'] = brotli.decompress(response['body']['string'])
@@ -34,8 +38,7 @@ def anyio_backend():
 
 @pytest.fixture(scope='session')
 def builtin_model_registry():
-    registry = ModelRegistry()
-    yield registry
+    return ModelRegistry()
 
 @pytest.fixture(scope='session')
 def no_llm_error_settings():

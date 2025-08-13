@@ -10,10 +10,11 @@ from pydantic import TypeAdapter, ValidationError
 from no_llm._utils import _get_annotated_union_members
 from no_llm.errors import ProviderNotFoundError
 from no_llm.providers import AnyProvider
-from no_llm.providers.config import ProviderConfiguration
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
+
+    from no_llm.providers.config import ProviderConfiguration
 
 
 class ProviderRegistry:

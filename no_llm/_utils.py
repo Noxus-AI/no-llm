@@ -1,5 +1,9 @@
-from pathlib import Path
-from typing import Annotated, Any, TypeVar, get_args
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Annotated, Any, TypeVar, get_args
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 T = TypeVar("T")
 

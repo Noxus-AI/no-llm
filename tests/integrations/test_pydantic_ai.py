@@ -1,10 +1,9 @@
-from vcr import VCR
-
 import pytest
-from pydantic_ai import Agent
-
 from no_llm.integrations.pydantic_ai import NoLLMModel
 from no_llm.models.registry import ModelRegistry
+from pydantic_ai import Agent
+from vcr import VCR
+
 
 @pytest.fixture
 def openai_model(monkeypatch, builtin_model_registry: ModelRegistry, vcr: VCR):
@@ -14,16 +13,16 @@ def openai_model(monkeypatch, builtin_model_registry: ModelRegistry, vcr: VCR):
     return NoLLMModel(model)
 
 @pytest.mark.asyncio
-@pytest.mark.vcr()
-@pytest.mark.skip()
+@pytest.mark.vcr
+@pytest.mark.skip
 async def test_async_chat(openai_model: NoLLMModel):
     """Test async chat completion."""
     agent = Agent(openai_model)
     result = await agent.run("What is the capital of France?")
     assert "paris" in result.output.lower()
 
-@pytest.mark.vcr()
-@pytest.mark.skip()
+@pytest.mark.vcr
+@pytest.mark.skip
 def test_sync_chat(openai_model: NoLLMModel):
     """Test sync chat completion."""
     agent = Agent(openai_model)
@@ -31,8 +30,8 @@ def test_sync_chat(openai_model: NoLLMModel):
     assert "rome" in result.output.lower()
 
 @pytest.mark.asyncio
-@pytest.mark.vcr()
-@pytest.mark.skip()
+@pytest.mark.vcr
+@pytest.mark.skip
 async def test_stream_chat(openai_model: NoLLMModel):
     """Test streaming chat completion."""
     agent = Agent(openai_model)

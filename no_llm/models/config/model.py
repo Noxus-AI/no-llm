@@ -21,7 +21,10 @@ from no_llm.models.config.properties import ModelProperties
 from no_llm.providers import AnyProvider, Provider, Providers
 
 if TYPE_CHECKING:
+    from collections.abc import Iterator
+
     from pydantic_ai.models import Model
+
 
 
 class ModelIdentity(BaseModel):
