@@ -318,7 +318,7 @@ def test_reload_configurations(tmp_path):
 
     registry = ProviderRegistry(config_dir)
 
-    assert len(list(registry.list(only_valid=True))) == 0
+    assert len(list(registry.list(only_valid=True))) == 1  # test provider
 
     provider_file = providers_dir / "anthropic.yml"
     provider_config = {

@@ -14,6 +14,7 @@ from no_llm.providers.provider_configs.mistral import MistralProvider
 from no_llm.providers.provider_configs.openai import OpenAIProvider
 from no_llm.providers.provider_configs.openrouter import OpenRouterProvider
 from no_llm.providers.provider_configs.perplexity import PerplexityProvider
+from no_llm.providers.provider_configs.test import TestProvider
 from no_llm.providers.provider_configs.together import TogetherProvider
 from no_llm.providers.provider_configs.vertex import VertexProvider
 
@@ -31,6 +32,7 @@ AnyProvider = Annotated[
     | GrokProvider
     | FireworksProvider
     | GeminiProvider
-    | BedrockProvider,
+    | BedrockProvider
+    | TestProvider,
     pydantic.Discriminator("type"),
 ]

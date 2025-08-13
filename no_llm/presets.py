@@ -1,16 +1,17 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
 from typing import TYPE_CHECKING, assert_never
 
 from loguru import logger
 from pydantic import BaseModel, Field
 
+from no_llm import ModelCapability, ModelConfiguration, ModelParameters, ModelRegistry
 from no_llm.errors import ModelNotFoundError
 
 if TYPE_CHECKING:
-    from collections.abc import Iterator, Sequence
+    from collections.abc import Iterator
 
-    from no_llm import ModelCapability, ModelConfiguration, ModelParameters, ModelRegistry
 
 
 class ModelPreset(BaseModel):

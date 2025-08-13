@@ -26,7 +26,6 @@ if TYPE_CHECKING:
     from pydantic_ai.models import Model
 
 
-
 class ModelIdentity(BaseModel):
     id: str = Field(description="Unique identifier for the model")
     name: str = Field(description="Display name")
