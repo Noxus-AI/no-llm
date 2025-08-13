@@ -43,7 +43,7 @@ class ClaudeBaseConfiguration(ModelConfiguration):
             msg = "Model must have a pydantic-ai integration alias. It is required for pydantic-ai integration."
             raise TypeError(msg)
 
-        models = []
+        models: list[Model] = []
         for provider in self.iter():
             if isinstance(provider, AnthropicProvider):
                 models.append(
@@ -86,7 +86,8 @@ class ClaudeBaseConfiguration(ModelConfiguration):
     def to_pydantic_settings(self) -> AnthropicModelSettings:
         base = super().to_pydantic_settings()
         # nbase = cast(dict, {f"anthropic_{k}": v for k, v in base.items()})
-        reasoning_effort = cast(str, base.pop("reasoning_effort", "off"))
+        reasoning_effort = cast(str, base.pop("reasoning_effort", "off"))  # type: ignore
+        thinking_config: BetaThinkingConfigEnabledParam | BetaThinkingConfigDisabledParam
         if ModelCapability.REASONING not in self.capabilities:
             return AnthropicModelSettings(**base)
         elif reasoning_effort in ["off", NOT_GIVEN]:

@@ -28,7 +28,7 @@ class PerplexityBaseConfiguration(ModelConfiguration):
             msg = "Model must have a pydantic-ai integration alias. It is required for pydantic-ai integration."
             raise TypeError(msg)
 
-        models = []
+        models: list[Model] = []
         for provider in self.iter():
             if isinstance(provider, PerplexityProvider):
                 models.append(

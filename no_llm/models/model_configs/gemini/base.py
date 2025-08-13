@@ -40,7 +40,7 @@ class GeminiBaseConfiguration(ModelConfiguration):
             msg = "Model must have a pydantic-ai integration alias. It is required for pydantic-ai integration."
             raise TypeError(msg)
 
-        models = []
+        models: list[Model] = []
         for provider in self.iter():
             if isinstance(provider, VertexProvider):
                 models.append(
@@ -69,7 +69,7 @@ class GeminiBaseConfiguration(ModelConfiguration):
     def to_pydantic_settings(self) -> GoogleModelSettings:
         base = super().to_pydantic_settings()
         # nbase = cast(dict, {f"google_{k}": v for k, v in base.items()})
-        reasoning_effort = cast(str, base.pop("reasoning_effort", "off"))
+        reasoning_effort = cast(str, base.pop("reasoning_effort", "off"))  # type: ignore
         if ModelCapability.REASONING not in self.capabilities:
             return GoogleModelSettings(**base)
 

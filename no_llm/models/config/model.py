@@ -120,7 +120,7 @@ class ModelConfiguration(BaseResource):
                 # setattr(self.parameters, key, value)
 
     def to_pydantic_settings(self) -> ModelSettings:
-        return ModelSettings(**self.parameters.model_dump())
+        return ModelSettings(**self.parameters.model_dump())  # type: ignore
 
     def to_pydantic_model(self) -> Model:
         msg = "Not implemented"

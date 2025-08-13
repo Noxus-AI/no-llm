@@ -582,6 +582,7 @@ class ModelParameters(BaseModel):
 
     @classmethod
     def from_pydantic(cls, model_settings: ModelSettings) -> ModelParameters:
+        # HACK: ugly hack to remove extra fields from model settings
         if "extra_body" in model_settings:
             model_settings.pop("extra_body")
         if "extra_headers" in model_settings:
@@ -591,4 +592,4 @@ class ModelParameters(BaseModel):
         extra = {**model_settings}
         # if "openai_reasoning_effort" in model_settings:
         #     extra["reasoning_effort"] = model_settings.pop("openai_reasoning_effort")
-        return ModelParameters(**extra)
+        return ModelParameters(**extra) # type: ignore

@@ -112,7 +112,7 @@ class NoLLMModel(Model):
         raise RuntimeError(msg) from last_error
 
     @asynccontextmanager
-    async def request_stream(
+    async def request_stream(  # type: ignore
         self,
         messages: list[ModelMessage],
         model_settings: PydanticModelSettings | None,
