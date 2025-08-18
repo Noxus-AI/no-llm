@@ -26,13 +26,13 @@ class AnthropicProvider(ProviderConfiguration):
     )
     base_url: str | None = Field(default=None, description="Optional base URL override")
 
-    def test(self) -> bool:
+    async def test(self) -> bool:
         try:
             base_url = str(self.base_url)
             if not base_url.endswith("/"):
                 base_url += "/"
-            with httpx.Client() as client:
-                response = client.get(
+            async with httpx.AsyncClient() as client:
+                response = await client.get(
                     urljoin(base_url, "models"),
                     headers={"Authorization": f"Bearer {self.api_key!s}"},
                 )

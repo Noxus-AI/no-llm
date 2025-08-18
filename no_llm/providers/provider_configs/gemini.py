@@ -22,10 +22,10 @@ class GeminiProvider(ProviderConfiguration):
         description="Name of environment variable containing API key",
     )
 
-    def test(self) -> bool:
+    async def test(self) -> bool:
         try:
-            with httpx.Client() as client:
-                response = client.get(
+            async with httpx.AsyncClient() as client:
+                response = await client.get(
                     "https://generativelanguage.googleapis.com/v1beta/models",
                     headers={"Authorization": f"Bearer {self.api_key!s}"},
                 )

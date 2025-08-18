@@ -19,12 +19,9 @@ class TestProvider(ProviderConfiguration):
         default_factory=lambda: EnvVar[str]("$TEST_API_KEY"),
         description="Test API key - any value works for testing",
     )
-    base_url: str = Field(
-        default="https://api.test.example/v1/",
-        description="Test base URL for testing purposes"
-    )
+    base_url: str = Field(default="https://api.test.example/v1/", description="Test base URL for testing purposes")
 
-    def test(self) -> bool:
+    async def test(self) -> bool:
         """Always returns True for testing purposes"""
         return True
 

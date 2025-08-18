@@ -20,10 +20,10 @@ class MistralProvider(ProviderConfiguration):
         description="Name of environment variable containing API key",
     )
 
-    def test(self) -> bool:
+    async def test(self) -> bool:
         try:
-            with httpx.Client() as client:
-                response = client.get(
+            async with httpx.AsyncClient() as client:
+                response = await client.get(
                     "https://api.mistral.ai/v1/models", headers={"Authorization": f"Bearer {self.api_key!s}"}
                 )
                 return response.status_code == 200

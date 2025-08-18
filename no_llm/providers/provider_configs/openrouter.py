@@ -33,14 +33,14 @@ class OpenRouterProvider(OpenAIProvider):
             base_url=str(self.base_url),
         )
 
-    def test(self) -> bool:
+    async def test(self) -> bool:
         base_url = str(self.base_url)
         if not base_url.endswith("/"):
             base_url += "/"
         models_endpoint = urljoin(base_url, "credits")
         try:
-            with httpx.Client() as client:
-                response = client.get(models_endpoint, headers={"Authorization": f"Bearer {self.api_key!s}"})
+            async with httpx.AsyncClient() as client:
+                response = await client.get(models_endpoint, headers={"Authorization": f"Bearer {self.api_key!s}"})
                 return response.status_code == 200
         except Exception as e:
             logger.opt(exception=e).error(f"Failed to test connectivity to {self.__class__.__name__}")

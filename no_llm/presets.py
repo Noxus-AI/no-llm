@@ -13,7 +13,6 @@ if TYPE_CHECKING:
     from collections.abc import Iterator
 
 
-
 class ModelPreset(BaseModel):
     models: Sequence[str | ModelPreset] = Field(description="List of model IDs")
     required_capabilities: set[ModelCapability] = Field(

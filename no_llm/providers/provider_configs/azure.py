@@ -26,6 +26,7 @@ class AzureProvider(ProviderConfiguration):
         default_factory=lambda: EnvVar[str]("$AZURE_BASE_URL"),
         description="Optional base URL override",
     )
+    api_version: str = Field(default="2025-05-01-preview", description="Azure API version")
     locations: list[str] = Field(default=["eastus", "eastus2"], min_length=1, description="Azure regions")
     _value: str | None = PrivateAttr(default=None)
 
@@ -50,7 +51,12 @@ class AzureProvider(ProviderConfiguration):
         return PydanticAzureProvider(
             api_key=str(self.api_key),
             azure_endpoint=str(self.base_url),
+            api_version=self.api_version,
         )
 
-    def test(self) -> bool:
+    async def test(self) -> bool:
+        try:
+            req = await self.to_pydantic().client.models.list()
+        except Exception:
+            return False
         return True

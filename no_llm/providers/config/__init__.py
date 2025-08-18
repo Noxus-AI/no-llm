@@ -25,7 +25,7 @@ class ProviderConfiguration(BaseResource):
     def is_valid(self) -> bool:
         return self.has_valid_env()
 
-    def test(self) -> bool:
+    async def test(self) -> bool:
         msg = "Test method not implemented"
         raise NotImplementedError(msg)
 

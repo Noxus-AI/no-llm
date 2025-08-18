@@ -592,4 +592,4 @@ class ModelParameters(BaseModel):
         extra = {**model_settings}
         # if "openai_reasoning_effort" in model_settings:
         #     extra["reasoning_effort"] = model_settings.pop("openai_reasoning_effort")
-        return ModelParameters(**extra) # type: ignore
+        return ModelParameters(**extra)  # type: ignore

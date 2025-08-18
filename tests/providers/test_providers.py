@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Literal
 
+import pytest
 from no_llm.providers import EnvVar
 from no_llm.providers.config import ProviderConfiguration
 from pydantic_ai.providers.openai import OpenAIProvider
@@ -25,7 +26,8 @@ class TestProvider(ProviderConfiguration):
 
 
 
-def test_provider_reset_iterator():
+@pytest.mark.asyncio
+async def test_provider_reset_iterator():
     provider = TestProvider()
     provider._iterator_index = 5
     provider.reset_iterator()
