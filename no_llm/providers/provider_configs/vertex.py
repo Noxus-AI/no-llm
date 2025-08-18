@@ -162,18 +162,22 @@ class VertexProvider(ProviderConfiguration):
         else:
             assert_never(self.model_family)
 
-    def test(self) -> bool:
+    async def test(self) -> bool:
         if len(self.locations) == 0:
             return False
 
         provider = cast(PydanticGoogleProvider, self.to_pydantic("gemini"))
         try:
             # provider.client.models.list(config={"page_size": 5})
-            provider.client.models.generate_content(
-                model="gemini-2.0-flash-exp",
-                contents="Hello, world!",
-            )
-            return True
+            try:
+                provider.client.models.generate_content(
+                    model="gemini-2.5-flash",
+                    contents="Hello, world!",
+                )
+                return True
+            except Exception:
+                provider.client.models.list()
+                return True
         except Exception as e:
             logger.opt(exception=e).error(f"Failed to test connectivity to {self.__class__.__name__}")
             return False
